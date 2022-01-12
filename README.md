@@ -11,3 +11,16 @@ If you require any special environment variables to be defined, add them to the 
 Files should always be owned by a system account (UID less than 500).
 Ensure that sensitive files like /etc/passwd, /etc/group, and /etc/shadow do not contain secrets.
 Build production containers from a definition file instead of a sandbox that has been manually changed. This ensures greatest possibility of reproducibility and mitigates the “black box” effect.
+
+## Basic commands
+Create a singularity container from a def file:
+sudo singularity build improve-base-ubuntu-20_04.sif improve-base-ubuntu-20_04.def
+
+Create a writible singularity container from a def file:
+sudo singularity build --sandbox improve-base-ubuntu-20_04/ improve-base-ubuntu-20_04.def
+
+Log into the singularity container:
+sudo singularity shell --writable improve-base-ubuntu-20_04
+singularity shell --writable improve-base-ubuntu-20_04
+
+
