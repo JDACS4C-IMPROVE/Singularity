@@ -18,13 +18,22 @@ Build production containers from a definition file instead of a sandbox that has
 
 ## Basic commands
 Create a singularity container from a def file:
-sudo singularity build improve-base-ubuntu-20_04.sif improve-base-ubuntu-20_04.def
+
+` sudo singularity build improve-base-ubuntu-20_04.sif improve-base-ubuntu-20_04.def `
 
 Create a writible singularity container from a def file:
-sudo singularity build --sandbox improve-base-ubuntu-20_04/ improve-base-ubuntu-20_04.def
+
+```
+WORKSPACE=${HOME}/Singularity/workspace
+DEFFILE=improve-base-ubuntu-20_04-nvidia-driver-460.def
+BASE=$(basename $DEFFILE .def)
+sudo singularity build --sandbox $WORKSPACE/$BASE/ $DEFFILE
+```
 
 Log into the singularity container:
-sudo singularity shell --writable improve-base-ubuntu-20_04
-singularity shell --writable improve-base-ubuntu-20_04
+
+` sudo singularity shell --writable improve-base-ubuntu-20_04 `
+
+` sudo singularity shell --writable improve-base-ubuntu-20_04 `
 
 
