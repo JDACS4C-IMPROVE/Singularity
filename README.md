@@ -41,7 +41,7 @@ Use care when converting a sandbox directory to the default SIF format. If chang
 
 ```
 # Download an image from dockerhub. Here you can get the latest tensorflow images.
-singularity build images/latest-gpu.sif docker:tensorflow/tensorflow:latest-gpu
+singularity build images/latest-gpu.sif docker://tensorflow/tensorflow:latest-gpu
 
 # Create a writiable container from the image. For now, sudo is needed until
 # the fakeroot option can be enabled by adding users to /etc/subuid and /etc/subgid.
@@ -88,6 +88,33 @@ when prompted, install miniconda here
 install pytables blosc<1.19 
 install candle
 run uno
+
+### Transforming your conda environment into a singularity container
+Notes:
+First, try to use only conda to build the environment.
+Try to install as many conda packages as possible with a single conda install command
+Once you have the environment, start with the appropriate docker or singularity container.
+  For Tensorflow based models, start with a docker image from dockerhub
+  https://hub.docker.com/r/tensorflow/tensorflow/
+  
+For the Hidra model:
+Dump Jamies conda environment
+Identify python version and tensorflow version
+
+# Download an appropriate image.
+# The fakeroot option can be enabled by adding users to /etc/subuid and /etc/subgid.
+# The fakeroot optiom may not work on a network attached filesystem. In this case, you can use /tmp and copy your work back to the shared filesystem before you finish for the day.
+`singularity build --fakeroot images/tensorflow:1.9.0-gpu-py3.sif docker://tensorflow/tensorflow:1.9.0-gpu-py3`
+
+# Create a writiable container from the image.
+`singularity build --fakeroot --nv --sandbox workspace/tensorflow:1.9.0-gpu-py3-hidra images/tensorflow:1.9.0-gpu-py3.sif`
+
+# Installing the environment for the model requires logging into the container
+`singularity shell --fakeroot --writable --nv workspace/latest-gpu`
+
+```Singularity> whoami
+root```
+
 
 
 
