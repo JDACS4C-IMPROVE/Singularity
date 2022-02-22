@@ -89,7 +89,7 @@ install pytables blosc<1.19
 install candle
 run uno
 
-### Transforming your conda environment into a singularity container
+## Transforming your conda environment into a singularity container
 Notes:
 First, try to use only conda to build the environment.
 Try to install as many conda packages as possible with a single conda install command
@@ -101,19 +101,81 @@ For the Hidra model:
 Dump Jamies conda environment
 Identify python version and tensorflow version
 
-# Download an appropriate image.
-# The fakeroot option can be enabled by adding users to /etc/subuid and /etc/subgid.
-# The fakeroot optiom may not work on a network attached filesystem. In this case, you can use /tmp and copy your work back to the shared filesystem before you finish for the day.
+### Download an appropriate image.
+The fakeroot option can be enabled by adding users to /etc/subuid and /etc/subgid.
+The fakeroot optiom may not work on a network attached filesystem. In this case, you can use /tmp and copy your work back to the shared filesystem before you finish for the day.
 `singularity build --fakeroot images/tensorflow:1.9.0-gpu-py3.sif docker://tensorflow/tensorflow:1.9.0-gpu-py3`
 
-# Create a writiable container from the image.
+### Create a writiable container from the image.
 `singularity build --fakeroot --nv --sandbox workspace/tensorflow:1.9.0-gpu-py3-hidra images/tensorflow:1.9.0-gpu-py3.sif`
 
-# Installing the environment for the model requires logging into the container
-`singularity shell --fakeroot --writable --nv workspace/latest-gpu`
+### Installing the environment for the model requires logging into the container
 
-```Singularity> whoami
-root```
+```
+singularity shell --fakeroot --writable --nv --net workspace/latest-gpu`
+Singularity> whoami
+root
+```
+
+### Build the conda environment
+
+```
+Singularity> cd /tmp/Singularity/workspace/tensorflow:1.9.0-gpu-py3-hidra/usr/local/src
+Singularity> curl -o Miniconda3-latest-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+Singularity> chmod u+x Miniconda3-latest-Linux-x86_64.sh 
+Singularity> ./Miniconda3-latest-Linux-x86_64.sh
+Singularity> export PATH=$PATH:/usr/local/miniconda3/bin
+Singularity> conda env create -f hidra_env_tf1.yml
+Singularity> source activate hidra_env_tf1.yml
+```
+
+### Installing the model code from the IMPROVE-JDACAS4C github organization.
+When trying to install git, apt-get was unable to resolve 
+
+```
+Singularity> apt-get install git
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+E: Unable to locate package git
+...
+```
+
+Similarly, apt-get update returned an error as well.
+
+```
+Singularity> apt-get update
+Err:1 http://archive.ubuntu.com/ubuntu xenial InRelease
+  Temporary failure resolving 'archive.ubuntu.com'
+...
+```
+
+Adding a valid nameserver to the /etc/resolv.conf file solved this issue. The nameserver added is one of Googles.
+
+```
+Singularity> cat >> /etc/resolv.conf 
+nameserver 8.8.8.8
+```
+Consider testing these:
+
+![image](https://user-images.githubusercontent.com/991769/155187883-473c94cd-ebf9-4fd7-840a-b6403e3830d9.png)
+
+
+Now apt-get worked properly.
+
+```
+Singularity> apt-get update
+Singularity> apt-get install git
+```
+
+### Install the model code from the github.com/IMPROVE-JDACS4C/HiDRA
+
+```
+git clone https://github.com/JDACS4C-IMPROVE/HiDRA.git
+```
+
+### Run a test script
+
 
 
 
