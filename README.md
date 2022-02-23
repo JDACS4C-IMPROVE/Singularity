@@ -178,8 +178,8 @@ cd HiDRA
 
 ### Build and test an image from the sandbox
 ```
-singularity build images/tensorflow\:1.9.0-gpu-py3-hidra.sif workspace/tensorflow\:1.9.0-gpu-py3-hidra
-singularity exec images/tensorflow\:1.9.0-gpu-py3-hidra.sif /usr/local/src/HiDRA/test.sh
+singularity build --fakeroot images/tensorflow\:1.9.0-gpu-py3-hidra.sif workspace/tensorflow\:1.9.0-gpu-py3-hidra
+CUDA_VISIBLE_DEVICES=1 singularity exec --nv images/tensorflow\:1.9.0-gpu-py3-hidra.sif /usr/local/src/HiDRA/test.sh
 ```
 
 
