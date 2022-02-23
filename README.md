@@ -168,13 +168,20 @@ Singularity> apt-get update
 Singularity> apt-get install git
 ```
 
-### Install the model code from the github.com/IMPROVE-JDACS4C/HiDRA
+### Install, test and debug the model code from the github.com/IMPROVE-JDACS4C/HiDRA
 
 ```
 git clone https://github.com/JDACS4C-IMPROVE/HiDRA.git
+cd HiDRA
+./test.sh
 ```
 
-### Run a test script
+### Build and test an image from the sandbox
+```
+singularity build images/tensorflow\:1.9.0-gpu-py3-hidra.sif workspace/tensorflow\:1.9.0-gpu-py3-hidra
+singularity exec images/tensorflow\:1.9.0-gpu-py3-hidra.sif /usr/local/src/HiDRA/test.sh
+```
+
 
 
 
