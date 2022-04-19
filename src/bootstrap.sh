@@ -3,6 +3,7 @@
 export IHOME=/lambda_stor/software/improve
 export IIL=${IHOME}/images
 export ICL=${IHOME}/containers
+# export ICL=/tmp/containers
 DATE=$(date +%Y%m%d)
 NAME="${1:-default}" 
 
@@ -17,12 +18,12 @@ singularity build                \
 	docker://tensorflow/tensorflow:latest-gpu
 
 echo "building sandbox"
-singularity build --sandbox      \
+singularity build --fakeroot --sandbox      \
         $ICL/${NAME}-tensorflow-latest-gpu-${DATE}  \
         $IIL/tensorflow-latest-gpu-${DATE}.sif
 
 echo "logging into new container"
-singularity shell --nv --writable \
+singularity shell --nv --fakeroot --writable \
 	$ICL/${NAME}-tensorflow-latest-gpu-${DATE}
 
 ## This would go in a new file for building the container
