@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export IHOME=/lambda_stor/software/improve
+export IHOME=/tmp/software/improve
 export IIL=${IHOME}/images
 export ICL=${IHOME}/containers
 # export ICL=/tmp/containers
@@ -12,19 +12,22 @@ mkdir -p $IIL
 mkdir -p $ICL
 
 # singularity version 3.9.4
-echo "getting image"
+IMAGE="pytorch"  # pytorch/pytorch
+# IMAGE="tensorflow-latest-gpu" # tensorflow/tensorflow:latest-gpu
+
+echo "getting image: $IMAGE"
 singularity build                \
-	$IIL/tensorflow-latest-gpu-${DATE}.sif         \
-	docker://tensorflow/tensorflow:latest-gpu
+	$IIL/$IMAGE-${DATE}.sif         \
+	docker://pytorch/$IMAGE
 
 echo "building sandbox"
 singularity build --fakeroot --sandbox      \
-        $ICL/${NAME}-tensorflow-latest-gpu-${DATE}  \
-        $IIL/tensorflow-latest-gpu-${DATE}.sif
+        $ICL/${NAME}-$IMAGE-${DATE}  \
+        $IIL/$IMAGE-${DATE}.sif
 
 echo "logging into new container"
 singularity shell --nv --fakeroot --writable \
-	$ICL/${NAME}-tensorflow-latest-gpu-${DATE}
+	$ICL/${NAME}-$IMAGE-${DATE}
 
 ## This would go in a new file for building the container
 # Python 3.8.10 
