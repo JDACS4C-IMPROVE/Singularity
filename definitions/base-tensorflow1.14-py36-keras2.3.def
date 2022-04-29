@@ -1,0 +1,6 @@
+Bootstrap: docker
+From: tensorflow/tensorflow:1.14.0-gpu-py3
+
+%post
+    pip install keras==2.3.0
+
