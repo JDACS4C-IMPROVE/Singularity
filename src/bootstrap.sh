@@ -1,13 +1,16 @@
 #!/bin/bash
 
-export IHOME=/home/brettin/software/improve
+# arg1 = container name
+DATE=$(date +%Y%m%d)
+NAME="${1:-default}"
+
+
+IHOME=${IHOME:-/home/brettin/software/improve}
+export ${IHOME}
 export IIL=${IHOME}/images
 export ICL=${IHOME}/containers
 export IDL=${IHOME}/definitions
 
-# export ICL=/tmp/containers
-DATE=$(date +%Y%m%d)
-NAME="${1:-default}" 
 
 mkdir -p $IHOME
 mkdir -p $IIL
@@ -19,7 +22,7 @@ mkdir -p $IDL
 # IMAGE="pytorch"  # pytorch/pytorch
 
 # For tensorflow
-TAG=":2.8.0-gpu"
+TAG=":2.4.3-gpu"
 IMAGE="tensorflow"${TAG}
 
 echo "getting image: $IMAGE"
@@ -27,10 +30,15 @@ singularity build                \
 	$IIL/$IMAGE-${DATE}.sif         \
 	docker://tensorflow/$IMAGE
 
-echo "building sandbox"
+echo "building sandbox frmo image $IIL/${IMAGE}-${DATE}.sif"
 singularity build --fakeroot --sandbox      \
         $ICL/${NAME}-$IMAGE-${DATE}  \
         $IIL/${IMAGE}-${DATE}.sif
+
+#echo "building sandbox from definition file ${IDL}/"
+#singularity build --fakeroot --sandbox      \
+#	$ICL/${NAME}-$IMAGE-${DATE}         \
+#	$IDL/${IMAGE}-${DATE}.def
 
 echo "logging into new container"
 singularity shell --nv --fakeroot --writable \
