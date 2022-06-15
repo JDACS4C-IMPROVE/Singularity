@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# For building Tensorflow container sandboxes
+# TODO make Tensorflow or Pytorch options
+
 # arg1 = container name
 DATE=$(date +%Y%m%d)
 NAME="${1:-default}"
