@@ -1,7 +1,9 @@
 # Singularity
-Singularity definitions that can be extended to support execution of community models. These definition files range from base operating systems (ie Ubuntu 20.04) to fully configured containers. It is a best practice to build your immutable production containers directly from a Singularity definition file.
+Each curated community model is deployed in a Singularity container that is extended to support standardized execution of all currated community models.
 
+SETTING UP A SINGULARITY CONTAINER
 
+Use: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/bootstrap.sh
 
 
 
@@ -24,15 +26,10 @@ In the third example, an image is created from a writable container.
 
 ```
 # Here we use as a psuedo standard the workspace directory for writable containers.
-WORKSPACE=${HOME}/Singularity/workspace
-IMAGES=${HOME}/Singularity/images
 
-DEFFILE=improve-base-ubuntu-20_04-nvidia-driver-460.def
-BASE=$(basename $DEFFILE .def)
-
-sudo singularity build $IMAGES/$BASE $DEFFILE
-sudo singularity build --sandbox $WORKSPACE/$BASE $DEFFILE
-sudo singularity build ${IMAGES}/${BASE}.sif ${WORKSPACE}/${BASE}
+sudo singularity build $IIL/$IMAGE $DEFFILE
+sudo singularity build --sandbox $ICL/$IMAGE $DEFFILE
+sudo singularity build $IIL/${IMAGE}.sif ${WORKSPACE}/$IMAGE
 ```
 
 ## Setting up a model for IMPROVE
@@ -181,9 +178,3 @@ cd HiDRA
 singularity build --fakeroot images/tensorflow\:1.9.0-gpu-py3-hidra.sif workspace/tensorflow\:1.9.0-gpu-py3-hidra
 CUDA_VISIBLE_DEVICES=1 singularity exec --nv images/tensorflow\:1.9.0-gpu-py3-hidra.sif /usr/local/src/HiDRA/test.sh
 ```
-
-
-
-
-
-
