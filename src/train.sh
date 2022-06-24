@@ -1,10 +1,12 @@
+#!/bin/bash
+
 # arg 1 CUDA_VISIBLE_DEVICES
 # arg 2 CANDLE_DATA_DIR
 # arg 3 CANDLE_CONFIG
 
 CANDLE_MODEL=/usr/local/Benchmarks/Pilot1/Attn/attn_baseline_keras2.py
 
-if [[ "$#" -ne 3 ]]; then
+if [[ "$#" -ne 3 ]] ; then
     echo "Illegal number of parameters"
     echo "CUDA_VISIBLE_DEVICES CANDLE_DATA_DIR CANDLE_CONFIG required"
     exit -1
