@@ -5,7 +5,15 @@ SETTING UP A SINGULARITY CONTAINER
 
 Use: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/bootstrap.sh
 
+RUNNING AN IMPROVE CONTAINER
 
+```
+CUDA_VISIBLE_DEVICES=0
+CANDLE_DATA_DIR=/homes/brettin/Singularity/workspace/training_data
+CANDLE_CONFIG=/homes/brettin/Singularity/workspace/configs/attn_default_model.txt
+
+singularity exec --nv images/attn-tensorflow\:2.8.2-gpu-20220624.sif train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
+```
 
 ### Best Practices for Build Recipes
 see: (https://sylabs.io/guides/3.7/user-guide/definition_files.html)
@@ -26,15 +34,19 @@ In the third example, an image is created from a writable container.
 
 ```
 # Here we use as a psuedo standard the workspace directory for writable containers.
+export IHOME=/homes/brettin/Singularity/workspace
+export ISL=${IHOME}/sandboxes
+export IIL=${IHOME}/images
 
-sudo singularity build $IIL/$IMAGE $DEFFILE
-sudo singularity build --sandbox $ICL/$IMAGE $DEFFILE
-sudo singularity build $IIL/${IMAGE}.sif ${WORKSPACE}/$IMAGE
+singularity build --sandbox ${ISL}/${SANDBOX} $DEFILE
+singularity build $IIL/${SANDBOX}.sif ${ISL}/${SANDBOX}
+singularity build $IIL/${IMAGE}.sif $DEFFILE
+
 ```
 
 ## Setting up a model for IMPROVE
 
-Use care when converting a sandbox directory to the default SIF format. If changes were made to the writable container before conversion, there is no record of those changes in the Singularity definition file rendering your container non-reproducible. It is a best practice to build your immutable production containers directly from a Singularity definition file instead.
+Use care when converting a sandbox directory to the default SIF format. If changes were made to the writable container before conversion, there is no record of those changes in the Singularity definition file rendering your container non-reproducible. It is a best practice to build your immutable production containers directly from a S:wqingularity definition file instead.
 
 ```
 # Download an image from dockerhub. Here you can get the latest tensorflow images.
