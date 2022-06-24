@@ -26,7 +26,7 @@ In the third example, an image is created from a writable container.
 
 ```
 # Here we use as a psuedo standard the workspace directory for writable containers.
-export IHOME=/home/brettin/Singularity/workspace
+export IHOME=/homes/brettin/Singularity/workspace
 export ISL=${IHOME}/sandboxes
 export IIL=${IHOME}/images
 
