@@ -1,4 +1,4 @@
-# Singularity
+# IMPROVE Containers
 Each curated community model is deployed in a Singularity container that is extended to support standardized execution of all currated community models.
 
 ### Running an IMPROVE Container
