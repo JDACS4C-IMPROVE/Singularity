@@ -26,10 +26,10 @@ In the third example, an image is created from a writable container.
 
 ```
 # Here we use as a psuedo standard the workspace directory for writable containers.
+singularity build --sandbox $ICL/$SANDBOX $DEFFILE
+singularity build $IIL/${IMAGE}.sif ${ICL}/$SANDBOX
+singularity build $IIL/${IMAGE}.sif $DEFFILE
 
-sudo singularity build $IIL/$IMAGE $DEFFILE
-sudo singularity build --sandbox $ICL/$IMAGE $DEFFILE
-sudo singularity build $IIL/${IMAGE}.sif ${WORKSPACE}/$IMAGE
 ```
 
 ## Setting up a model for IMPROVE
