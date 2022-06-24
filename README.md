@@ -5,7 +5,15 @@ SETTING UP A SINGULARITY CONTAINER
 
 Use: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/bootstrap.sh
 
+RUNNING AN IMPROVE CONTAINER
 
+```
+CUDA_VISIBLE_DEVICES=0
+CANDLE_DATA_DIR=/homes/brettin/Singularity/workspace/training_data
+CANDLE_CONFIG=/homes/brettin/Singularity/workspace/configs/attn_default_model.txt
+
+singularity exec --nv images/attn-tensorflow\:2.8.2-gpu-20220624.sif train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
+```
 
 ### Best Practices for Build Recipes
 see: (https://sylabs.io/guides/3.7/user-guide/definition_files.html)
@@ -30,8 +38,8 @@ export IHOME=/homes/brettin/Singularity/workspace
 export ISL=${IHOME}/sandboxes
 export IIL=${IHOME}/images
 
-singularity build --sandbox $ISL/$SANDBOX $DEFFILE
-singularity build $IIL/${SANDBOX}.sif ${ISL}/$SANDBOX
+singularity build --sandbox ${ISL}/${SANDBOX} $DEFILE
+singularity build $IIL/${SANDBOX}.sif ${ISL}/${SANDBOX}
 singularity build $IIL/${IMAGE}.sif $DEFFILE
 
 ```
