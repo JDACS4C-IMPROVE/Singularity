@@ -1,11 +1,7 @@
 # Singularity
 Each curated community model is deployed in a Singularity container that is extended to support standardized execution of all currated community models.
 
-SETTING UP A SINGULARITY CONTAINER
-
-Use: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/bootstrap.sh
-
-RUNNING AN IMPROVE CONTAINER
+### Running an IMPROVE Container
 
 ```
 CUDA_VISIBLE_DEVICES=0
@@ -14,6 +10,11 @@ CANDLE_CONFIG=/homes/brettin/Singularity/workspace/configs/attn_default_model.tx
 
 singularity exec --nv images/attn-tensorflow\:2.8.2-gpu-20220624.sif train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
 ```
+
+### Building an IMPROVE Container
+
+Use: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/bootstrap.sh
+
 
 ### Best Practices for Build Recipes
 see: (https://sylabs.io/guides/3.7/user-guide/definition_files.html)
@@ -34,6 +35,7 @@ In the third example, an image is created from a writable container.
 
 ```
 # Here we use as a psuedo standard the workspace directory for writable containers.
+# IMPROVE environment variables begin with I
 export IHOME=/homes/brettin/Singularity/workspace
 export ISL=${IHOME}/sandboxes
 export IIL=${IHOME}/images
@@ -41,6 +43,8 @@ export IIL=${IHOME}/images
 singularity build --sandbox ${ISL}/${SANDBOX} $DEFILE
 singularity build $IIL/${SANDBOX}.sif ${ISL}/${SANDBOX}
 singularity build $IIL/${IMAGE}.sif $DEFFILE
+
+
 
 ```
 
