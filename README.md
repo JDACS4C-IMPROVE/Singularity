@@ -31,7 +31,7 @@ export ISL=${IHOME}/sandboxes
 export IIL=${IHOME}/images
 
 singularity build --sandbox $ISL/$SANDBOX $DEFFILE
-singularity build $IIL/${IMAGE}.sif ${ISL}/$SANDBOX
+singularity build $IIL/${SANDBOX}.sif ${ISL}/$SANDBOX
 singularity build $IIL/${IMAGE}.sif $DEFFILE
 
 ```
