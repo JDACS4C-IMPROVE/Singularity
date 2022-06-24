@@ -26,15 +26,19 @@ In the third example, an image is created from a writable container.
 
 ```
 # Here we use as a psuedo standard the workspace directory for writable containers.
-singularity build --sandbox $ICL/$SANDBOX $DEFFILE
-singularity build $IIL/${IMAGE}.sif ${ICL}/$SANDBOX
+export IHOME=/home/brettin/Singularity/workspace
+export ISL=${IHOME}/sandboxes
+export IIL=${IHOME}/images
+
+singularity build --sandbox $ISL/$SANDBOX $DEFFILE
+singularity build $IIL/${IMAGE}.sif ${ISL}/$SANDBOX
 singularity build $IIL/${IMAGE}.sif $DEFFILE
 
 ```
 
 ## Setting up a model for IMPROVE
 
-Use care when converting a sandbox directory to the default SIF format. If changes were made to the writable container before conversion, there is no record of those changes in the Singularity definition file rendering your container non-reproducible. It is a best practice to build your immutable production containers directly from a Singularity definition file instead.
+Use care when converting a sandbox directory to the default SIF format. If changes were made to the writable container before conversion, there is no record of those changes in the Singularity definition file rendering your container non-reproducible. It is a best practice to build your immutable production containers directly from a S:wqingularity definition file instead.
 
 ```
 # Download an image from dockerhub. Here you can get the latest tensorflow images.
