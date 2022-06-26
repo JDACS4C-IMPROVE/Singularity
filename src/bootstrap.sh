@@ -3,9 +3,14 @@
 # For building Tensorflow container sandboxes
 # TODO make Tensorflow or Pytorch options
 
-# arg1 = container name
+if [[ "$#" -ne 1 ]] ; then
+    echo "Illegal number of parameters"
+    echo "Requires container name"
+    exit -1
+fi
+
 DATE=$(date +%Y%m%d)
-NAME="${1:-default}"
+NAME="$1"
 
 
 IHOME="${IHOME:-/homes/brettin/software/improve}"
