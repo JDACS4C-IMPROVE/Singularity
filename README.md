@@ -21,7 +21,9 @@ bootstrap.sh <name>
 ```
 
 Install dependencies and record what was done for later creation of a definition file.
+
 Denomstrate that the community model runs inside the container.
+
 Demonstrate that the train.sh runs the community model inside the container.
 
 ```
@@ -29,14 +31,15 @@ train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
 
 # See: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/train.sh
 ```
-Demonstrate that the train.sh can be invoked from outside the container
+
+Denonstrate that train.sh can be invoked from outside the container.
 ```
 # These are set outside the container and passed in
 
 IHOME=/homes/brettin/Singularity/workspace
 CUDA_VISIBLE_DEVICES=0
-CANDLE_DATA_DIR=$IHOME/data_dir
-CANDLE_CONFIG=$IHOME/configs
+CANDLE_DATA_DIR=${IHOME}/data_dir
+CANDLE_CONFIG=${IHOME}/configs/uno_default_model.txt
 
 singularity exec --nv <image or sandbox path/name> train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
 ```
