@@ -5,16 +5,41 @@ Each curated community model is deployed in a Singularity container that is exte
 
 ```
 CUDA_VISIBLE_DEVICES=0
-CANDLE_DATA_DIR=/homes/brettin/Singularity/workspace/training_data
-CANDLE_CONFIG=/homes/brettin/Singularity/workspace/configs/attn_default_model.txt
+CANDLE_DATA_DIR=/homes/brettin/Singularity/workspace/data_dir
+CANDLE_CONFIG=/homes/brettin/Singularity/workspace/configs/st1_regress_default_model.txt
 
-singularity exec --nv images/attn-tensorflow\:2.8.2-gpu-20220624.sif train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
+singularity exec --nv images/st1-tensorflow\:2.8.2-gpu-20220624.sif train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
 ```
 
 ### Building an IMPROVE Container
 
-Use: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/bootstrap.sh
+```
+export IHOME=/homes/brettin/Singularity/workspace
+bootstrap.sh <name>
 
+# See: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/bootstrap.sh
+```
+
+Install dependencies and record what was done for later creation of a definition file.
+Denomstrate that the community model runs inside the container.
+Demonstrate that the train.sh runs the community model inside the container.
+
+```
+train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
+
+# See: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/train.sh
+```
+Demonstrate that the train.sh can be invoked from outside the container
+```
+# These are set outside the container and passed in
+
+IHOME=/homes/brettin/Singularity/workspace
+CUDA_VISIBLE_DEVICES=0
+CANDLE_DATA_DIR=$IHOME/data_dir
+CANDLE_CONFIG=$IHOME/configs
+
+singularity exec --nv <image or sandbox path/name> train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
+```
 
 ### Best Practices for Build Recipes
 see: (https://sylabs.io/guides/3.7/user-guide/definition_files.html)
