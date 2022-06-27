@@ -20,11 +20,11 @@ bootstrap.sh <name>
 # See: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/bootstrap.sh
 ```
 
-Install dependencies and record what was done for later creation of a definition file.
+1.  Install dependencies and record what was done for later creation of a definition file.
 
-Denomstrate that the community model runs inside the container.
+2.  Denomstrate that the community model runs inside the container.
 
-Demonstrate that the train.sh runs the community model inside the container.
+3.  Demonstrate that the train.sh runs the community model inside the container.
 
 ```
 train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
@@ -32,7 +32,7 @@ train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
 # See: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/train.sh
 ```
 
-Denonstrate that train.sh can be invoked from outside the container.
+4,  Denonstrate that train.sh can be invoked from outside the container.
 ```
 # These are set outside the container and passed in
 
