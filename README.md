@@ -22,7 +22,7 @@ bootstrap.sh <name>
 
 1.  Install dependencies and record what was done for later creation of a definition file.
 
-2.  Denomstrate that the community model runs inside the container.
+2.  Demonstrate that the community model runs inside the container.
 
 3.  Demonstrate that the train.sh runs the community model inside the container.
 
