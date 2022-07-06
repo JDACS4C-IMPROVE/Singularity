@@ -1,0 +1,35 @@
+Bootstrap: localimage
+From: /home/brettin/software/images/tensorflow:2.4.3-gpu-20220428.sif
+
+
+
+
+%post
+apt update
+apt install -y vim
+apt install -y git
+git clone https://github.com/JDACS4C-IMPROVE/mlmed_ranking.git /usr/local/mlmed_ranking
+pip install --no-cache --upgrade --upgrade-strategy only-if-needed json5==0.9.5  numexpr==2.7.1  packaging==20.4 pandas==1.1.5 pkginfo==1.6.1 pluggy==0.13.1 ply==3.11 prometheus-client==0.8.0 promise==2.3 scikit-image==0.17.2 sip tensorflow-addons==0.12.1 tensorflow-datasets==4.2.0 terminado==0.9.1 testpath==0.4.4 text-unidecode==1.3 typeguard==2.12.0 unicodecsv==0.14.1 uritemplate==3.0.1 xlrd==1.2.0 xlwt==1.3.0 xmltodict==0.12.0 zict==2.0.0 zope.event==4.5.0 tf-slim==1.1.0 
+
+pip install --no-cache --upgrade --upgrade-strategy only-if-needed cached-property==1.5.2 clang==5.0 keras==2.6
+
+
+pip install --no-cache --upgrade --upgrade-strategy only-if-needed Cython==0.29.28 dm-tree==0.1.7 gast==0.4.0 gin-config==0.5.0 google-api-core==2.7.2 google-api-python-client==2.46.0 google-auth-httplib2==0.1.0 google-cloud-bigquery==3.0.1 google-cloud-bigquery-storage==2.13.1 google-cloud-core==2.3.0 google-crc32c==1.3.0 google-resumable-media==2.3.2 grpcio==1.44.0 grpcio-status==1.44.0 h5py==3.1.0 httplib2==0.20.4 joblib==1.1.0 kaggle==1.5.12 oauth2client==4.1.3 opencv-python-headless==4.5.5.64 proto-plus==1.20.3 psutil==5.9.0 py-cpuinfo==8.0.0 pyarrow==6.0.1 pycocotools==2.0.4 python-slugify==6.1.2 pyyaml==6.0 scikit-learn==0.24.2 sentencepiece==0.1.96 seqeval==1.2.2 threadpoolctl==3.1.0
+
+pip install --no-cache gast==0.3
+
+pip install --no-cache --upgrade --upgrade-strategy only-if-needed tensorflow-hub==0.12.0
+pip install --no-cache --upgrade --upgrade-strategy only-if-needed tensorflow-model-optimization-0.7.2
+
+# downgrade
+pip install --no-cache gast==0.3
+
+# might need to downgrade this h5py-3.1.0
+
+
+pip install --no-cache -U --no-deps tensorflow-ranking==0.3.3
+pip install --no-cache -U --no-deps tensorflow-serving-api==2.4.1 
+pip install --no-cache -U --no-deps tf-models-official==2.4.0
+
+
+python -c 'import tensorflow as tf ; print(tf.__version__)'
