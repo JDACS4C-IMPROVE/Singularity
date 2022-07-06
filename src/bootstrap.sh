@@ -2,6 +2,7 @@
 
 # For building Tensorflow container sandboxes
 # TODO make Tensorflow or Pytorch options
+FRAMEWORK="tensorflow"
 
 if [[ "$#" -ne 1 ]] ; then
     echo "Illegal number of parameters"
@@ -27,17 +28,25 @@ mkdir -p $IDL
 
 
 # singularity version 3.9.4
-# IMAGE="pytorch"  # pytorch/pytorch
 
-# For tensorflow
-TAG=":2.4.3-gpu"
-TAG=":2.8.2-gpu"
-IMAGE="tensorflow"${TAG}
+if [[ $FRAMEWORK = "tensorflow" ]] ; then
+	# TAG=":2.4.3-gpu"
+	TAG=":2.8.2-gpu"
+	IMAGE="tensorflow"${TAG}
+	URI="tensorflow/"${IMAGE}
+elif [[ $FRAMEWORK = "pytorch" ]] ; then
+	TAG=":1.11.0-cuda11.3-cudnn8-devel"
+	IMAGE="pytorch"${TAG}
+	URI="pytorch/"${IMAGE}
+else
+	echo "invalid framework: ${FRAMEWORK}"
+	exit -1
+fi
 
 echo "getting image: $IMAGE"
 singularity build                \
 	$IIL/$IMAGE-${DATE}.sif         \
-	docker://tensorflow/$IMAGE
+	docker://${URI}
 
 echo "building sandbox from image $IIL/${IMAGE}-${DATE}.sif"
 echo "building sandbox at ${ISL}"
@@ -46,19 +55,6 @@ singularity build --fakeroot --sandbox      \
         $ISL/${NAME}-$IMAGE-${DATE}  \
         $IIL/${IMAGE}-${DATE}.sif
 
-#echo "building sandbox from definition file ${IDL}/"
-#singularity build --fakeroot --sandbox      \
-#	$ISL/${NAME}-$IMAGE-${DATE}         \
-#	$IDL/${IMAGE}-${DATE}.def
-
 echo "logging into new container"
 singularity shell --nv --fakeroot --writable \
 	$ISL/${NAME}-${IMAGE}-${DATE}
-
-## This would go in a new file for building the container
-# Python 3.8.10 
-# tf.__version__ 2.8.0
-
-# pip install pandas, matplotlib
-# mkdir -p /usr/local/improve/
-# cd /usr/local/improve
