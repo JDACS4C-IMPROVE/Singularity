@@ -13,6 +13,8 @@ singularity exec --nv images/st1-tensorflow\:2.8.2-gpu-20220624.sif train.sh $CU
 
 ### Building an IMPROVE Container
 
+#### Using a prebuilt pytorch or tensorflow image from DockerHub.
+
 ```
 export IHOME=/homes/brettin/Singularity/workspace
 bootstrap.sh <name>
@@ -32,7 +34,7 @@ train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
 # See: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/train.sh
 ```
 
-4,  Denonstrate that train.sh can be invoked from outside the container.
+4.  Denonstrate that train.sh can be invoked from outside the container.
 ```
 # These are set outside the container and passed in
 
@@ -42,6 +44,22 @@ CANDLE_DATA_DIR=${IHOME}/data_dir
 CANDLE_CONFIG=${IHOME}/configs/uno_default_model.txt
 
 singularity exec --nv <image or sandbox path/name> train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
+```
+
+#### Using an IMPROVE container from $IHOME/sandboxes or $IHOME/images. 
+
+```
+# from a sandbox
+
+# from a sandbox
+
+singularity build --sandbox $ISL/${NAME}-$IMAGE-${DATE} $ISL/${IMAGE} # singularity 2.6
+
+singularity build --sandbox $ISL/${NAME}-$IMAGE-${DATE} $ISL/${IMAGE} # singularity 3.9.4
+
+# or from an image
+# singularity 2.6
+# singularity 3.9.4
 ```
 
 ### Best Practices for Build Recipes
