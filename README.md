@@ -48,13 +48,19 @@ singularity exec --nv <image or sandbox path/name> train.sh $CUDA_VISIBLE_DEVICE
 
 #### Using an IMPROVE container from $IHOME/sandboxes or $IHOME/images. 
 
+```
 # from a sandbox
 
-singularity build --fakeroot --sandbox $ISL/${IMAGE} $ISL/${NAME}-$IMAGE-${DATE}
+# from a sandbox
+
+singularity build --sandbox $ISL/${NAME}-$IMAGE-${DATE} $ISL/${IMAGE} # singularity 2.6
+
+singularity build --sandbox $ISL/${NAME}-$IMAGE-${DATE} $ISL/${IMAGE} # singularity 3.9.4
 
 # or from an image
-
-singularity build --fakeroot --sandbox $ILL/${IMAGE} $ISL/${NAME}-$IMAGE-${DATE}
+# singularity 2.6
+# singularity 3.9.4
+```
 
 ### Best Practices for Build Recipes
 see: (https://sylabs.io/guides/3.7/user-guide/definition_files.html)
