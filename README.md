@@ -51,14 +51,9 @@ singularity exec --nv <image or sandbox path/name> train.sh $CUDA_VISIBLE_DEVICE
 ```
 # from a sandbox
 
-# from a sandbox
-
-singularity build --sandbox $ISL/${NAME}-$IMAGE-${DATE} $ISL/${IMAGE} # singularity 2.6
-
 singularity build --sandbox $ISL/${NAME}-$IMAGE-${DATE} $ISL/${IMAGE} # singularity 3.9.4
 
 # or from an image
-# singularity 2.6
 # singularity 3.9.4
 ```
 
