@@ -46,6 +46,14 @@ CANDLE_CONFIG=${IHOME}/configs/uno_default_model.txt
 singularity exec --nv <image or sandbox path/name> train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
 ```
 
+5. Build a non-writable image from the sandbox and run train.sh
+
+```
+singularity build --fakeroot images/tensorflow\:1.9.0-gpu-py3-hidra.sif workspace/tensorflow\:1.9.0-gpu-py3-hidra
+CUDA_VISIBLE_DEVICES=1 singularity exec --nv images/tensorflow\:1.9.0-gpu-py3-hidra.sif /usr/local/src/HiDRA/test.sh
+```
+
+
 #### Using an IMPROVE container from $IHOME/sandboxes or $IHOME/images. 
 
 ```
@@ -230,8 +238,3 @@ cd HiDRA
 ./test.sh
 ```
 
-### Build and test an image from the sandbox
-```
-singularity build --fakeroot images/tensorflow\:1.9.0-gpu-py3-hidra.sif workspace/tensorflow\:1.9.0-gpu-py3-hidra
-CUDA_VISIBLE_DEVICES=1 singularity exec --nv images/tensorflow\:1.9.0-gpu-py3-hidra.sif /usr/local/src/HiDRA/test.sh
-```
