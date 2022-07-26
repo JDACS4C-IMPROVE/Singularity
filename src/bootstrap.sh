@@ -14,7 +14,7 @@ DATE=$(date +%Y%m%d)
 NAME="$1"
 
 
-IHOME="${IHOME:-/homes/brettin/software/improve}"
+IHOME="${IHOME:-/software/improve}"
 export IHOME=${IHOME}
 export IIL=${IHOME}/images
 export ISL=${IHOME}/sandboxes
