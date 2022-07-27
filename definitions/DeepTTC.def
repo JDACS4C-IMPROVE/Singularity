@@ -1,0 +1,14 @@
+Bootstrap: localimage
+From: /lambda_stor/software/improve/images/improve-pytorch:0.0.1.sif
+
+%labels
+	MANTAINER Oleksandr Narykov
+%post
+	cd /usr/local
+	git clone https://github.com/JDACS4C-IMPROVE/DeepTTC.git
+	cd DeepTTC
+	git checkout develop
+	/opt/conda/bin/conda install -y pandas scikit-learn openpyxl
+	/opt/conda/bin/conda install -y -c conda-forge lifelines prettytable  
+	/opt/conda/bin/conda install -y -c bioconda pubchempy
+	/opt/conda/bin/python3 -m pip install subword-nmt wget

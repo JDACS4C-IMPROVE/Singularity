@@ -2,20 +2,52 @@
 
 # For building Tensorflow container sandboxes
 # TODO make Tensorflow or Pytorch options
-FRAMEWORK="tensorflow"
 
-if [[ "$#" -ne 1 ]] ; then
-    echo "Illegal number of parameters"
-    echo "Requires container name"
-    exit -1
+source "../config/improve.env"
+
+echo $IHOME
+
+Help()
+{
+	echo "Options:"
+	echo "	-n: Required. Name for the image"
+	echo "	-f: Build a base image for a framework. Acceptable values are: 'pytorch', 'tensorflow'. If -d option is specified, then -f is ignored."
+	echo "	-d: Path to Singularity definition file. Builds an image from specified definition"
+	echo "	-t: Tag for Singularity definition file. Active only for -d option"
+	echo
+	echo "Environmental variables are specified in a file ../config/improve.env"
+	echo "Build-specific variables are specified in a file ../config/build.config"
+	echo "Runtime variables are specified in a file ../config/improve.env"
+}
+
+while getopts hf:d:n:t: flag
+do
+	case "${flag}" in
+		h) Help
+			exit;;
+		n) NAME=${OPTARG};;
+		d) DEFINITION_FILE=${OPTARG};;
+		f) FRAMEWORK=${OPTARG};;
+		t) TAG=${OPTARG};;
+	esac
+done
+
+if [[ -z "$NAME" ]] ; then  
+	echo "Name of the container is not set. -n option is required" 
+	exit -1
+fi
+
+echo $DEFINITION_FILE
+echo $FRAMEWORK
+
+if [[ -z "$DEFINITION_FILE" ]] && [[ -z "$FRAMEWORK" ]] ; then  
+	echo "Neither definition file nor base framework specified."
+        echo "One of the -f or -d options should be specified."	
+	exit -1
 fi
 
 DATE=$(date +%Y%m%d)
-NAME="$1"
 
-
-IHOME="${IHOME:-/software/improve}"
-export IHOME=${IHOME}
 export IIL=${IHOME}/images
 export ISL=${IHOME}/sandboxes
 export IDL=${IHOME}/definitions
@@ -26,35 +58,45 @@ mkdir -p $IIL
 mkdir -p $ISL
 mkdir -p $IDL
 
-
 # singularity version 3.9.4
 
-if [[ $FRAMEWORK = "tensorflow" ]] ; then
-	# TAG=":2.4.3-gpu"
-	TAG=":2.8.2-gpu"
-	IMAGE="tensorflow"${TAG}
-	URI="tensorflow/"${IMAGE}
-elif [[ $FRAMEWORK = "pytorch" ]] ; then
-	TAG=":1.11.0-cuda11.3-cudnn8-devel"
-	IMAGE="pytorch"${TAG}
-	URI="pytorch/"${IMAGE}
-else
-	echo "invalid framework: ${FRAMEWORK}"
-	exit -1
-fi
 
-echo "getting image: $IMAGE"
-singularity build                \
-	$IIL/$IMAGE-${DATE}.sif         \
-	docker://${URI}
+
+if [[ ! -z "$DEFINITION_FILE" ]] ; then
+	if [[ -z "$TAG" ]] ; then
+		TAG="0.0.1"
+	fi
+	IMAGE="$NAME:$TAG"
+	echo "building image: $IMAGE"
+	singularity build --fakeroot           \
+		$IIL/$IMAGE-${DATE}.sif         \
+		$DEFINITION_FILE
+
+else
+	if [[ $FRAMEWORK = "tensorflow" ]] ; then
+		IMAGE="tensorflow:"${TENSORFLOW_TAG}
+		URI="tensorflow/"${IMAGE}
+	elif [[ $FRAMEWORK = "pytorch" ]] ; then
+		IMAGE="pytorch:"${PYTORCH_TAG}
+		URI="pytorch/"${IMAGE}
+	else
+		echo "invalid framework: ${FRAMEWORK}"
+		exit -1
+	fi
+
+	echo "getting image: $IMAGE"
+	singularity build                \
+		$IIL/$IMAGE-${DATE}.sif         \
+		docker://${URI}
+fi
 
 echo "building sandbox from image $IIL/${IMAGE}-${DATE}.sif"
 echo "building sandbox at ${ISL}"
+
 
 singularity build --fakeroot --sandbox      \
         $ISL/${NAME}-$IMAGE-${DATE}  \
         $IIL/${IMAGE}-${DATE}.sif
 
-echo "logging into new container"
-singularity shell --nv --fakeroot --writable \
-	$ISL/${NAME}-${IMAGE}-${DATE}
+source "login.sh" "$ISL/${NAME}-${IMAGE}-${DATE}"
+
