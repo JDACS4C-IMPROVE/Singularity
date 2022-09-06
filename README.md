@@ -1,6 +1,7 @@
 # IMPROVE Containers
 Each curated community model is deployed in a Singularity container that is extended to support standardized execution of all currated community models.
 
+
 ### Running an IMPROVE Container
 
 ```
@@ -13,11 +14,51 @@ singularity exec --nv images/st1-tensorflow\:2.8.2-gpu-20220624.sif train.sh $CU
 
 ### Building an IMPROVE Container
 
+#### Using bootstrap.sh
+
+```
+Options:
+    -n: Required. Name for the image
+    -f: Build a base image for a framework. Acceptable values are: 'pytorch', 'tensorflow'. If -d option is specified, then -f is ignored.
+    -d: Path to Singularity definition file. Builds an image from specified definition
+    -t: Tag for Singularity definition file. Active only for -d option. Default value is 0.0.1
+    -h: Help
+
+Environmental variables are specified in a file ../config/improve.env
+Runtime variables are specified in a file ../config/run.config
+```
+
+#### Building from definition file
+
+Definitions for baseline images can be found in 'definitions' folder: improve-pytorch.def
+Custom definition file can be derived from the baseline image (e.g., DeepTTC.def).
+
+
+Custom image can be build using command
+```
+./bootstrap.sh -d ../definitions/<DEFINITION_FILE>.def -n <MODEL_NAME>
+```
+
+If baseline image (SIF file) is not present in the system build it using command:
+```
+./bootstrap.sh -d ../definitions/improve-pytorch.def -n improve-pytorch -t <TAG> 
+```
+
+Specify path to the newly built image in custom definition file:
+```
+Bootstrap: localimage
+From: /lambda_stor/software/improve/images/improve-pytorch:0.0.1.sif
+```
+
+
+
+
 #### Using a prebuilt pytorch or tensorflow image from DockerHub.
+Export IHOME variable or modify it in config/improve.env file
 
 ```
 export IHOME=/homes/brettin/Singularity/workspace
-bootstrap.sh <name>
+bootstrap.sh -n <name> -f <framework>
 
 # See: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/bootstrap.sh
 ```
@@ -36,7 +77,7 @@ train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
 
 4.  Denonstrate that train.sh can be invoked from outside the container.
 ```
-# These are set outside the container and passed in
+# These are set outside the container and passed in. You can modify them in improve.env and run.config files.
 
 IHOME=/homes/brettin/Singularity/workspace
 CUDA_VISIBLE_DEVICES=0

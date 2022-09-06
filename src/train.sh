@@ -18,7 +18,7 @@ CANDLE_CONFIG=$3
 
 CMD="python ${CANDLE_MODEL} --config_file ${CANDLE_CONFIG}"
 
-echo "using container pilot1.0_5_1-tensorflow:2.8.2-gpu-20220617"
+echo "using container "
 echo "using CUDA_VISIBLE_DEVICES ${CUDA_VISIBLE_DEVICES}"
 echo "using CANDLE_DATA_DIR ${CANDLE_DATA_DIR}"
 echo "using CANDLE_CONFIG ${CANDLE_CONFIG}"
