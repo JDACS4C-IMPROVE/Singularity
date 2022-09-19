@@ -1,6 +1,8 @@
 import candle
 import os
 
+from tensorflow.keras import backend as K
+
 
 # This should be set outside as a user environment variable
 os.environ['CANDLE_DATA_DIR'] = '/homes/brettin/Singularity/workspace/data_dir/'
@@ -25,9 +27,6 @@ class IBenchmark(candle.Benchmark):
             self.required = set(required)
         if additional_definitions is not None:
             self.additional_definitions = additional_definitions
-        if supported_definitions is not None:
-            self.supported_definitions = supported_definitions
-
 
 def initialize_parameters():
     preprocessor_bmk = IBenchmark(file_path,
