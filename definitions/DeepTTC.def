@@ -4,7 +4,8 @@ From: /lambda_stor/software/improve/images/improve-pytorch:0.0.1.sif
 %labels
 	MANTAINER Oleksandr Narykov
 %post
-	cd /usr/local
+	apt-get install wget -y
+	cd /
 	git clone https://github.com/JDACS4C-IMPROVE/DeepTTC.git
 	cd DeepTTC
 	git checkout develop
