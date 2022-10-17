@@ -13,3 +13,4 @@ From: /lambda_stor/software/improve/images/improve-pytorch:0.0.1.sif
 	/opt/conda/bin/conda install -y -c conda-forge lifelines prettytable  
 	/opt/conda/bin/conda install -y -c bioconda pubchempy
 	/opt/conda/bin/python3 -m pip install subword-nmt wget
+	cp *.sh /usr/local/bin
