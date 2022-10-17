@@ -32,7 +32,8 @@ Runtime variables are specified in a file ../config/run.config
 
 #### Writing the defintion file.
 
-1. Option 1. A definition file that builds on a pre-built improve image.
+In order to build a container from a definition file, you have to write that definintion file. There are definition files in the definitions directory of the Singularity repository. You can start by using a pre-built improve image that has tehsorflow or pytorch already installed along with candle_lib.
+
 
 
 
@@ -46,6 +47,7 @@ Custom definition file can be derived from the baseline image (e.g., DeepTTC.def
 Custom image can be build using command
 ```
 ./bootstrap.sh -d ../definitions/<DEFINITION_FILE>.def -n <MODEL_NAME>
+./bootstrap.sh -d ../definitions/Hidra.def -n Hidra
 ```
 
 If baseline image (SIF file) is not present in the system build it using command:
