@@ -30,10 +30,17 @@ Environmental variables are specified in a file ../config/improve.env
 Runtime variables are specified in a file ../config/run.config
 ```
 
+#### Writing the defintion file.
+
+1. Option 1. A definition file that builds on a pre-built improve image.
+
+
+
 #### Building from definition file
 
 Definitions for baseline images can be found in 'definitions' folder: improve-pytorch.def
 Custom definition file can be derived from the baseline image (e.g., DeepTTC.def).
+
 
 
 Custom image can be build using command
