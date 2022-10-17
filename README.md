@@ -6,8 +6,10 @@ Each curated community model is deployed in a Singularity container that is exte
 
 ```
 CUDA_VISIBLE_DEVICES=0
-CANDLE_DATA_DIR=/homes/brettin/Singularity/workspace/data_dir
-CANDLE_CONFIG=/homes/brettin/Singularity/workspace/configs/st1_regress_default_model.txt
+
+# Set these two environment variables to a path where you want the training data and model config to be placed. It must be readable and writable to the container that is executing the model code.
+CANDLE_DATA_DIR=/path/to/data_dir
+CANDLE_CONFIG=/path/to/configs/st1_regress_default_model.txt
 
 singularity exec --nv images/st1-tensorflow\:2.8.2-gpu-20220624.sif train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
 ```
