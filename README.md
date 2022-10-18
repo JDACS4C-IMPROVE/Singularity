@@ -32,15 +32,12 @@ Runtime variables are specified in a file ../config/run.config
 
 #### Writing the defintion file.
 
-In order to build a container from a definition file, you have to write that definintion file. There are definition files in the definitions directory of the Singularity repository. You can start by using a pre-built improve image that has tehsorflow or pytorch already installed along with candle_lib.
-
-
+In order to build a container from a definition file, you have to write that definintion file. There are definition files in the definitions directory of the Singularity repository. You can start by using a pre-built improve image that has tensorflow or pytorch already installed along with candle_lib. You can start by using a definition file to create your own pre-built improve image. You can start by using a deep learning docker image from dockerhub such as tensorflow/tensorflow:latest-gpu.
 
 
 #### Building from definition file
 
-Definitions for baseline images can be found in 'definitions' folder: improve-pytorch.def
-Custom definition file can be derived from the baseline image (e.g., DeepTTC.def).
+Definition files for images should be committed to the definitions directory of the Singularity repository.
 
 
 
@@ -294,3 +291,22 @@ cd HiDRA
 ### Deploying an IMPROVE Containert to the Cloud
 
 documentation needed
+
+
+### Github Branch and Tag Definitions
+
+improve - This is the improve release branch. Only the release engineer(s) will have write permissions on this branch.
+
+develop - This is the branch that improve developers work on.
+
+< main, master, ... > The branch representing the original forked code.
+
+An annotated tag can be added to the model on the develop branch when the code is determined to be reproducing the original results (within reasonable limits). For consistency sake, we are recommending that the tag name be "validated". Hence a command to tag the develop branch when it is believed that we have reproduced the results is
+```
+git tag -a valiated
+```
+The -a will cause git to prompt you for annotation, which would be something like "The author reported an MSE of 1.141 and we obtrained an MSE of 1.145". Of course the specific message (annotation) will be model specific, and the tag name will be "validated".
+
+
+
+
