@@ -1,0 +1,18 @@
+Bootstrap: localimage
+From: /home/brettin/Singularity/images/improve-tensorflow:0.0.1-20221018.sif
+
+%labels
+	MANTAINER Tom Brettin
+
+%setup
+	git clone file:///homes/joverbeek/improve/HiDRA $SINGULARITY_ROOTFS/usr/local/HiDRA
+	cp train.sh infer.sh $SINGULARITY_ROOTFS/usr/local/HiDRA
+%post
+
+	apt-get update
+
+	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+	python3 -m pip install seaborn
+	python3 -m pip install rdkit
+
+	# this assumes a train.sh, infer.sh are committed to the <model> repository.
