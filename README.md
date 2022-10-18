@@ -32,15 +32,12 @@ Runtime variables are specified in a file ../config/run.config
 
 #### Writing the defintion file.
 
-In order to build a container from a definition file, you have to write that definintion file. There are definition files in the definitions directory of the Singularity repository. You can start by using a pre-built improve image that has tehsorflow or pytorch already installed along with candle_lib.
-
-
+In order to build a container from a definition file, you have to write that definintion file. There are definition files in the definitions directory of the Singularity repository. You can start by using a pre-built improve image that has tensorflow or pytorch already installed along with candle_lib. You can start by using a definition file to create your own pre-built improve image. You can start by using a deep learning docker image from dockerhub such as tensorflow/tensorflow:latest-gpu.
 
 
 #### Building from definition file
 
-Definitions for baseline images can be found in 'definitions' folder: improve-pytorch.def
-Custom definition file can be derived from the baseline image (e.g., DeepTTC.def).
+Definition files for images should be committed to the definitions directory of the Singularity repository.
 
 
 
