@@ -14,6 +14,6 @@ fi
 CANDLE_DIR_INSIDE_CONTAINER="/usr/local/Data/"
 BINDINGS=${CANDLE_DATA_DIR}":"$CANDLE_DIR_INSIDE_CONTAINER
 
-ARGS=("$@") 
+ARGS="$@" 
 
 singularity exec --bind $BINDINGS $ARGS
