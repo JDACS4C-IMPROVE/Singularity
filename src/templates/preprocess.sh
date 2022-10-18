@@ -1,7 +1,11 @@
+#############################################################################################################
+### THIS IS A TEMPLATE FILE. SUBSTITUTE '???' ENTRIES WITH THE APPROPRiATE INFORMATION FOR YOUR CONTAINER ###
+#############################################################################################################
+
 #!/bin/bash
 
 ### Path to your script inside the container that takes in data directory parameter###
-CANDLE_PREPROCESS=#PATH#
+CANDLE_PREPROCESS=???#PATH#
 
 if [[ "$#" -ne 1 ]] ; then
     echo "Illegal number of parameters"
@@ -24,5 +28,3 @@ echo "running command ${CMD}"
 
 # Run preprocessing
 CANDLE_DATA_DIR=${CANDLE_DATA_DIR} $CMD
-
-
