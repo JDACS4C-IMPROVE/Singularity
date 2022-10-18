@@ -14,6 +14,9 @@ fi
 CANDLE_DIR_INSIDE_CONTAINER="/usr/local/Data/"
 BINDINGS=${CANDLE_DATA_DIR}":"$CANDLE_DIR_INSIDE_CONTAINER
 
-ARGS="$@" 
+# ARG1 = $1 # Path/name of the container
+# ARG2 = $2 # CUDA_VISIBLE_DEVICES
+# ARG3 = $3 # CANDLE_DATA_DIR
+# ARG4 = $4 # CANDLE_CONFIG
 
-singularity exec --nv --bind $BINDINGS $ARGS
+singularity exec --nv --bind $BINDINGS $1 train.sh $2 $CANDLE_DIR_INSIDE_CONTAINER $4
