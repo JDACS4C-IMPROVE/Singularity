@@ -16,4 +16,4 @@ BINDINGS=${CANDLE_DATA_DIR}":"$CANDLE_DIR_INSIDE_CONTAINER
 
 ARGS="$@" 
 
-singularity exec --bind $BINDINGS $ARGS
+singularity exec --nv --bind $BINDINGS $ARGS
