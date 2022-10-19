@@ -100,6 +100,7 @@ improve() {
     if type "improve__$cmdname" >/dev/null 2>&1; then
         if "improve__${cmdname}__${SINGULARITY_IMAGE}" > /dev/null 2>&1; then
             "improve__${cmdname}__${SINGULARITY_IMAGE}" "$@"
+            return
         fi
         "improve__$cmdname" "$BINDINGS" "$CANDLE_DIR_INSIDE_CONTAINER" "$@"
     else
