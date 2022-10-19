@@ -1,0 +1,27 @@
+Bootstrap: docker
+From: tensorflow/tensorflow:1.15.5-gpu
+
+
+
+%labels
+	MAINTAINER Sara Jones
+%setup
+	cp ../src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+%post
+	apt-get install wget
+	apt-key del 7fa2af80
+
+	apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub
+
+	#wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb
+	#dpkg -i cuda-keyring_1.0-1_all.deb
+
+
+
+	apt-get update
+
+	#apt-get install -y git vim
+	#chmod +x Singularity_gpu_fix.sh
+	#./Singularity_gpu_fix.sh
+	#rm Singularity_gpu_fix.sh
+	#python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
