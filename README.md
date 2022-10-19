@@ -15,15 +15,13 @@ source src/improve.sh
 #### Set up environmental variables
 
 *CANDLE_DATA_DIR* is a mandatory environmental variable for IMPROVE Singularity Suite that defines location of data folder.
+
 *CUDA_VISIBLE_DEVICES* is passed as a parameter, it is defined as an environmental variable for the convenience purposes only.
 
 ```
 export CANDLE_DATA_DIR=$IHOME/data_dir/
 export CUDA_VISIBLE_DEVICES=0
 ```
-
-
-singularity exec --nv $IHOME/images/st1-tensorflow\:2.8.2-gpu-20220624.sif train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
 
 
 #### Run containers using IMPROVE Singularity Suite
@@ -40,7 +38,7 @@ improve preprocess deepttc-0.1.1.sif
 
 Training:
 ```
-improve train deepttc-0.1.1.sif 0
+improve train deepttc-0.1.1.sif $CUDA_VISIBLE_DEVICES
 ```
 
 Additional information is available under
