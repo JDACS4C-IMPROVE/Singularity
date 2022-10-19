@@ -2,7 +2,7 @@
 # It binds CANDLE_DATA_DIR defined on host system to the internal directory in Singularity container
 
 improve__preprocess__help() {
-    echo "improve train takes in the following position arguments:"
+    echo "improve preprocess takes in the following position arguments:"
     echo "improve preprocess IMAGE ARGS"
     echo "    IMAGE - path to a Singularity image"
     echo "    ARGS (Optional) Trailing arguments for model-specific preprocess.sh script"
@@ -10,7 +10,7 @@ improve__preprocess__help() {
 
 improve__infer__help() {
     echo "improve infer takes in the following position arguments:"
-    echo "improve preprocess IMAGE ARGS"
+    echo "improve infer IMAGE ARGS"
     echo "    IMAGE - path to a Singularity image"
     echo "    ARGS (Optional) Trailing arguments for model-specific infer.sh script"
 }
