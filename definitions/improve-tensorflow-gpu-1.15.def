@@ -20,8 +20,8 @@ From: tensorflow/tensorflow:1.15.5-gpu
 
 	apt-get update
 
-	#apt-get install -y git vim
-	#chmod +x Singularity_gpu_fix.sh
-	#./Singularity_gpu_fix.sh
-	#rm Singularity_gpu_fix.sh
-	#python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+	apt-get install -y git vim
+	chmod +x Singularity_gpu_fix.sh
+	./Singularity_gpu_fix.sh
+	rm Singularity_gpu_fix.sh
+	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
