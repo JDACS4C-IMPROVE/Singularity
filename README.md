@@ -4,15 +4,50 @@ Each curated community model is deployed in a Singularity container that is exte
 
 ### Running an IMPROVE Container
 
-```
-CUDA_VISIBLE_DEVICES=0
+#### Install IMPROVE Singularity suite
 
-# Set these two environment variables to a path where you want the training data and model config to be placed. It must be readable and writable to the container that is executing the model code.
+```
+git clone https://github.com/JDACS4C-IMPROVE/Singularity.git
+cd Singularity
+source src/improve.sh
+```
+
+#### Set up environmental variables
+
+*CANDLE_DATA_DIR* is a mandatory environmental variable for IMPROVE Singularity Suite that defines location of data folder.
+*CUDA_VISIBLE_DEVICES* is passed as a parameter, it is defined as an environmental variable for the convenience purposes only.
+
+```
 export CANDLE_DATA_DIR=$IHOME/data_dir/
-export CANDLE_CONFIG=$IHOME/configs/
+export CUDA_VISIBLE_DEVICES=0
+```
+
 
 singularity exec --nv $IHOME/images/st1-tensorflow\:2.8.2-gpu-20220624.sif train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
+
+
+#### Run containers using IMPROVE Singularity Suite
+
+Interactive session:
 ```
+improve shell deepttc-0.1.1.sif
+```
+
+Data Preprocessing:
+```
+improve preprocess deepttc-0.1.1.sif
+```
+
+Training:
+```
+improve train deepttc-0.1.1.sif 0
+```
+
+Additional information is available under
+```
+improve help
+```
+
 
 ### Building an IMPROVE Container
 
