@@ -12,7 +12,7 @@ improve__infer__help() {
     echo "improve infer takes in the following position arguments:"
     echo "improve preprocess IMAGE ARGS"
     echo "    IMAGE - path to a Singularity image"
-    echo "    ARGS (Optional) Trailing arguments for model-specific preprocess.sh script"
+    echo "    ARGS (Optional) Trailing arguments for model-specific infer.sh script"
 }
 
 improve__shell__help() {
@@ -27,7 +27,7 @@ improve__train__help() {
     echo "    IMAGE - path to a Singularity image"
     echo "    CUDA_AVAILABLE_DEVICES - specify which CUDA devices are visible to the containerized model"
     echo "    CONFIG_FILE (Optional) - CANDLE-style configuration file for the containerized model"
-    echo "    ARGS (Optional) - Trailing arguments for model-specific preprocess.sh script"
+    echo "    ARGS (Optional) - Trailing arguments for model-specific train.sh script"
     echo ""
 }
 
