@@ -76,6 +76,9 @@ else
 	if [[ $FRAMEWORK = "tensorflow" ]] ; then
 		IMAGE="tensorflow:"${TENSORFLOW_TAG}
 		URI="tensorflow/"${IMAGE}
+	elif [[ $FRAMEWORK = "tensorflow-gpu" ]] ; then
+		IMAGE="tensorflow-gpu:"${TENSORFLOW_TAG}
+		URI="tensorflow/"${IMAGE}
 	elif [[ $FRAMEWORK = "pytorch" ]] ; then
 		IMAGE="pytorch:"${PYTORCH_TAG}
 		URI="pytorch/"${IMAGE}
