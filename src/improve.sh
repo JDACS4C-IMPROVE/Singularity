@@ -61,7 +61,8 @@ _check_candle_data_dir() {
 }
 
 _is_local() {
-    if [ -d $1 ] || [ -f $1]; then
+    if [ -d $1 ] || [ -f $1 ]
+    then
         return true
     else
         return false
