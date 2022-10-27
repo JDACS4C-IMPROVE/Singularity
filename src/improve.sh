@@ -60,12 +60,34 @@ _check_candle_data_dir() {
     fi
 }
 
+_is_local() {
+    if [ -d $1 ] || [ -f $1 ]
+    then
+        return true
+    else
+        return false
+    fi
+}
+
+_not_local_message() {
+    echo 'Singularity image was not found locally.'
+    echo 'Network download is not supported for the technical reasons.'
+    echo 'Please download image separately and re-run improve command.'
+}
+
 
 improve__train() {
     BINDINGS=$1; shift
     CANDLE_DIR_INSIDE_CONTAINER=$1; shift
     CUDA_VISIBLE_DEVICES=$1; shift
     #CANDLE_CONFIG=$1; shift
+
+    is_local=$(_is_local $SINGULARITY_IMAGE)
+    if [ ! is_local ]; then
+        _not_local_message
+        return 1
+    fi
+        
 
     echo "singularity exec --nv --bind $BINDINGS $SINGULARITY_IMAGE train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DIR_INSIDE_CONTAINER "$@""
     singularity exec --nv --bind $BINDINGS $SINGULARITY_IMAGE train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DIR_INSIDE_CONTAINER "$@"
@@ -74,18 +96,39 @@ improve__train() {
 improve__preprocess() {
     BINDINGS=$1; shift
     CANDLE_DIR_INSIDE_CONTAINER=$1; shift
+
+    is_local=$(_is_local $SINGULARITY_IMAGE)
+    if [ ! is_local ]; then
+        _not_local_message
+        return 1
+    fi
+
     singularity exec --nv --bind $BINDINGS $SINGULARITY_IMAGE preprocess.sh $CANDLE_DIR_INSIDE_CONTAINER "$@"
 }
 
 improve__infer() {    
     BINDINGS=$1; shift
     CANDLE_DIR_INSIDE_CONTAINER=$1; shift
+
+    is_local=$(_is_local $SINGULARITY_IMAGE)
+    if [ ! is_local ]; then
+        _not_local_message
+        return 1
+    fi
+
     singularity exec --nv --bind $BINDINGS $SINGULARITY_IMAGE infer.sh "$@"
 }
 
 improve__shell() {
     BINDINGS=$1; shift
     CANDLE_DIR_INSIDE_CONTAINER=$1; shift
+
+    is_local=$(_is_local $SINGULARITY_IMAGE)
+    if [ ! is_local ]; then
+        _not_local_message
+        return 1
+    fi
+
     singularity shell --nv --bind $BINDINGS $SINGULARITY_IMAGE
 }
 
