@@ -61,12 +61,13 @@ _check_candle_data_dir() {
 }
 
 _is_local() {
-    if [ -d $1 ] || [ -f $1 ]
+    if [ -d $1 ] || [ -f $1 ] 
     then
-        return true
+	    echo "true"
     else
-        return false
+	    echo "false"
     fi
+    return
 }
 
 _not_local_message() {
@@ -83,7 +84,7 @@ improve__train() {
     #CANDLE_CONFIG=$1; shift
 
     is_local=$(_is_local $SINGULARITY_IMAGE)
-    if [ ! is_local ]; then
+    if [ "$is_local" != "true" ]; then
         _not_local_message
         return 1
     fi
@@ -98,7 +99,7 @@ improve__preprocess() {
     CANDLE_DIR_INSIDE_CONTAINER=$1; shift
 
     is_local=$(_is_local $SINGULARITY_IMAGE)
-    if [ ! is_local ]; then
+    if [ "$is_local" != "true" ]; then
         _not_local_message
         return 1
     fi
@@ -111,7 +112,7 @@ improve__infer() {
     CANDLE_DIR_INSIDE_CONTAINER=$1; shift
 
     is_local=$(_is_local $SINGULARITY_IMAGE)
-    if [ ! is_local ]; then
+    if [ "$is_local" != "true" ]; then
         _not_local_message
         return 1
     fi
