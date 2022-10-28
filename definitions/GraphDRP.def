@@ -1,0 +1,33 @@
+Bootstrap: docker
+From: pytorch/pytorch
+
+# Bootstrap: localimage
+# From: /lambda_stor/software/improve/images/improve-pytorch:0.0.1.sif
+
+%labels
+	MANTAINER Tom Brettin
+
+%setup
+	cp ../src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+%post
+	apt-get update -y
+	apt-get install wget -y
+	apt-get install build-essential -y
+	apt-get install git -y
+
+	chmod +x Singularity_gpu_fix.sh
+        ./Singularity_gpu_fix.sh
+
+	python3 -m pip install torch_geometric
+	python3 -m pip install torch_sparse
+	python3 -m pip install torch_scatter
+	python3 -m pip install torch-cluster
+	# python3 -m pip install torch-spline-conv
+	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+
+	cd /usr/local/
+	git clone https://github.com/JDACS4C-IMPROVE/GraphDRP.git
+	cd GraphDRP
+	git checkout develop
+
+	# python ./graphdrp_baseline_pytorch.py --config_file ./graphdrp_default_model.txt
