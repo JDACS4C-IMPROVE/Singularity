@@ -15,19 +15,26 @@ From: pytorch/pytorch
 	apt-get install build-essential -y
 	apt-get install git -y
 
-	chmod +x Singularity_gpu_fix.sh
-        ./Singularity_gpu_fix.sh
+	#chmod +x Singularity_gpu_fix.sh
+        #./Singularity_gpu_fix.sh
 
 	python3 -m pip install torch_geometric
-	python3 -m pip install torch_sparse
-	python3 -m pip install torch_scatter
-	python3 -m pip install torch-cluster
+	
+	# these three need to be compiled and linked to the cuda libs.
+	# at the moment, what works for me is to build these in a
+	# singularity shell in a sandbox with the --nv flag to singularity set.
+
+	#python3 -m pip install torch_sparse
+	#python3 -m pip install torch_scatter
+	#python3 -m pip install torch-cluster
+
 	# python3 -m pip install torch-spline-conv
-	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
 
 	cd /usr/local/
 	git clone https://github.com/JDACS4C-IMPROVE/GraphDRP.git
 	cd GraphDRP
-	git checkout develop
+	git checkout candle_data_dir
+	cp train.sh /usr/local/bin 
 
 	# python ./graphdrp_baseline_pytorch.py --config_file ./graphdrp_default_model.txt
