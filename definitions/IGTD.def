@@ -1,6 +1,5 @@
-Bootstrap: localimage
-From: /lambda_stor/software/improve/images/improve-tensorflow-gpu-1.15:0.0.1-20221020.sif
-
+Bootstrap: docker
+From: tensorflow/tensorflow:1.15.5-gpu
 
 %labels
 	MAINTAINER	Yitan Zhu
@@ -22,7 +21,7 @@ From: /lambda_stor/software/improve/images/improve-tensorflow-gpu-1.15:0.0.1-202
         pip install keras==2.2.4
         pip install scikit-learn==0.21.2
 	pip install typing_extensions
-	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+	pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
 	cd /usr/local
 	git clone https://github.com/JDACS4C-IMPROVE/IGTD.git
 	cd IGTD
