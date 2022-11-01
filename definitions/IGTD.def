@@ -1,6 +1,5 @@
-Bootstrap: docker
-From: tensorflow/tensorflow:1.14.0-gpu-py3
-
+Bootstrap: localimage
+From: /lambda_stor/software/improve/images/improve-tensorflow-gpu-1.15:0.0.1-20221020.sif
 
 
 %labels
@@ -24,7 +23,7 @@ From: tensorflow/tensorflow:1.14.0-gpu-py3
         pip install scikit-learn==0.21.2
 	pip install typing_extensions
 	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
-	cd /
+	cd /usr/local
 	git clone https://github.com/JDACS4C-IMPROVE/IGTD.git
 	cd IGTD
 	git checkout develop
