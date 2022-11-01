@@ -1,8 +1,8 @@
-Bootstrap: docker
-From: pytorch/pytorch
+Bootstrap: localimage
+From: /lambda_stor/software/improve/images/improve-pytorch:0.0.1.sif
 
-# Bootstrap: localimage
-# From: /lambda_stor/software/improve/images/improve-pytorch:0.0.1.sif
+# Bootstrap: docker
+# From: pytorch/pytorch
 
 %labels
 	MANTAINER Tom Brettin
@@ -15,8 +15,8 @@ From: pytorch/pytorch
 	apt-get install build-essential -y
 	apt-get install git -y
 
-	#chmod +x Singularity_gpu_fix.sh
-        #./Singularity_gpu_fix.sh
+	chmod +x Singularity_gpu_fix.sh
+        ./Singularity_gpu_fix.sh
 
 	python3 -m pip install torch_geometric
 	
@@ -24,9 +24,9 @@ From: pytorch/pytorch
 	# at the moment, what works for me is to build these in a
 	# singularity shell in a sandbox with the --nv flag to singularity set.
 
-	#python3 -m pip install torch_sparse
-	#python3 -m pip install torch_scatter
-	#python3 -m pip install torch-cluster
+	python3 -m pip install torch_sparse
+	python3 -m pip install torch_scatter
+	python3 -m pip install torch-cluster
 
 	# python3 -m pip install torch-spline-conv
 	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
