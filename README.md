@@ -99,33 +99,34 @@ Export IHOME variable or modify it in config/improve.env file
 
 ```
 export IHOME=/homes/brettin/Singularity/workspace
-bootstrap.sh -n <name> -f <framework>
+bootstrap.sh -n <name> -d <definition file>
 
 # See: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/bootstrap.sh
 ```
 
-1.  Install dependencies and record what was done for later creation of a definition file.
+1.  Install dependencies and update definition file until the model is running.
 
-2.  Demonstrate that the community model runs inside the container.
-
-3.  Demonstrate that the train.sh runs the community model inside the container.
+2.  From within the container, demonstrate that the train.sh runs the community model. In this case, CANDLE_DATA_DIR can be any path within the container.
 
 ```
 train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
 
-# See: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/train.sh
+# See: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/templates/train.sh
+```
+3.  Denonstrate that train.sh can be invoked from outside the container.
 ```
 
-4.  Denonstrate that train.sh can be invoked from outside the container.
-```
-# These are set outside the container and passed in. You can modify them in improve.env and run.config files.
+# These are set outside the container and passed in. NOTE: the path that is assigned to CANDLE_CONFIG is relative to CANDLE_DATA_DIR.
 
-IHOME=/homes/brettin/Singularity/workspace
 CUDA_VISIBLE_DEVICES=0
-CANDLE_DATA_DIR=${IHOME}/data_dir
-CANDLE_CONFIG=${IHOME}/configs/uno_default_model.txt
+CANDLE_DATA_DIR=/path/to/your/data_dir
+CANDLE_CONFIG=uno_default_model.txt
 
-singularity exec --nv <image or sandbox path/name> train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
+# In the above example, the model config file would exist in /path/to/your/data_dir/uno_default_model.txt on the host. Thus, the CANDLE_CONFIG is relative to CANDLE_DATA_DIR.
+
+singularity exec --nv --bind $CANDLE_DATA_DIR:/candle_data_dir <image or sandbox path/name> train.sh $CUDA_VISIBLE_DEVICES $CANDLE_DATA_DIR $CANDLE_CONFIG
+
+
 ```
 
 5. Build a non-writable image from the sandbox and run train.sh
