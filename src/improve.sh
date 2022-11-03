@@ -135,7 +135,7 @@ improve__shell() {
 
 improve() {
     _check_candle_data_dir
-    CANDLE_DIR_INSIDE_CONTAINER="/Data/"
+    CANDLE_DIR_INSIDE_CONTAINER="/candle_data_dir/"
     BINDINGS=${CANDLE_DATA_DIR}":"$CANDLE_DIR_INSIDE_CONTAINER
 
     cmdname=$1; shift
