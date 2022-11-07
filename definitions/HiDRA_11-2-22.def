@@ -4,7 +4,11 @@ From: tensorflow/tensorflow:2.4.2-gpu
 %labels
 	MAINTAINER	Jamie Overbeek
 %setup
-	cp src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+	mkdir $SINGULARITY_ROOTFS/build
+	cp src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/build
+
+%environment
+	PATH=$PATH:$SINGULARITY_ROOTFS/build/HiDRA
 
 %post
     apt-get install wget
@@ -12,6 +16,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
     apt-get update
     apt-get install -y git
+    cd $SINGULARITY_ROOTFS/build
     chmod +x Singularity_gpu_fix.sh
     ./Singularity_gpu_fix.sh
     rm Singularity_gpu_fix.sh
@@ -21,3 +26,5 @@ From: tensorflow/tensorflow:2.4.2-gpu
     pip install openpyxl==3.0.9
     pip install scikit-learn==0.24.2
     chmod +x HiDRA/test.sh
+   
+  
