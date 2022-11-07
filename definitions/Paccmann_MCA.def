@@ -1,0 +1,38 @@
+Bootstrap: docker
+From: pytorch/pytorch:1.10.0-cuda11.3-cudnn8-devel
+
+%labels
+	MANTAINER Tom Brettin, Priyanka
+
+%setup
+	cp ../src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+%post
+	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
+	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
+	apt-get update
+
+	apt-get install wget -y
+	apt-get install git -y
+
+	chmod +x Singularity_gpu_fix.sh
+        ./Singularity_gpu_fix.sh
+
+	pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
+
+	# requires python 3.8<=3.6
+	# pip install rdkit=2019.03.1
+
+	#  - python>=3.6,<3.8
+	#  - pip>=19.1
+	#
+	pip install git+https://github.com/PaccMann/paccmann_datasets@0.0.3
+	#    pip install numpy
+	#    pip install scipy
+	#    - torch==1.0.1
+
+	cd /usr/local/
+	git clone https://github.com/JDACS4C-IMPROVE/Paccmann_MCA
+	cd Paccmann_MCA
+	git checkout develop
+	cp train.sh /usr/local/bin 
+
