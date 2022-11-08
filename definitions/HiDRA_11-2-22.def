@@ -9,6 +9,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
 
 %environment
 	PATH=$PATH:$SINGULARITY_ROOTFS/build/HiDRA
+	MODEL_DIR=$SINGULARITY_ROOTFS/build/HiDRA
 
 %post
     apt-get install wget
