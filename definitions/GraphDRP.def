@@ -37,4 +37,6 @@ From: /lambda_stor/software/improve/images/improve-pytorch:0.0.1.sif
 	git checkout candle_data_dir
 	cp train.sh /usr/local/bin 
 
+	mkdir /candle_data_dir
+
 	# python ./graphdrp_baseline_pytorch.py --config_file ./graphdrp_default_model.txt
