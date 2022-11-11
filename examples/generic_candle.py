@@ -30,14 +30,17 @@ class IBenchmark(candle.Benchmark):
 
 
 def initialize_parameters():
-    preprocessor_bmk = IBenchmark(file_path,
-        'data_default_params.txt',
-        'keras',
-        prog='my_program.py',
+    preprocessor_bmk = IBenchmark(
+        file_path,                           # this is the path to this file needed to find default_model.txt
+        'mymodel_default_model.txt',         # name of the default_model.txt file
+        'keras',                             # framework, choice is keras or pytorch
+        prog='mymodel_baseline',             # basename of the model
         desc='IMPROVE Benchmark'
     )
 
-    gParameters = candle.finalize_parameters(preprocessor_bmk)
+    gParameters = candle.finalize_parameters(preprocessor_bmk)  # returns the parameter dictionary built from 
+                                                                # default_model.txt and overwritten by any 
+                                                                # matching comand line parameters.
 
     return gParameters
 
@@ -52,6 +55,8 @@ def run(params):
     # infer using model
     # etc
     print("running third party code")
+    return metrics                                              # metrics is used by the supervisor when running
+                                                                # HPO workflows (and possible future non HPO workflows)
 
 def main():
     params = initialize_parameters()
