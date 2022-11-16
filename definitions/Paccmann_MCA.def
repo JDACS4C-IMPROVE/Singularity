@@ -1,5 +1,7 @@
 Bootstrap: docker
-From: pytorch/pytorch:1.10.0-cuda11.3-cudnn8-devel
+From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
+
+# pytorch/pytorch:1.10.0-cuda11.3-cudnn8-devel
 
 %labels
 	MANTAINER Tom Brettin, Priyanka
@@ -19,20 +21,23 @@ From: pytorch/pytorch:1.10.0-cuda11.3-cudnn8-devel
 
 	pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
 
-	# requires python 3.8<=3.6
-	# pip install rdkit=2019.03.1
+	# pip install rdkit=2019.03.1 Use conda, there is no pip package for this ver
+	cd /usr/local
+	wget https://repo.anaconda.com/miniconda/Miniconda3-py37_4.12.0-Linux-x86_64.sh
+	chmod u+x Miniconda3-py37_4.12.0-Linux-x86_64.sh
+	./Miniconda3-py37_4.12.0-Linux-x86_64.sh -b -p /usr/local/miniconda37
 
-	#  - python>=3.6,<3.8
-	#  - pip>=19.1
-	#
+	/opt/conda/bin/conda create -y -p /usr/local/conda_envs/Paccmann_MCA
+	source /opt/conda/bin/activate /usr/local/conda_envs/Paccmann_MCA
+	conda install -y -c conda-forge rdkit=2019.03.1
+
+	#  PYTHONPATH=/opt/conda/lib/python3.7/site-packages python ./train_paccmann2.py 	
+
 	pip install git+https://github.com/PaccMann/paccmann_datasets@0.0.3
-	#    pip install numpy
-	#    pip install scipy
-	#    - torch==1.0.1
 
 	cd /usr/local/
 	git clone https://github.com/JDACS4C-IMPROVE/Paccmann_MCA
 	cd Paccmann_MCA
 	git checkout develop
-	cp train.sh /usr/local/bin 
+	#cp train.sh /usr/local/bin 
 
