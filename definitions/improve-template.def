@@ -1,0 +1,45 @@
+Bootstrap: docker
+From: tensorflow/tensorflow:2.4.2-gpu
+
+%labels
+	MAINTAINER	https://github.com/JDACS4C-IMPROVE/Singularity
+	VERSION	v0.0.1
+
+
+%setup 
+	mkdir -p $SINGULARITY_ROOTFS/IMPROVE
+	cp src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/IMPROVE/
+
+%environment
+	# Available at runtime not build time
+	MODEL="HiDRA"
+	PATH=$PATH:$SINGULARITY_ROOTFS/IMPROVE/${MODEL}
+	WORK_DIR=$SINGULARITY_ROOTFS/IMPROVE/
+	CANDLE_DATA_DIR=/CANDLE
+
+%post
+    # Install prerequistis and update image
+    apt-get install wget
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
+    apt-get update
+    apt-get install -y git
+    mkdir -p $SINGULARITY_ROOTFS/IMPROVE/HiDRA
+    cd $SINGULARITY_ROOTFS/IMPROVE
+    chmod +x Singularity_gpu_fix.sh
+    ./Singularity_gpu_fix.sh
+    rm Singularity_gpu_fix.sh    
+    # Setup model 
+    cd ${WORK_DIR}
+    pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
+    git clone -b develop https://github.com/JDACS4C-IMPROVE/HiDRA.git
+    # Install dependencies
+    pip install pandas==1.1.5
+    pip install openpyxl==3.0.9
+    pip install scikit-learn==0.24.2    
+    # IMPROVE scipts test.sh train.sh
+    chmod +x HiDRA/test.sh
+    # chmod +x HiDRA/train.sh
+
+%help
+    This is a template for building improve container. To build a container you have to be in the top level directory of the https://github.com/JDACS4C-IMPROVE/Singularity repository.
