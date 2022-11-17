@@ -3,6 +3,7 @@
 # For building Tensorflow container sandboxes
 # TODO make Tensorflow or Pytorch options
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd "${SCRIPT_DIR}"
 source ${SCRIPT_DIR}"/../config/improve.env"
 
 echo $IHOME
@@ -98,10 +99,10 @@ fi
 echo "building sandbox from image $IIL/${IMAGE}-${DATE}.sif"
 echo "building sandbox at ${ISL}"
 
-if [ ${SANDBOX} == "true" ] ; then
-  singularity build --fakeroot --sandbox      \
-        $ISL/${NAME}-$IMAGE-${DATE}  \
-        $IIL/${IMAGE}-${DATE}.sif
+singularity build --fakeroot --sandbox      \
+      $ISL/${NAME}-$IMAGE-${DATE}  \
+      $IIL/${IMAGE}-${DATE}.sif
 
-  source ${SCRIPT_DIR}"/login.sh" "$ISL/${NAME}-${IMAGE}-${DATE}"
+if [ ${SANDBOX} == "true" ] ; then
+  exec ${SCRIPT_DIR}"/login.sh" "$ISL/${NAME}-${IMAGE}-${DATE}"
 fi
