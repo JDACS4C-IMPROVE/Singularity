@@ -2,8 +2,8 @@
 
 # For building Tensorflow container sandboxes
 # TODO make Tensorflow or Pytorch options
-
-source "../config/improve.env"
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+source ${SCRIPT_DIR}"/../config/improve.env"
 
 echo $IHOME
 
@@ -20,7 +20,8 @@ Help()
 	echo "Runtime variables are specified in a file ../config/improve.env"
 }
 
-while getopts hf:d:n:t: flag
+SANDBOX="true"
+while getopts hsf:d:n:t: flag
 do
 	case "${flag}" in
 		h) Help
@@ -28,6 +29,7 @@ do
 		n) NAME=${OPTARG};;
 		d) DEFINITION_FILE=${OPTARG};;
 		f) FRAMEWORK=${OPTARG};;
+		s) SANDBOX="false";;
 		t) TAG=${OPTARG};;
 	esac
 done
@@ -96,10 +98,10 @@ fi
 echo "building sandbox from image $IIL/${IMAGE}-${DATE}.sif"
 echo "building sandbox at ${ISL}"
 
-
-singularity build --fakeroot --sandbox      \
+if [ ${SANDBOX} == "true" ] ; then
+  singularity build --fakeroot --sandbox      \
         $ISL/${NAME}-$IMAGE-${DATE}  \
         $IIL/${IMAGE}-${DATE}.sif
 
-source "login.sh" "$ISL/${NAME}-${IMAGE}-${DATE}"
-
+  source ${SCRIPT_DIR}"/login.sh" "$ISL/${NAME}-${IMAGE}-${DATE}"
+fi
