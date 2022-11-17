@@ -40,6 +40,7 @@ if [[ -z "$NAME" ]] ; then
 	exit -1
 fi
 
+DEFINITION_FILE="../"${DEFINITION_FILE}
 echo $DEFINITION_FILE
 echo $FRAMEWORK
 
