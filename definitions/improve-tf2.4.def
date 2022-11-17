@@ -1,3 +1,0 @@
-Bootstrap: localimage
-From: /home/brettin/software/images/tensorflow:2.4.3-gpu-20220428.sif
-
