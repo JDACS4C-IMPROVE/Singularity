@@ -16,7 +16,7 @@ build: $(SIF_FILES)
 
 
 %.sif: %.def
-	singularity build --fakeroot container/$@ $<
+	singularity build container/$@ $<
 
 pull:
 
