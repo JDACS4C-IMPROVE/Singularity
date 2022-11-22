@@ -10,7 +10,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
 %environment
 	PATH=$PATH:$SINGULARITY_ROOTFS/build/HiDRA
 	MODEL_DIR=$SINGULARITY_ROOTFS/build/HiDRA
-    CANDLE_DATA_DIR=/candle_data_dir
+    	CANDLE_DATA_DIR=/candle_data_dir
 
 %post
     apt-get install wget
