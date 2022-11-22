@@ -8,6 +8,7 @@ From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 
 %setup
 	cp ../src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+
 %post
 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
@@ -15,29 +16,28 @@ From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 
 	apt-get install wget -y
 	apt-get install git -y
+	apt-get install libxrender1 -y
+        apt-get install libxtst6 -y
 
 	chmod +x Singularity_gpu_fix.sh
         ./Singularity_gpu_fix.sh
 
-	pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
-
-	# pip install rdkit=2019.03.1 Use conda, there is no pip package for this ver
 	cd /usr/local
-	wget https://repo.anaconda.com/miniconda/Miniconda3-py37_4.12.0-Linux-x86_64.sh
-	chmod u+x Miniconda3-py37_4.12.0-Linux-x86_64.sh
-	./Miniconda3-py37_4.12.0-Linux-x86_64.sh -b -p /usr/local/miniconda37
-
-	/opt/conda/bin/conda create -y -p /usr/local/conda_envs/Paccmann_MCA
-	source /opt/conda/bin/activate /usr/local/conda_envs/Paccmann_MCA
-	conda install -y -c conda-forge rdkit=2019.03.1
-
-	#  PYTHONPATH=/opt/conda/lib/python3.7/site-packages python ./train_paccmann2.py 	
-
-	pip install git+https://github.com/PaccMann/paccmann_datasets@0.0.3
-
-	cd /usr/local/
 	git clone https://github.com/JDACS4C-IMPROVE/Paccmann_MCA
 	cd Paccmann_MCA
 	git checkout develop
-	#cp train.sh /usr/local/bin 
+	mkdir /candle_data_dir
 
+	/opt/conda/bin/conda create --prefix /usr/local/conda_envs/Paccmann_MCA python=3.7
+	/opt/conda/bin/conda install -y -c rdkit -p /usr/local/conda_envs/Paccmann_MCA rdkit=2019.03.1
+	/opt/conda/bin/conda install -y -p /usr/local/conda_envs/Paccmann_MCA cudatoolkit=10.0.130
+	/opt/conda/bin/conda install -y -p /usr/local/conda_envs/Paccmann_MCA pytorch=1.1.0
+
+
+	# Pip installations into conda env /usr/local/conda_envs/Paccmann_MCA
+	/opt/conda/bin/conda install -y -p /usr/local/conda_envs/Paccmann_MCA pip
+	/usr/local/conda_envs/Paccmann_MCA/bin/pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
+	/usr/local/conda_envs/Paccmann_MCA/bin/pip install git+https://github.com/PaccMann/paccmann_datasets@0.0.3
+
+
+	cp train.sh /usr/local/bin 
