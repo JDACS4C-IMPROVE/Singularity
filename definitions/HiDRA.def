@@ -5,7 +5,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
 	MAINTAINER	Jamie Overbeek
 %setup
     # will be installed and removed in post step
-	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/tmp
+	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/
 
 %environment
 	PATH=$PATH:$SINGULARITY_ROOTFS/build/HiDRA
@@ -20,7 +20,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
     apt-get install -y git
     
     # install gpu fix and clean up
-    cd /tmp
+    cd /
     chmod +x Singularity_gpu_fix.sh
     ./Singularity_gpu_fix.sh
     rm Singularity_gpu_fix.sh
