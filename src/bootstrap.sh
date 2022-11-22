@@ -2,9 +2,12 @@
 
 # For building Tensorflow container sandboxes
 # TODO make Tensorflow or Pytorch options
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-cd "${SCRIPT_DIR}"
-source ${SCRIPT_DIR}"/../config/improve.env"
+CURRENT_DIR=$( pwd )
+SCRIPT_DIR=$( dirname -- $0 )
+BASE_DIR=${SCRIPT_DIR}/..
+
+cd "${BASE_DIR}"
+source ./config/improve.env
 
 echo $IHOME
 
@@ -40,7 +43,9 @@ if [[ -z "$NAME" ]] ; then
 	exit -1
 fi
 
-DEFINITION_FILE="../"${DEFINITION_FILE}
+# only works if DEFINITION_FILE is relative path - add check here 
+DEFINITION_FILE=${CURRENT_DIR}/${DEFINITION_FILE}
+
 echo $DEFINITION_FILE
 echo $FRAMEWORK
 
@@ -97,13 +102,13 @@ else
 		docker://${URI}
 fi
 
-echo "building sandbox from image $IIL/${IMAGE}-${DATE}.sif"
-echo "building sandbox at ${ISL}"
-
-singularity build --fakeroot --sandbox      \
-      $ISL/${NAME}-$IMAGE-${DATE}  \
-      $IIL/${IMAGE}-${DATE}.sif
-
 if [ ${SANDBOX} == "true" ] ; then
-  exec ${SCRIPT_DIR}"/login.sh" "$ISL/${NAME}-${IMAGE}-${DATE}"
+	echo "building sandbox from image $IIL/${IMAGE}-${DATE}.sif"
+	echo "building sandbox at ${ISL}"
+
+	singularity build --fakeroot --sandbox      \
+      		$ISL/${NAME}-$IMAGE-${DATE}  \
+      		$IIL/${IMAGE}-${DATE}.sif
+
+  	exec ${SCRIPT_DIR}"/login.sh" "$ISL/${NAME}-${IMAGE}-${DATE}"
 fi
