@@ -1,18 +1,17 @@
 
 
-
+DESTINATION = ./container
 DEF_FILES := $(wildcard ./definitions/*.def)
 #TEST_LOGS := $(patsubst ./images/%.sif,./tests/%.log,$(SIF_FILES))
-SIF_FILES := $(DEF_FILES:./definitions/%.def=%.sif)
+SIF_FILES := $(DEF_FILES:./definitions/%.def=$(DESTINATION)/%.sif)
 
-DESTINATION = ./container
 
 all: build test deploy
 
 configure:
 	mkdir -p $(DESTINATION)
 
-build: $(SIF_FILES)
+build: configure $(SIF_FILES)
 	echo $@
 	echo Start building $?
 	echo all $^
@@ -21,8 +20,8 @@ build: $(SIF_FILES)
 
 
 
-%.sif: ./definitions/%.def
-	if [ -f /usr/subuid ] ; then echo Singularity with fakeroot ; singularity build --fakeroot container/$@ $< ; else echo Singularity without fakeroot ; singularity build container/$@ $< ; fi
+$(DESTINATION)/%.sif: ./definitions/%.def
+	if [ -f /usr/subuid ] ; then echo Singularity with fakeroot ; singularity build --fakeroot container/$@ $< ; else echo Singularity without fakeroot ; singularity build $@ $< ; fi
 	# singularity build --fakeroot container/$@ $<
 
 pull:
