@@ -9,7 +9,7 @@ BASE_DIR=${SCRIPT_DIR}/..
 cd "${BASE_DIR}"
 source ./config/improve.env
 
-echo $IHOME
+echo IHOME: $IHOME
 
 Help()
 {
@@ -46,8 +46,8 @@ fi
 # only works if DEFINITION_FILE is relative path - add check here 
 DEFINITION_FILE=${CURRENT_DIR}/${DEFINITION_FILE}
 
-echo $DEFINITION_FILE
-echo $FRAMEWORK
+echo Definition file: $DEFINITION_FILE
+echo Framework: $FRAMEWORK
 
 if [[ -z "$DEFINITION_FILE" ]] && [[ -z "$FRAMEWORK" ]] ; then  
 	echo "Neither definition file nor base framework specified."
