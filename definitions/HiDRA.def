@@ -4,7 +4,6 @@ From: tensorflow/tensorflow:2.4.2-gpu
 %labels
 	MAINTAINER	Jamie Overbeek
 %setup
-	mkdir $SINGULARITY_ROOTFS/tmp
     # will be installed and removed in post step
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/tmp
 
