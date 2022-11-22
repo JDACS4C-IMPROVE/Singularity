@@ -8,12 +8,12 @@ From: tensorflow/tensorflow:1.15.5-gpu
 	MAINTAINER Tom Brettin
 
 %setup
-	git clone https://github.com/JDACS4C-IMPROVE/DrugGCN.git $SINGULARITY_ROOTFS/usr/local/DrugGCN
+	# git clone https://github.com/JDACS4C-IMPROVE/DrugGCN.git $SINGULARITY_ROOTFS/usr/local/DrugGCN
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 
 %post
 
-	apt-get update
+	apt-get update -y
 	apt-get install -y git
 	apt-get install -y vim
 
@@ -27,5 +27,6 @@ From: tensorflow/tensorflow:1.15.5-gpu
 	python3 -m pip install dataclasses
 	python3 -m pip install cvxopt
 
-        cd /usr/local/DrugGCN
-        git checkout develop
+	git clone https://github.com/JDACS4C-IMPROVE/DrugGCN.git /usr/local/DrugGCN
+    cd /usr/local/DrugGCN
+    git checkout develop
