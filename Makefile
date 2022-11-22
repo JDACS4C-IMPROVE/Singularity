@@ -1,15 +1,16 @@
 
 
-DESTINATION = ./container
+BUILD_DIR = ./images
+TEST_DIR = ./tests
 DEF_FILES := $(wildcard ./definitions/*.def)
-#TEST_LOGS := $(patsubst ./images/%.sif,./tests/%.log,$(SIF_FILES))
-SIF_FILES := $(DEF_FILES:./definitions/%.def=$(DESTINATION)/%.sif)
 
+SIF_FILES := $(DEF_FILES:./definitions/%.def=$(BUILD_DIR)/%.sif)
+TEST_LOGS := $(patsubst $(BUILD_DIR/%.sif,$(TEST_DIR)/%.log,$(SIF_FILES))
 
 all: build test deploy
 
 configure:
-	mkdir -p $(DESTINATION)
+	mkdir -p $(BUILD_DIR)
 
 build: configure $(SIF_FILES)
 	echo $@
@@ -29,7 +30,7 @@ pull:
 
 test: $(TEST_LOGS) 
 
-tests/%.log: images/%.sif
+$(TEST_DIR)/%.log: images/%.sif
 	singularity run $< test.sh > $@ 
 
 	
