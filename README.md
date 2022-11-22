@@ -64,7 +64,8 @@ see: (https://sylabs.io/guides/3.7/user-guide/definition_files.html)
 
 When crafting your recipe, it is best to consider the following:
 
-- Always install packages, programs, data, and files into operating system locations (e.g. not /home, /tmp , or any other directories that might get commonly binded on).
+- Always install packages, programs, data, and files into operating system locations (e.g. not /home, /tmp , or any other directories that might get commonly binded on). 
+- Clearly define install location prior installing. Don't make any assumptions, e.g. create and change into a build or install dir prior checking out github repos.
 - Document your container. If your runscript doesn’t supply help, write a %help or %apphelp section. A good container tells the user how to interact with it.
 - If you require any special environment variables to be defined, add them to the %environment and %appenv sections of the build recipe.
 - Files should always be owned by a system account (UID less than 500).
@@ -236,21 +237,6 @@ cd HiDRA
 ### Deploying an IMPROVE Containert to the Cloud
 
 documentation needed
-
-
-### Github Branch and Tag Definitions
-
-improve - This is the improve release branch. Only the release engineer(s) will have write permissions on this branch.
-
-develop - This is the branch that improve developers work on.
-
-< main, master, ... > The branch representing the original forked code.
-
-An annotated tag can be added to the model on the develop branch when the code is determined to be reproducing the original results (within reasonable limits). For consistency sake, we are recommending that the tag name be "validated". Hence a command to tag the develop branch when it is believed that we have reproduced the results is
-```
-git tag -a valiated
-```
-The -a will cause git to prompt you for annotation, which would be something like "The author reported an MSE of 1.141 and we obtrained an MSE of 1.145". Of course the specific message (annotation) will be model specific, and the tag name will be "validated".
 
 
 

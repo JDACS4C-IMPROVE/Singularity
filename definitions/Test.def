@@ -1,15 +1,16 @@
 Bootstrap: docker
-From: pytorch/pytorch
+From: tensorflow/tensorflow:latest-gpu
 
 %labels
-	MANTAINER Oleksandr Narykov
+	MANTAINER Tom Brettin
 %setup
+	# how are we going to specify this path
 	cp ../src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 %post
 	apt-get update
 	apt-get install -y git vim
+
 	chmod +x Singularity_gpu_fix.sh
 	./Singularity_gpu_fix.sh
 	rm Singularity_gpu_fix.sh
-	/opt/conda/bin/conda install -c anaconda pip
-	/opt/conda/bin/python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+	which python

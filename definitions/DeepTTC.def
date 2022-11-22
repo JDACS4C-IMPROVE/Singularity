@@ -1,9 +1,20 @@
-Bootstrap: localimage
-From: /lambda_stor/software/improve/images/improve-pytorch:0.0.1.sif
+Bootstrap: docker
+From: pytorch/pytorch
 
 %labels
 	MANTAINER Oleksandr Narykov
+%setup
+	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 %post
+	apt-get update
+	apt-get install -y git vim
+	chmod +x Singularity_gpu_fix.sh
+	./Singularity_gpu_fix.sh
+	rm Singularity_gpu_fix.sh
+	/opt/conda/bin/conda install -c anaconda pip
+	/opt/conda/bin/python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+	mkdir -p /candle_data_dir
+
 	apt-get install wget -y
 	cd /
 	git clone https://github.com/JDACS4C-IMPROVE/DeepTTC.git

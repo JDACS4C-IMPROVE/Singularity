@@ -2,10 +2,15 @@
 
 
 DEF_FILES := $(wildcard ./definitions/*.def)
-TMP_FILES := $(DEF_FILES:.def=.sif)
-SIF_FILES := $(patsubst ./definitions/%.def,./images/%.sif,$(DEF_FILES))
-TEST_LOGS := $(patsubst ./images/%.sif,./tests/%.log,$(SIF_FILES))
+#TEST_LOGS := $(patsubst ./images/%.sif,./tests/%.log,$(SIF_FILES))
+SIF_FILES := $(DEF_FILES:./definitions/%.def=%.sif)
+
+DESTINATION = ./container
+
 all: build test deploy
+
+configure:
+	mkdir -p $(DESTINATION)
 
 build: $(SIF_FILES)
 	echo $@
@@ -16,9 +21,9 @@ build: $(SIF_FILES)
 
 
 
-images/%.sif: definitions/%.def
-	echo $@
-	singularity build --fakeroot $@ $<
+%.sif: ./definitions/%.def
+	if [ -f /usr/subuid ] ; then echo Singularity with fakeroot ; singularity build --fakeroot container/$@ $< ; else echo Singularity without fakeroot ; singularity build container/$@ $< ; fi
+	# singularity build --fakeroot container/$@ $<
 
 pull:
 	echo Pull all images from github

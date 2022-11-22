@@ -1,19 +1,17 @@
-Bootstrap: localimage
-From: /lambda_stor/software/improve/images/improve-pytorch:0.0.1.sif
-
-# Bootstrap: docker
-# From: pytorch/pytorch
+Bootstrap: docker
+From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-devel
 
 %labels
 	MANTAINER Tom Brettin
 
 %setup
-	cp ../src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 %post
 	apt-get update -y
 	apt-get install wget -y
 	apt-get install build-essential -y
 	apt-get install git -y
+	apt-get install vim -y
 
 	chmod +x Singularity_gpu_fix.sh
         ./Singularity_gpu_fix.sh
@@ -35,6 +33,8 @@ From: /lambda_stor/software/improve/images/improve-pytorch:0.0.1.sif
 	git clone https://github.com/JDACS4C-IMPROVE/GraphDRP.git
 	cd GraphDRP
 	git checkout candle_data_dir
-	cp train.sh /usr/local/bin 
+	cp train.sh /usr/local/bin
+
+	mkdir /candle_data_dir
 
 	# python ./graphdrp_baseline_pytorch.py --config_file ./graphdrp_default_model.txt
