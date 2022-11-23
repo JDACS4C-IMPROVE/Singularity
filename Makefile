@@ -33,7 +33,7 @@ build: configure $(SIF_FILES)
 
 $(BUILD_DIR)/%.sif: $(DEF_DIR)/%.def
 	singularity build $(FAKE_ROOT) $@ $<
-	src/bootstrap.sh -s -n $(shell basename -s .def $<) -d $<
+	# src/bootstrap.sh -s -n $(shell basename -s .def $<) -d $<
 
 pull:
 	echo Pull all images from github
