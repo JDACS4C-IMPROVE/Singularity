@@ -14,6 +14,9 @@
 # make clean
 # make all (make, make test, make deploy)
 
+# set default target for make version > 3.80
+.DEFAULT_GOAL := build
+
 
 # defined in case we want to omit fakeroot
 FAKE_ROOT="--fakeroot"
@@ -59,12 +62,14 @@ test: $(TEST_LOGS)
 
 $(TEST_DIR)/%.log: $(BUILD_DIR)/%.sif
 	singularity run $< test.sh 2>&1 i | tee $@ 
-	# singularity --bind dir:/candle_data_dir exec <image> echo `date` >  /candle_data_dir/test.log
+	# singularity --bind $(TEST_DIR):/candle_data_dir exec  "echo `date` > candle_data_dir/test.log"
 	
 	
 
 deploy: $(BUILD_DIR)/*.sif
 	cp -v $< $(DEPLOY_DIR)/ 
+
+.PHONY: clean
 clean:
 	rm $(BUILD_DIR)/*.sif $(TEST_DIR)/*.log 
 	# clean singularity cache as well ?	
