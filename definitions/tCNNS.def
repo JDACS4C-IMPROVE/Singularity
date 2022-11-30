@@ -1,0 +1,24 @@
+Bootstrap: localimage
+From: /home/brettin/Singularity/images/improve-tensorflow-gpu-1.15:0.0.1-20221019.sif
+
+%labels
+	MANTAINER Tom Brettin
+
+%setup
+	git clone  https://github.com/JDACS4C-IMPROVE/tCNNS-Project.git $SINGULARITY_ROOTFS/usr/local/tCNNS
+	#cp ./templates/train.sh ./templates/infer.sh $SINGULARITY_ROOTFS/usr/local/tCNNS/
+%post
+
+	apt-get update
+	apt-get -y install git
+
+	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+
+	cd /usr/local/
+	git clone https://github.com/JDACS4C-IMPROVE/tCNNS-Project
+        cd /usr/local/tCNNS-Project
+        git checkout develop
+
+	# this assumes a train.sh, infer.sh are committed to the <model> repository.
+
+	python -c 'import tensorflow as tf ; print(tf.__version__)'
