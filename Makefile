@@ -32,6 +32,9 @@ DEF_FILES := $(wildcard ./definitions/*.def)
 SIF_FILES := $(DEF_FILES:$(DEF_DIR)/%.def=$(BUILD_DIR)/%.sif)
 TEST_LOGS := $(patsubst $(BUILD_DIR)/%.sif,$(TEST_DIR)/%.log,$(SIF_FILES))
 
+build: configure $(SIF_FILES)
+	echo Start building $?
+
 all: build test deploy
 
 debug:
@@ -45,9 +48,6 @@ debug:
 
 configure:
 	mkdir -p $(BUILD_DIR) $(TEST_DIR) $(DEPLOY_DIR)
-
-build: configure $(SIF_FILES)
-	echo Start building $?
 
 $(BUILD_DIR)/%.sif: $(DEF_DIR)/%.def
 	singularity build $(FAKE_ROOT) $@ $<

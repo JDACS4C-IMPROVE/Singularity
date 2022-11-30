@@ -28,7 +28,7 @@ From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 	git checkout develop
 	mkdir /candle_data_dir
 
-	/opt/conda/bin/conda create --prefix /usr/local/conda_envs/Paccmann_MCA python=3.7
+	/opt/conda/bin/conda create -y --prefix /usr/local/conda_envs/Paccmann_MCA python=3.7
 	/opt/conda/bin/conda install -y -c rdkit -p /usr/local/conda_envs/Paccmann_MCA rdkit=2019.03.1
 	/opt/conda/bin/conda install -y -p /usr/local/conda_envs/Paccmann_MCA cudatoolkit=10.0.130
 	/opt/conda/bin/conda install -y -p /usr/local/conda_envs/Paccmann_MCA pytorch=1.1.0
