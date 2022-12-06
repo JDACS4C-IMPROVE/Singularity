@@ -5,14 +5,14 @@ From: /home/brettin/Singularity/images/improve-tensorflow-gpu-1.15:0.0.1-2022101
 	MANTAINER Tom Brettin
 
 %setup
-	git clone  https://github.com/JDACS4C-IMPROVE/tCNNS-Project.git $SINGULARITY_ROOTFS/usr/local/tCNNS
-	#cp ./templates/train.sh ./templates/infer.sh $SINGULARITY_ROOTFS/usr/local/tCNNS/
+
 %post
 
 	apt-get update
 	apt-get -y install git
+	apt-get install -y vim
 
-	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
 
 	cd /usr/local/
 	git clone https://github.com/JDACS4C-IMPROVE/tCNNS-Project
@@ -21,4 +21,5 @@ From: /home/brettin/Singularity/images/improve-tensorflow-gpu-1.15:0.0.1-2022101
 
 	# this assumes a train.sh, infer.sh are committed to the <model> repository.
 
+	mkdir /candle_data_dir
 	python -c 'import tensorflow as tf ; print(tf.__version__)'
