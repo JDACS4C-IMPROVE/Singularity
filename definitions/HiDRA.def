@@ -5,12 +5,11 @@ From: tensorflow/tensorflow:2.4.2-gpu
 	MAINTAINER	Jamie Overbeek
 %setup
     # will be installed and removed in post step
-    mkdir -p $SINGULARITY_ROOTFS/model
-    cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/model
+    cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/
 
 %environment
-	PATH=$PATH:$SINGULARITY_ROOTFS/model/HiDRA
-	MODEL_DIR=$SINGULARITY_ROOTFS/model/HiDRA
+	PATH=$PATH:/usr/local/HiDRA
+	MODEL_DIR=/usr/local/HiDRA
     	CANDLE_DATA_DIR=/candle_data_dir
 
 %post
@@ -21,7 +20,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
     apt-get install -y git
     
     # install gpu fix and clean up
-    cd /model
+    cd / 
     chmod +x Singularity_gpu_fix.sh
     ./Singularity_gpu_fix.sh
     rm Singularity_gpu_fix.sh
@@ -36,6 +35,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
     pip install scikit-learn==0.24.2
 
     # setup model and executables
+    cd /usr/local/
     git clone -b develop https://github.com/JDACS4C-IMPROVE/HiDRA.git
     chmod +x HiDRA/train.sh
     chmod +x HiDRA/test.sh
