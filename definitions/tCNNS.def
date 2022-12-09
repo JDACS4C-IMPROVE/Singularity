@@ -1,5 +1,5 @@
-Bootstrap: localimage
-From: /home/brettin/Singularity/images/improve-tensorflow-gpu-1.15:0.0.1-20221019.sif
+Bootstrap: docker
+From: tensorflow/tensorflow:1.15.5-gpu
 
 %labels
 	MANTAINER Tom Brettin
@@ -7,6 +7,10 @@ From: /home/brettin/Singularity/images/improve-tensorflow-gpu-1.15:0.0.1-2022101
 %setup
 
 %post
+
+        apt-get install wget
+        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
+        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
 
 	apt-get update
 	apt-get -y install git
