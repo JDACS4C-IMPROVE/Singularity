@@ -34,5 +34,5 @@ From: tensorflow/tensorflow:1.15.5-gpu
 	cd /usr/local/DrugGCN
 	git checkout develop
 
-	# cp train.sh /usr/local/bin
+	cp train.sh /usr/local/bin
 	mkdir -p /candle_data_dir
