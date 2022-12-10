@@ -10,5 +10,5 @@ MODEL_FILE="paccmann_mca_params.txt"
 singularity exec --nv --bind /home/brettin/improve_data_dir:/candle_data_dir $IHOME/sandboxes/${CONTAINER}/ train.sh 3 /candle_data_dir
 singularity exec --nv --bind /home/brettin/improve_data_dir:/candle_data_dir $IHOME/sandboxes/${CONTAINER}/ train.sh 3 /candle_data_dir ${MODEL_FILE}
 singularity exec --nv --bind /home/brettin/improve_data_dir:/candle_data_dir $IHOME/sandboxes/${CONTAINER}/ train.sh 3 /candle_data_dir --config_file ${MODEL_FILE}
-singularity exec --nv --bind /home/brettin/improve_data_dir:/candle_data_dir $IHOME/sandboxes/${CONTAINER}/ train.sh 3 /candle_data_dir ${MODEL_FILE} --experiment_id 001 --run_id 001
+singularity exec --nv --bind /home/brettin/improve_data_dir:/candle_data_dir $IHOME/sandboxes/${CONTAINER}/ train.sh 3 /candle_data_dir ${MODEL_FILE} --experiment_id EXP001 --run_id RUN001
 
