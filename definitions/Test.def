@@ -5,7 +5,7 @@ From: tensorflow/tensorflow:latest-gpu
 	MANTAINER Tom Brettin
 %setup
 	# how are we going to specify this path
-	cp ../src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 %post
 	apt-get update
 	apt-get install -y git vim
