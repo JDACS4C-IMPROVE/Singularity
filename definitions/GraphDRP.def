@@ -5,7 +5,7 @@ From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-devel
 	MANTAINER Tom Brettin
 
 %setup
-	cp ../src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 %post
 	apt-get update -y
 	apt-get install wget -y
@@ -27,12 +27,12 @@ From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-devel
 	python3 -m pip install torch-cluster
 
 	# python3 -m pip install torch-spline-conv
-	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
+	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
 
 	cd /usr/local/
 	git clone https://github.com/JDACS4C-IMPROVE/GraphDRP.git
 	cd GraphDRP
-	git checkout candle_data_dir
+	git checkout develop
 	cp train.sh /usr/local/bin
 
 	mkdir /candle_data_dir

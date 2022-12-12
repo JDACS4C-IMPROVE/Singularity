@@ -4,7 +4,7 @@ From: tensorflow/tensorflow:1.15.5-gpu
 %labels
 	MAINTAINER	Yitan Zhu
 %setup
-	cp ../src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 %post
 	apt-get install wget
 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
@@ -21,7 +21,7 @@ From: tensorflow/tensorflow:1.15.5-gpu
         pip install keras==2.2.4
         pip install scikit-learn==0.21.2
 	pip install typing_extensions
-	pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
+	pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
 	cd /usr/local
 	git clone https://github.com/JDACS4C-IMPROVE/IGTD.git
 	cd IGTD
@@ -30,3 +30,5 @@ From: tensorflow/tensorflow:1.15.5-gpu
 	chmod +x /usr/local/bin/infer.sh
 	cp train.sh /usr/local/bin
 	chmod +x /usr/local/bin/train.sh
+
+	mkdir /candle_data_dir

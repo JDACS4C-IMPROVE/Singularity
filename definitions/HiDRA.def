@@ -4,12 +4,13 @@ From: tensorflow/tensorflow:2.4.2-gpu
 %labels
 	MAINTAINER	Jamie Overbeek
 %setup
-	mkdir $SINGULARITY_ROOTFS/build
-	cp ../src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/build
+    # will be installed and removed in post step
+    cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/
 
 %environment
-	PATH=$PATH:$SINGULARITY_ROOTFS/build/HiDRA
-	MODEL_DIR=$SINGULARITY_ROOTFS/build/HiDRA
+	PATH=$PATH:/usr/local/HiDRA
+	MODEL_DIR=/usr/local/HiDRA
+    	CANDLE_DATA_DIR=/candle_data_dir
 
 %post
     apt-get install wget
@@ -17,15 +18,24 @@ From: tensorflow/tensorflow:2.4.2-gpu
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
     apt-get update
     apt-get install -y git
-    cd $SINGULARITY_ROOTFS/build
+    
+    # install gpu fix and clean up
+    cd / 
     chmod +x Singularity_gpu_fix.sh
     ./Singularity_gpu_fix.sh
     rm Singularity_gpu_fix.sh
-    pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
+    
+    # create default internal candle_data_dir, map external candle_data_dir here
+    mkdir /candle_data_dir
+    
+    # install python modules and model prerequisites 
+    pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
     pip install pandas==1.1.5
     pip install openpyxl==3.0.9
     pip install scikit-learn==0.24.2
 
+    # setup model and executables
+    cd /usr/local/
     git clone -b develop https://github.com/JDACS4C-IMPROVE/HiDRA.git
     chmod +x HiDRA/train.sh
     chmod +x HiDRA/test.sh
