@@ -16,7 +16,7 @@ FAKE_ROOT="--fakeroot"
 
 # Pass variables on the command line to overwrite the defaults e.g. make PREFIX=/homes/joe
 PREFIX    := .
-BUILD_DIR := ./images
+BUILD_DIR := ./build
 TEST_DIR  := ./tests
 
 DEF_DIR    = ./definitions
