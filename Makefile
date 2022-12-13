@@ -55,10 +55,10 @@ $(TEST_DIR)/%.log: $(BUILD_DIR)/%.sif
 	log=`basename $@` ;\
 	    singularity exec --bind $(TEST_DIR):/candle_data_dir $< sh -c "echo \`date\` > /candle_data_dir/$${log}"
 	
-	
 
-deploy: $(wildcard $(BUILD_DIR)/*.sif)
-	echo cp -v $< $(DEPLOY_DIR)/ 
+deploy: $(SIF_FILES)
+	cp -v $? $(DEPLOY_DIR)/ 
+
 
 .PHONY: clean
 clean:
