@@ -52,14 +52,13 @@ pull:
 test: $(TEST_LOGS)
 
 $(TEST_DIR)/%.log: $(BUILD_DIR)/%.sif
-	singularity run $< test.sh 2>&1 | tee $@
-	log=$(shell basename $@)
-	singularity --bind $(TEST_DIR):/candle_data_dir exec  "echo `date` > candle_data_dir/$(log)"
+	log=`basename $@` ;\
+	    singularity exec --bind $(TEST_DIR):/candle_data_dir $< sh -c "echo \`date\` > /candle_data_dir/$${log}"
 	
 	
 
-deploy: $(BUILD_DIR)/*.sif
-	cp -v $< $(DEPLOY_DIR)/ 
+deploy: $(wildcard $(BUILD_DIR)/*.sif)
+	echo cp -v $< $(DEPLOY_DIR)/ 
 
 .PHONY: clean
 clean:
