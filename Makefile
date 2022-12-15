@@ -58,7 +58,7 @@ $(TEST_DIR)/%.log: $(BUILD_DIR)/%.sif
 
 deploy: $(SIF_FILES)
 	cp -v $? $(DEPLOY_DIR)/ 
-
+	chmod -R g+w $(DEPLOY_DIR)
 
 .PHONY: clean
 clean:
