@@ -14,3 +14,5 @@ From: tensorflow/tensorflow:latest-gpu
 	./Singularity_gpu_fix.sh
 	rm Singularity_gpu_fix.sh
 	which python
+
+	mkdir -p /candle_data_dir
