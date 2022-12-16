@@ -1,11 +1,4 @@
-
-# IHOME is the build prefix, we can replace this with PREFIX if you want to.
-# 	PREFIX can be . if you want to build the images in the Singularity directory
-# 	It can be /anywhere/else if you want to deploy the images somewhere outside the Singularity Directory.
-# 	Singularity/ is the build dir (this is always Singularity/)
-# 	IHOME/ is the deploy dir (this can be Singularity/)
-
-# run make from /path/to/Singularity/
+# run make from inside /path/to/Singularity/
 # make : will build the images in ./images
 # make test : will test images in the ./images directory
 # make deploy : will copy images from ./images to PREFIX/images/
@@ -14,15 +7,16 @@
 # make clean
 # make all (make, make test, make deploy)
 
+# set default target for make version > 3.80
+.DEFAULT_GOAL := build
+
 
 # defined in case we want to omit fakeroot
 FAKE_ROOT="--fakeroot"
 
-# From StackOverflow: It is generally considered a bad practice for makefiles to depend on environment
-# variables because that may lead to non-reproducible builds. This is why passing variable overrides in
-# make command line explicitly is recommended.
+# Pass variables on the command line to overwrite the defaults e.g. make PREFIX=/homes/joe
 PREFIX    := .
-BUILD_DIR := ./images
+BUILD_DIR := ./build
 TEST_DIR  := ./tests
 
 DEF_DIR    = ./definitions
@@ -58,13 +52,15 @@ pull:
 test: $(TEST_LOGS)
 
 $(TEST_DIR)/%.log: $(BUILD_DIR)/%.sif
-	singularity run $< test.sh 2>&1 i | tee $@ 
-	# singularity --bind dir:/candle_data_dir exec <image> echo `date` >  /candle_data_dir/test.log
-	
+	log=`basename $@` ;\
+	    singularity exec --bind $(TEST_DIR):/candle_data_dir $< sh -c "echo \`date\` > /candle_data_dir/$${log}"
 	
 
-deploy: $(BUILD_DIR)/*.sif
-	cp -v $< $(DEPLOY_DIR)/ 
+deploy: $(SIF_FILES)
+	cp -v $? $(DEPLOY_DIR)/ 
+	chmod -R g+w $(DEPLOY_DIR)
+
+.PHONY: clean
 clean:
 	rm $(BUILD_DIR)/*.sif $(TEST_DIR)/*.log 
 	# clean singularity cache as well ?	
