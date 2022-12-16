@@ -5,9 +5,10 @@
 CURRENT_DIR=$( pwd )
 SCRIPT_DIR=$( dirname -- $0 )
 BASE_DIR=${SCRIPT_DIR}/..
-
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd "${BASE_DIR}"
-source ./config/improve.env
+source config/improve.env
+
 
 echo IHOME: $IHOME
 
@@ -45,7 +46,6 @@ fi
 
 # only works if DEFINITION_FILE is relative path - add check here 
 DEFINITION_FILE=${CURRENT_DIR}/${DEFINITION_FILE}
-
 echo Definition file: $DEFINITION_FILE
 echo Framework: $FRAMEWORK
 
