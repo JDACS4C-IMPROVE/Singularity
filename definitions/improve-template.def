@@ -20,8 +20,8 @@ From: tensorflow/tensorflow:2.4.2-gpu
 %post
     # Install prerequistis and update image
     apt-get install wget
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80 --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128
     apt-get update
     apt-get install -y git
     mkdir -p $SINGULARITY_ROOTFS/IMPROVE/HiDRA
@@ -30,7 +30,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
     ./Singularity_gpu_fix.sh
     rm Singularity_gpu_fix.sh    
     # Setup model 
-    pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
+    pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
     git clone -b develop https://github.com/JDACS4C-IMPROVE/HiDRA.git
     # Install dependencies
     pip install pandas==1.1.5

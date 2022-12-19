@@ -12,8 +12,8 @@ From: tensorflow/tensorflow:1.15.5-gpu
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 
 %post
-	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
-    	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
+	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80 --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128
+    	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128
 	apt-get update -y
 	apt-get install -y git
 	apt-get install -y vim
