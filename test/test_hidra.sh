@@ -2,7 +2,7 @@
 set -x
 
 GPUID="${1:-"0"}"
-BUILD_DATE=${DATE:-"20221210"}
+BUILD_DATE=${BUILD_DATE:-"20221210"}
 
 IHOME=/home/brettin/Singularity
 IMPROVE_DATA_DIR=/home/brettin/improve_data_dir
