@@ -1,8 +1,12 @@
+#!/bin/bash
+
 BUILD_DATE=${1:-${BUILD_DATE}}
 export BUILD_DATE=${BUILD_DATE}
 
 arr=( test_* )
 i=$(( ${#arr[@]} - 1 ))
+
+echo ${#arr[#]}
 
 for m in $(seq 0 $i) ; do
 
@@ -17,16 +21,17 @@ for m in $(seq 0 $i) ; do
 	echo "program: $program"
 	echo "outfile: $outfile"
 
-	cmd="$program $device > ../tests/$outfile 2>&1 &"
-	echo $cmd
+	echo "cmd: ./$program $device > ../tests/$outfile 2>&1"
+	./$program $device > ../tests/$outfile 2>&1 &
 
-	#$cmd
-	#pids[$device]=$!
+	# right now, there are less than 8 tests
 
-	#if [ $device -eq 7 ] ; then
-	#	for p in "${pids[@]}" ; do
-	#		wait $p
-	#	done	
-	#fi
+	pids[$device]=$!
+
+	if [ $device -eq 7 ] ; then
+		for p in "${pids[@]}" ; do
+			wait $p
+		done	
+	fi
 
 done

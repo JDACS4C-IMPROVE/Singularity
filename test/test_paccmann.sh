@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 GPUID="${1:-"2"}"
 BUILD_DATE=${BUILD_DATE:-"20221210"}
