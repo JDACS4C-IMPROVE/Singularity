@@ -1,63 +1,51 @@
-# IMPROVE Containers
-Each curated community model is deployed in a Singularity container that is extended to support standardized execution of all currated community models.
+# IMPROVE Singularity Containers
+Each curated community model is deployed in a Singularity container that is extended to support standardized execution of all currated community models. This repository contains *build recipies*/*definintion files* and tools for building model specific singularity/apptainer images. 
 
+1. Setting up repository
+2. Building container images
+3. Running a container
+4. Best practices for build recipies 
 
-### Running an IMPROVE Container
+## Setup ##
 
-#### Install IMPROVE Singularity suite
+Clone the repository into a location of your choice:
 
-```
+```bash
 git clone https://github.com/JDACS4C-IMPROVE/Singularity.git
 cd Singularity
-source src/improve.sh
 ```
 
-#### Set up environmental variables
+## Build and Deploy model images ##
 
-*CANDLE_DATA_DIR* is a mandatory environmental variable for IMPROVE Singularity Suite that defines location of data folder.
+From within the Singularity repo call:
 
-*CUDA_VISIBLE_DEVICES* is passed as a parameter, it is defined as an environmental variable for the convenience purposes only.
+1. `make`
+2. `make deploy`
 
-```
-export CANDLE_DATA_DIR=$IHOME/data_dir/
-export CUDA_VISIBLE_DEVICES=0
-```
+If you want to deploy the images at a different location invoke the make command and set PREFIX to a path of your choosing, default is the current directory. The deploy process will create an image directory at the specified location and copy the image files into it.
 
-
-#### Run containers using IMPROVE Singularity Suite
-
-Interactive session:
-```
-improve shell deepttc-0.1.1.sif
-```
-
-Data Preprocessing:
-```
-improve preprocess deepttc-0.1.1.sif
-```
-
-Training:
-```
-improve train deepttc-0.1.1.sif $CUDA_VISIBLE_DEVICES
-```
-
-Additional information is available under
-```
-improve help
-```
+```make deploy PREFIX=/my/deploy/path/```
 
 
+## Running an IMPROVE Container
 
-#### Using an IMPROVE container from $IHOME/sandboxes or $IHOME/images. 
+Every container has a standardized scriptfor training the model called *train.sh* and a standard location (*/candle_data_dir*) for model input and output. *train.sh* expects /candle_data_dir To train a model you have to make your data directory available inside the container as */candle_data_dir*.  
+
+```bash
+
+singularity exec --nv --bind ${IMPROVE_DATA_DIR}:/candle_data_dir ${CONTAINER} train.sh ${GPUID} 
 
 ```
-# from a sandbox
 
-singularity build --sandbox $ISL/${NAME}-$IMAGE-${DATE} $ISL/${IMAGE} # singularity 3.9.4
+With:  
+**IMPROVE_DATA_DIR** path to data directory
+**CONTAINER** *path/and/name* of image file
+**GPUID** 
 
-# or from an image
-# singularity 3.9.4
-```
+For more examples see the [documentation](http://)
+
+
+
 
 ### Best Practices for Build Recipes
 see: (https://sylabs.io/guides/3.7/user-guide/definition_files.html)
@@ -78,7 +66,7 @@ In the second example, a writable container is created.
 In the third example, an image is created from a writable container.
 
 ```
-# Here we use as a psuedo standard the workspace directory for writable containers.
+# Here we use as a pseudo standard the workspace directory for writable containers.
 # IMPROVE environment variables begin with I
 export IHOME=/homes/brettin/Singularity/workspace
 export ISL=${IHOME}/sandboxes
@@ -91,153 +79,6 @@ singularity build $IIL/${IMAGE}.sif $DEFFILE
 
 
 ```
-
-## Setting up a model for IMPROVE
-
-Use care when converting a sandbox directory to the default SIF format. If changes were made to the writable container before conversion, there is no record of those changes in the Singularity definition file rendering your container non-reproducible. It is a best practice to build your immutable production containers directly from a S:wqingularity definition file instead.
-
-```
-# Download an image from dockerhub. Here you can get the latest tensorflow images.
-singularity build images/latest-gpu.sif docker://tensorflow/tensorflow:latest-gpu
-
-# Create a writiable container from the image. For now, sudo is needed until
-# the fakeroot option can be enabled by adding users to /etc/subuid and /etc/subgid.
-sudo singularity build --nv --sandbox workspace/latest-gpu-uno images/latest-gpu.sif
-
-# Log into the singularity container and install necessary dependancies
-# for the model of interest.
-sudo singularity shell --nv --writable workspace/latest-gpu-uno
-```
-
-
-Creating a writable container from an image in the images directory (cd images)
-
-```
-cd images/
-sudo singularity build --sandbox ../workspace/latest-gpu-uno  latest-gpu docker://tensorflow/tensorflow:latest-gpu `
-```
-
-```
-Building into existing container: ../workspace/latest-gpu-uno
-Building from local image: latest-gpu
-Singularity container built: ../workspace/latest-gpu-uno
-Cleaning up...
-```
-
-Installing the environment for the model requires logging into the container 
-
-` sudo singularity shell --writable --nv $HOME/Singularity/workspace/latest-gpu `
-
-## Conda
-
-```
-cd /usr/local/src
-curl -o Miniconda3-latest-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-chmod u+x Miniconda3-latest-Linux-x86_64.sh 
-./Miniconda3-latest-Linux-x86_64.sh 
-```
-
-when prompted, install miniconda here
-/usr/local/miniconda3
-
-` export PATH=$PATH:/usr/local/miniconda3/bin `
-
-install pytables blosc<1.19 
-install candle
-run uno
-
-## Transforming your conda environment into a singularity container
-Notes:
-First, try to use only conda to build the environment.
-Try to install as many conda packages as possible with a single conda install command
-Once you have the environment, start with the appropriate docker or singularity container.
-  For Tensorflow based models, start with a docker image from dockerhub
-  https://hub.docker.com/r/tensorflow/tensorflow/
-  
-For the Hidra model:
-Dump Jamies conda environment
-Identify python version and tensorflow version
-
-### Download an appropriate image.
-The fakeroot option can be enabled by adding users to /etc/subuid and /etc/subgid.
-The fakeroot optiom may not work on a network attached filesystem. In this case, you can use /tmp and copy your work back to the shared filesystem before you finish for the day.
-`singularity build --fakeroot images/tensorflow:1.9.0-gpu-py3.sif docker://tensorflow/tensorflow:1.9.0-gpu-py3`
-
-### Create a writiable container from the image.
-`singularity build --fakeroot --nv --sandbox workspace/tensorflow:1.9.0-gpu-py3-hidra images/tensorflow:1.9.0-gpu-py3.sif`
-
-### Installing the environment for the model requires logging into the container
-
-```
-singularity shell --fakeroot --writable --nv --net workspace/latest-gpu`
-Singularity> whoami
-root
-```
-
-### Build the conda environment
-
-```
-Singularity> cd /tmp/Singularity/workspace/tensorflow:1.9.0-gpu-py3-hidra/usr/local/src
-Singularity> curl -o Miniconda3-latest-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-Singularity> chmod u+x Miniconda3-latest-Linux-x86_64.sh 
-Singularity> ./Miniconda3-latest-Linux-x86_64.sh
-Singularity> export PATH=$PATH:/usr/local/miniconda3/bin
-Singularity> conda env create -f hidra_env_tf1.yml
-Singularity> source activate hidra_env_tf1.yml
-```
-
-### Installing the model code from the IMPROVE-JDACAS4C github organization.
-When trying to install git, apt-get was unable to resolve 
-
-```
-Singularity> apt-get install git
-Reading package lists... Done
-Building dependency tree       
-Reading state information... Done
-E: Unable to locate package git
-...
-```
-
-Similarly, apt-get update returned an error as well.
-
-```
-Singularity> apt-get update
-Err:1 http://archive.ubuntu.com/ubuntu xenial InRelease
-  Temporary failure resolving 'archive.ubuntu.com'
-...
-```
-
-Adding a valid nameserver to the /etc/resolv.conf file solved this issue. The nameserver added is one of Googles.
-
-```
-Singularity> cat >> /etc/resolv.conf 
-nameserver 8.8.8.8
-```
-Consider testing these:
-
-![image](https://user-images.githubusercontent.com/991769/155187883-473c94cd-ebf9-4fd7-840a-b6403e3830d9.png)
-
-
-Now apt-get worked properly.
-
-```
-Singularity> apt-get update
-Singularity> apt-get install git
-```
-
-### Install, test and debug the model code from the github.com/IMPROVE-JDACS4C/HiDRA
-
-```
-git clone https://github.com/JDACS4C-IMPROVE/HiDRA.git
-cd HiDRA
-./test.sh
-```
-
-
-### Deploying an IMPROVE Containert to the Cloud
-
-documentation needed
-
 
 
 
