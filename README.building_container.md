@@ -36,7 +36,7 @@ The following is an iterative process that likely requires rebuilding the contai
 
 1.  Build a container bootstrapped from a base image (Bootstrap: docker From: pytorch/pytorch for example). THis starts with a very simple definition file that can be passed to bootstrap.sh. If the container build is successful, you will be logged into the container sandbox.
 
-3.  Clone model repository, install dependencies and update definition file until the community model is running.
+3.  Clone the community model repository into /usr/local directory, and install dependencies and update the definition file until the community model is running.
 
 2.  From within the container, demonstrate that the train.sh runs the community model. In this case, CANDLE_DATA_DIR can be any path within the container. See: https://github.com/JDACS4C-IMPROVE/Singularity/blob/master/src/templates/train.sh
 
