@@ -1,38 +1,30 @@
-# Bootstrap: localimage
-# From: /home/brettin/Singularity/images/improve-tensorflow-gpu-1.15:0.0.1-20221019.sif
-
 Bootstrap: docker
-From: tensorflow/tensorflow:1.15.5-gpu
+From: continuumio/anaconda3
 
 %labels
-	MAINTAINER Tom Brettin
+	MANTAINER Tom Brettin
 
 %setup
-	# git clone https://github.com/JDACS4C-IMPROVE/DrugGCN.git $SINGULARITY_ROOTFS/usr/local/DrugGCN
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 
 %post
-	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
-    	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
-	apt-get update -y
-	apt-get install -y git
+	apt-get update
 	apt-get install -y vim
 
 	chmod +x Singularity_gpu_fix.sh
 	./Singularity_gpu_fix.sh
 
-	mkdir /candle_data_dir
+	conda create -y -p /opt/conda/druggcn_py3.7 python=3.7 \
+		tensorflow-gpu=1.15 pandas=1.3.5 scikit-learn=1.0.2 gensim
 
-	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
-	python3 -m pip install pyyaml
-	python3 -m pip install scikit-learn
-	python3 -m pip install gensim
-	python3 -m pip install dataclasses
-	python3 -m pip install cvxopt
+	/opt/conda/druggcn_py3.7/bin/pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
 
-	git clone https://github.com/JDACS4C-IMPROVE/DrugGCN.git /usr/local/DrugGCN
-	cd /usr/local/DrugGCN
-	git checkout develop
+	cd /usr/local/
+	git clone https://github.com/JDACS4C-IMPROVE/DrugGCN
+        cd /usr/local/DrugGCN
+        git checkout develop
 
+	# this assumes a train.sh, infer.sh are committed to the <model> repository.
+	chmod a+x train.sh
 	cp train.sh /usr/local/bin
-	mkdir -p /candle_data_dir
+	mkdir /candle_data_dir
