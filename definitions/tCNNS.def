@@ -2,10 +2,10 @@ Bootstrap: docker
 From: tensorflow/tensorflow:1.15.5-gpu
 
 %labels
-	MANTAINER Tom Brettin
+	MAINTAINER Tom Brettin
 
 %setup
-
+	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 %post
 
         apt-get install wget
@@ -15,6 +15,9 @@ From: tensorflow/tensorflow:1.15.5-gpu
 	apt-get update
 	apt-get -y install git
 	apt-get install -y vim
+
+	chmod +x Singularity_gpu_fix.sh
+	./Singularity_gpu_fix.sh
 
 	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
 
@@ -27,4 +30,3 @@ From: tensorflow/tensorflow:1.15.5-gpu
 	chmod a+x train.sh
 	cp train.sh /usr/local/bin
 	mkdir /candle_data_dir
-	python -c 'import tensorflow as tf ; print(tf.__version__)'
