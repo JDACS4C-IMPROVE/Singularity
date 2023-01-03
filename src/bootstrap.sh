@@ -18,7 +18,7 @@ Help()
 	echo "	-n: Required. Name for the image"
 	echo "	-d: Path to Singularity definition file. Builds an image from specified definition"
 	echo "	-t: Optional tag for Singularity definition file. Active only for -d option"
-	echo "  -s: Do not log into newly created sandbox.
+	echo "  -s: Do not log into newly created sandbox."
 	echo ""
 	echo "Environmental variables are specified in a file ../config/improve.env"
 }
