@@ -1,7 +1,14 @@
 #!/bin/bash
 
 BUILD_DATE=${1:-${BUILD_DATE}}
-export BUILD_DATE=${BUILD_DATE}
+# need a check for build date not set
+if [ -z "$BUILD_DATE" ] ; then
+	echo "BUILD_DATE not set"
+	exit
+else
+	echo "BUILD_DATE: $BUILD_DATE"
+	export BUILD_DATE=${BUILD_DATE}
+fi
 
 arr=( test_* )
 i=$(( ${#arr[@]} - 1 ))
