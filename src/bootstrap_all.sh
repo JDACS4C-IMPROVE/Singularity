@@ -1,11 +1,11 @@
 #!/bin/bash
-DATE=$(date +%Y%m%d)
-LOGDIR=/home/brettin/Singularity/tests
-
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 BASE_DIR=${SCRIPT_DIR}/..
 cd "${BASE_DIR}"
 
+DATE=$(date +%Y%m%d)
+LOGDIR=./tests
+mkdir -p ${LOGDIR}
 
 ./src/bootstrap.sh -s -n DeepTTC -d definitions/DeepTTC.def > ${LOGDIR}/build.DeepTTC.${DATE} 2>&1
 ./src/bootstrap.sh -s -n DrugGCN -d definitions/DrugGCN.def > ${LOGDIR}/build.DrugGCN.${DATE} 2>&1
