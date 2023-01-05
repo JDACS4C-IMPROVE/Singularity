@@ -35,7 +35,7 @@ for m in $(seq 0 $i) ; do
 
 	pids[$device]=$!
 
-	if [ $device -eq 7 ] ; then
+	if [ $device -eq $i ] ; then
 		for p in "${pids[@]}" ; do
 			wait $p
 		done	
