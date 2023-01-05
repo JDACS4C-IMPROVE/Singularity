@@ -32,7 +32,7 @@ From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-devel
 	cd /usr/local/
 	git clone https://github.com/JDACS4C-IMPROVE/GraphDRP.git
 	cd GraphDRP
-	git checkout develop
+	git checkout release_00
 	cp train.sh /usr/local/bin
 
 	mkdir /candle_data_dir

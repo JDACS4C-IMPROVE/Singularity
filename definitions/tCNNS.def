@@ -24,7 +24,7 @@ From: tensorflow/tensorflow:1.15.5-gpu
 	cd /usr/local/
 	git clone https://github.com/JDACS4C-IMPROVE/tCNNS-Project
         cd /usr/local/tCNNS-Project
-        git checkout develop
+        git checkout release_00
 
 	# this assumes a train.sh, infer.sh are committed to the <model> repository.
 	chmod a+x train.sh

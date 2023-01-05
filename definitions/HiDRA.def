@@ -36,6 +36,6 @@ From: tensorflow/tensorflow:2.4.2-gpu
 
     # setup model and executables
     cd /usr/local/
-    git clone -b develop https://github.com/JDACS4C-IMPROVE/HiDRA.git
+    git clone -b release_00 https://github.com/JDACS4C-IMPROVE/HiDRA.git
     chmod +x HiDRA/train.sh
     chmod +x HiDRA/test.sh
