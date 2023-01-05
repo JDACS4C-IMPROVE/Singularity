@@ -13,7 +13,7 @@ fi
 arr=( test_* )
 i=$(( ${#arr[@]} - 1 ))
 
-echo ${#arr[#]}
+echo ${#arr[@]}
 
 for m in $(seq 0 $i) ; do
 
