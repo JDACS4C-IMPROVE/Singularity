@@ -12,6 +12,7 @@ else
     cat  << EOF > config/improve.env
 export IHOME=${DEFAULT_IHOME}
 export IDD=${DEFAULT_IDD}
+export IMPROVE_DATA_DIR=${IDD}
 EOF
 
 mkdir -p $DEFAULT_IDD
