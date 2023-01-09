@@ -44,7 +44,8 @@ configure:
 	mkdir -p $(BUILD_DIR) $(TEST_DIR) $(DEPLOY_DIR)
 
 $(BUILD_DIR)/%.sif: $(DEF_DIR)/%.def
-	singularity build $(FAKE_ROOT) $@ $<
+	# singularity cache clean
+	singularity build --force $(FAKE_ROOT) $@ $<
 
 pull:
 	echo Pull all images from github
