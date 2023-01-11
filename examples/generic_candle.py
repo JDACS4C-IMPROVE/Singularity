@@ -5,7 +5,7 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # This should be set outside as a user environment variable
-os.environ['CANDLE_DATA_DIR'] = os.environ['HOME'] + '/improvedata_dir'
+os.environ['CANDLE_DATA_DIR'] = os.environ['HOME'] + '/improve_data_dir'
 
 # file_path becomes the default location of the example_default_model.txt file
 file_path = os.path.dirname(os.path.realpath(__file__))
@@ -39,7 +39,7 @@ class IBenchmark(candle.Benchmark):
 # method should return a python dictionary, which will be passed to the run()
 # method.
 def initialize_parameters():
-    preprocessor_bmk = IBenchmark(
+    i_bmk = IBenchmark(
         file_path,                           # this is the path to this file needed to find default_model.txt
         'example_default_model.txt',         # name of the default_model.txt file
         'keras',                             # framework, choice is keras or pytorch
@@ -47,7 +47,7 @@ def initialize_parameters():
         desc='IMPROVE Benchmark'
     )
 
-    gParameters = candle.finalize_parameters(preprocessor_bmk)  # returns the parameter dictionary built from 
+    gParameters = candle.finalize_parameters(i_bmk)  # returns the parameter dictionary built from 
                                                                 # default_model.txt and overwritten by any 
                                                                 # matching comand line parameters.
 
@@ -64,11 +64,9 @@ def run(params):
     # infer using model
     # etc
     print("running third party code")
-<<<<<<< HEAD
     print("returning training metrics")
     return {"val_loss": 0.101, "pcc": 0.923, "rmse": 0.036}    # metrics is used by the supervisor when running
                                                                # HPO workflows (and possible future non HPO workflows)
-=======
     
     # Dumping results into file, workflow requirement
     val_scores = { 'key' : 'val_loss' ,
@@ -83,7 +81,6 @@ def run(params):
     
     return metrics                                              # metrics is used by the supervisor when running
                                                                 # HPO workflows (and possible future non HPO workflows)
->>>>>>> 1c5785cf399b38280e8797aa16a2ba5c10863917
 
 def main():
     params = initialize_parameters()
