@@ -1,0 +1,31 @@
+Bootstrap: docker
+From: tensorflow/tensorflow:2.10.1-gpu
+
+%labels
+	MAINTAINER	Tom/Nick
+%setup
+    # will be installed and removed in post step
+    cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/
+
+%post
+    apt-get install wget
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
+    apt-get update
+    apt-get install -y git
+    
+    # install gpu fix and clean up
+    cd / 
+    chmod +x Singularity_gpu_fix.sh
+    ./Singularity_gpu_fix.sh
+    rm Singularity_gpu_fix.sh
+    
+    # create default internal candle_data_dir, map external candle_data_dir here
+    mkdir /candle_data_dir
+    
+    # install python modules and model prerequisites 
+    pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+
+    # setup model and executables
+    cd /usr/local/
+    git clone -b develop https://github.com/JDACS4C-IMPROVE/PathDSP
