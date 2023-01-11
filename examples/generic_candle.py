@@ -1,12 +1,16 @@
 import candle
 import os
 
+# Just because the tensorflow warnings are a bit verbose
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # This should be set outside as a user environment variable
-os.environ['CANDLE_DATA_DIR'] = '/homes/brettin/Singularity/workspace/data_dir/'
+os.environ['CANDLE_DATA_DIR'] = os.environ['HOME'] + '/improvedata_dir'
+
+# file_path becomes the default location of the example_default_model.txt file
 file_path = os.path.dirname(os.path.realpath(__file__))
 
-
+# Define any needed additional args to ensure all new args are command-line accessible.
 additional_definitions = [
     {'name':'new_keyword',
      'type':str,
@@ -15,9 +19,11 @@ additional_definitions = [
     }
 ]
 
+# Define args that are required.
 required = None
 
 
+# Extend candle.Benchmark to configure the args
 class IBenchmark(candle.Benchmark):
 
     def set_locals(self):
@@ -25,16 +31,19 @@ class IBenchmark(candle.Benchmark):
             self.required = set(required)
         if additional_definitions is not None:
             self.additional_definitions = additional_definitions
-        if supported_definitions is not None:
-            self.supported_definitions = supported_definitions
 
 
+# In the initialize_parameters() method, we will instantiate the base
+# class, and finally build an argument parser to recognize your customized
+# parameters in addition to the default parameters.The initialize_parameters()
+# method should return a python dictionary, which will be passed to the run()
+# method.
 def initialize_parameters():
     preprocessor_bmk = IBenchmark(
         file_path,                           # this is the path to this file needed to find default_model.txt
-        'mymodel_default_model.txt',         # name of the default_model.txt file
+        'example_default_model.txt',         # name of the default_model.txt file
         'keras',                             # framework, choice is keras or pytorch
-        prog='mymodel_baseline',             # basename of the model
+        prog='example_baseline',             # basename of the model
         desc='IMPROVE Benchmark'
     )
 
@@ -55,6 +64,11 @@ def run(params):
     # infer using model
     # etc
     print("running third party code")
+<<<<<<< HEAD
+    print("returning training metrics")
+    return {"val_loss": 0.101, "pcc": 0.923, "rmse": 0.036}    # metrics is used by the supervisor when running
+                                                               # HPO workflows (and possible future non HPO workflows)
+=======
     
     # Dumping results into file, workflow requirement
     val_scores = { 'key' : 'val_loss' ,
@@ -69,17 +83,13 @@ def run(params):
     
     return metrics                                              # metrics is used by the supervisor when running
                                                                 # HPO workflows (and possible future non HPO workflows)
+>>>>>>> 1c5785cf399b38280e8797aa16a2ba5c10863917
 
 def main():
     params = initialize_parameters()
-    run(params)
+    scores=run(params)
 
 
 if __name__ == "__main__":
     main()
-    if K.backend() == "tensorflow":
-        K.clear_session()
-
-    
-    
 
