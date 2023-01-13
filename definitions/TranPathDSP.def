@@ -13,6 +13,7 @@ From: tensorflow/tensorflow:2.9.3-gpu
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
     apt-get update
     apt-get install -y git
+    apt-get install emacs24-nox
     
     # install gpu fix and clean up
     cd / 
@@ -31,13 +32,13 @@ From: tensorflow/tensorflow:2.9.3-gpu
 
     # setup model and executables
     cd /usr/local/
-    git clone -b develop https://github.com/JDACS4C-IMPROVE/TranPathDSP
+    git clone -b develop git@github.com:JDACS4C-IMPROVE/TranPathDSP
     cd TranPathDSP
-    mkdir script
-    cp script.zip script
-    cd script
-    unzip script.zip
-    cd ..
+    #mkdir script
+    #cp script.zip script
+    #cd script
+    #unzip script.zip
+    #cd ..
     unzip input_data.zip
     unzip Tumor.GDSC.PretrainedModel.zip
     mv PretrainedModel Tumor.GDSC.PretrainedModel
