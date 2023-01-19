@@ -1,2 +1,2 @@
 [global]
-model_name="Example"
+model_name="example"

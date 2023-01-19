@@ -4,6 +4,7 @@
 - <model>_default_model.txt
 
 Please follow the above conventions for naming files, all lowercase filenames.
+`model_name` is a required keyword for all models.
 
 This would enable the model a user to run `python example_baseline_keras2.py`
 
