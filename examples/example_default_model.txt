@@ -1,2 +1,6 @@
 [global]
+# the only absolutely required parameter
 model_name="example"
+
+# demonstrating how a list is handled
+dense=[1000, 750, 500]
