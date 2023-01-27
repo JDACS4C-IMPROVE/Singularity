@@ -72,7 +72,11 @@ def run(params):
 def main():
     params = initialize_parameters()
     scores = run(params)
+    print(params['data_dir'])
 
+    # demonstrating a list
+    for i, value in enumerate(params['dense']):
+        print("dense layer {} has {} nodes".format(i,value))
 
 if __name__ == "__main__":
     main()
