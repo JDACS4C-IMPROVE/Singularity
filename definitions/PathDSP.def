@@ -19,7 +19,9 @@ From: tensorflow/tensorflow:2.10.1-gpu
     chmod +x Singularity_gpu_fix.sh
     ./Singularity_gpu_fix.sh
     rm Singularity_gpu_fix.sh
-    
+
+    python3 -m pip install torch_geometric
+
     # create default internal candle_data_dir, map external candle_data_dir here
     mkdir /candle_data_dir
     
@@ -29,3 +31,5 @@ From: tensorflow/tensorflow:2.10.1-gpu
     # setup model and executables
     cd /usr/local/
     git clone -b develop https://github.com/JDACS4C-IMPROVE/PathDSP
+
+    
