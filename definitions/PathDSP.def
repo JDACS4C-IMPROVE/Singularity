@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: tensorflow/tensorflow:2.10.1-gpu
+From: pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
 
 %labels
 	MAINTAINER	Tom/Nick
@@ -8,11 +8,13 @@ From: tensorflow/tensorflow:2.10.1-gpu
     cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/
 
 %post
-    apt-get install wget
+    apt-get update
+    apt-get install -y wget
+    apt-get install -y gnupg
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
-    apt-get update
     apt-get install -y git
+    apt-get install -y emacs
 
     # install gpu fix and clean up
     cd /
@@ -20,13 +22,15 @@ From: tensorflow/tensorflow:2.10.1-gpu
     ./Singularity_gpu_fix.sh
     rm Singularity_gpu_fix.sh
 
-    python3 -m pip install torch_geometric
+    pip install --upgrade pip
+    #pip install pytorch
 
     # create default internal candle_data_dir, map external candle_data_dir here
     mkdir /candle_data_dir
 
     # install python modules and model prerequisites
     pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+    pip install shap
 
     # setup model and executables
     cd /usr/local/
