@@ -24,11 +24,10 @@ From: pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
     rm Singularity_gpu_fix.sh
 
     pip install --upgrade pip
-    #export PYTHONPATH=/usr/local/NIHGCN
-    #export CANDLE_DATA_DIR=/usr/local/NIHGCN/tmp
+    pip install pytorch_lightning
 
     # create default internal candle_data_dir, map external candle_data_dir here
-    mkdir /candle_data_dir
+    mkdir -p /candle_data_dir
 
     # install python modules and model prerequisites
     pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
