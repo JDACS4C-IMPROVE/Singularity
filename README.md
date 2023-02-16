@@ -21,7 +21,7 @@ cd Singularity
 ./setup
 ```
 
-3. To customize your setpup modify the config in *config/improve.env* to change the workspace and data directory.
+3. To customize your setup modify the config in *config/improve.env* to change the workspace and data directory.
 
 ## Build and Deploy model images ##
 
