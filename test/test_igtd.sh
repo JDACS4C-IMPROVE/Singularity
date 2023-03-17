@@ -1,10 +1,15 @@
 #!/bin/bash
 
+# Load global config
+SCRIPT_DIR=$(dirname "$0")
+CONFIG_DIR=${SCRIPT_DIR}/../config/
+source ${CONFIG_DIR}/improve.env
+
 GPUID="${1:-"6"}"
 BUILD_DATE=${BUILD_DATE:-"20221210"}
 
-IHOME=/home/brettin/Singularity
-IMPROVE_DATA_DIR=/home/brettin/improve_data_dir
+# IHOME=/home/brettin/Singularity
+# IMPROVE_DATA_DIR=/home/brettin/improve_data_dir
 
 CONTAINER="IGTD-IGTD:0.0.1-$BUILD_DATE"
 MODEL_FILE="Default_Params.txt"
