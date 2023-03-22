@@ -2,11 +2,11 @@
 
 
 
-# Setup 
+# Setup
+CONTAINER="${1:-""}" 
 GPUID="${2:-"3"}"
 IHOME=
-IMPROVE_DATA_DIR=
-CONTAINER=MODEL_NAME="${1:-""}"
+IMPROVE_DATA_DIR="${3:-"/tmp/"}"
 MODEL_BASE_DIR=/usr/local/
 MODEL_FILE_CONTAINER=`singularity exec ${CONTAINER}  `find ${MODEL_BASE_DIR} -name "*_default_model.txt"`
 MODEL_FILE=
