@@ -8,21 +8,43 @@ GPUID="${2:-"3"}"
 IHOME=
 IMPROVE_DATA_DIR="${3:-"/tmp/"}"
 MODEL_BASE_DIR=/usr/local/
-MODEL_FILE_CONTAINER=`singularity exec ${CONTAINER}  `find ${MODEL_BASE_DIR} -name "*_default_model.txt"`
+MODEL_FILE_CONTAINER=`singularity exec ${CONTAINER} find ${MODEL_BASE_DIR} -name "*_default_model.txt"`
 MODEL_FILE=
+ALL=0 
 
+if ! [ -f ${CONTAINER} ]
+then
+	echo ERROR: no such file ${CONTAINER}
+	echo ERROR: ${MODEL_FILE_CONTAINER}
+fi
+
+# echo Found ${MODEL_FILE_CONTAINER} ${CONTAINER}
+# echo singularity exec ${CONTAINER}  "find ${MODEL_BASE_DIR} -name \"*_default_model.txt\""
+
+if [ ${MODEL_FILE_CONTAINER}  ]
+then 
+	echo CONFIG: ${MODEL_FILE_CONTAINER}
+else
+	echo ERROR Could not find *_default_model.txt	
+	echo CONFIG: ${MODEL_FILE_CONTAINER}
+fi
+	
+	
 singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} cp $MODEL_FILE_CONTAINER /candle_data_dir
 
-echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
-singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir
+if [ ${ALL} ]
+then	
+	echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
+	singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir
+
+	echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
+	singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir ${MODEL_FILE}
+
+	echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
+	singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir --config_file ${MODEL_FILE}
+fi
 
 echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
-singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir ${MODEL_FILE}
-
-echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
-singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir --config_file ${MODEL_FILE}
-
-echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
-singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir ${MODEL_FILE} --experiment_id EXP001 --run_id RUN001
+singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir ${MODEL_FILE} --experiment_id EXP001 --run_id RUN001 --epochs 1
 
 echo "$(date +%Y-%m-%d" "%H:%M:%S) DONE"
