@@ -33,7 +33,11 @@ fi
 singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} cp $MODEL_FILE_CONTAINER /candle_data_dir
 
 if [ ${ALL} ]
-then	
+then
+
+	echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
+	singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} preprocess.sh $GPUID /candle_data_dir 
+
 	echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
 	singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir --epochs 1
 
