@@ -35,13 +35,13 @@ singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} cp 
 if [ ${ALL} ]
 then	
 	echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
-	singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir
+	singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir --epochs 1
 
 	echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
-	singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir ${MODEL_FILE}
+	singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir ${MODEL_FILE} --epochs 1
 
 	echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
-	singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir --config_file ${MODEL_FILE}
+	singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir --config_file ${MODEL_FILE} --epochs 1
 fi
 
 echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
