@@ -19,9 +19,12 @@ Tests for presence of required scripts and config.
 
 ## Test candle
 
+
+Tests for run() and initialize_parameters(). Imports \*\_baseline\_\*.py from *$MODEL_DIR*
 Command: `pytest`
 
 Options:
+- -s Test module, e.g. test_candle.py
 
 Environment:
 - *MODEL_DIR*: Path to top level model directory
@@ -53,5 +56,4 @@ Singularity/test/test_candle.py::TestCandle::test_initialize_parameters_type
 =========================================================== 6 passed, 2 warnings in 1.88s ===========================================================
 ```
 
-Tests for run() and initialize_parameters(). Imports \*\_baseline\_\*.py from *$MODEL_DIR*
 
