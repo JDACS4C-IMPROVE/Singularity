@@ -5,17 +5,25 @@
 # Setup
 CONTAINER="${1:-""}" 
 GPUID="${2:-"3"}"
-IHOME=
 IMPROVE_DATA_DIR="${3:-"/tmp/"}"
+IHOME=
+
+# Container
 MODEL_BASE_DIR=/usr/local/
 MODEL_FILE_CONTAINER=`singularity exec ${CONTAINER} find ${MODEL_BASE_DIR} -name "*_default_model.txt"`
 MODEL_FILE=
+
 ALL=0 
 
 if ! [ -f ${CONTAINER} ]
 then
 	echo ERROR: no such file ${CONTAINER}
 	echo ERROR: ${MODEL_FILE_CONTAINER}
+fi
+
+if ! [ -d ${IMPROVE_DATA_DIR} ]
+then
+	echo ERROR: directory ${IMPROVE_DATA_DIR} does not exists
 fi
 
 # echo Found ${MODEL_FILE_CONTAINER} ${CONTAINER}
@@ -34,7 +42,7 @@ singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} cp 
 
 if [ ${ALL} ]
 then
-
+	exit
 	echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
 	singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} preprocess.sh $GPUID /candle_data_dir 
 
