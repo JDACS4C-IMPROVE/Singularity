@@ -26,10 +26,9 @@ From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-devel
 	python3 -m pip install torch_scatter
 	python3 -m pip install torch-cluster
 	python3 -m pip install pubchempy
+	python3 -m pip install pyg h5py==3.1 rdkit networkx pyarrow==10.0 
 	
-	
-	python3 -m pip install pytorch torchvision cudatoolkit=10.2 pyg matplotlib h5py=3.1 bioconda pubchempy
-	python3 -m pip rdkit networkx pyarrow=10.0 
+	# pip3 install --index-url pypi.anaconda.org/ cudatoolkit==10.2
 	
 	# python3 -m pip install torch-spline-conv
 	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
