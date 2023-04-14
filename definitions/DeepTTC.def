@@ -16,7 +16,7 @@ From: pytorch/pytorch
 	mkdir -p /candle_data_dir
 
 	apt-get install wget -y
-	cd /
+	cd /usr/local
 	git clone https://github.com/JDACS4C-IMPROVE/DeepTTC.git
 	cd DeepTTC
 	git checkout develop
