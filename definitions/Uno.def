@@ -26,8 +26,25 @@ From: tensorflow/tensorflow:2.4.2-gpu
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb
     dpkg -i cuda-keyring_1.0-1_all.deb
     apt-get update
-    apt-get install -y git
+    apt-get install -y git ed
+    python -m pip install numba scikit-learn
+
     mkdir -p $SINGULARITY_ROOTFS/IMPROVE /candle_data_dir
     cd $SINGULARITY_ROOTFS/IMPROVE
     chmod a+x Singularity_gpu_fix.sh
     ./Singularity_gpu_fix.sh
+    cd /usr/local
+    git clone https://github.com/ECP-CANDLE/candle_lib.git
+    cd candle_lib
+    git checkout develop
+    python -m pip install .
+    cd -
+    git clone https://github.com/ECP-CANDLE/Benchmarks.git
+    cd Benchmarks
+    git checkout issue-119
+    cp /usr/local/Benchmarks/Pilot1/Uno/train.sh /usr/local/bin
+
+
+# Local Variables:
+# mode: sh;
+# End:
