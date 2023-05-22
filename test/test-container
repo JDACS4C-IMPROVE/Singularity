@@ -45,6 +45,11 @@ then
 fi
 
 echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
-singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir ${MODEL_FILE} --experiment_id EXP001 --run_id RUN001 --epochs 1
+if [ ${} ]
+then
+	singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir ${CONTAINER} train.sh $GPUID /candle_data_dir ${MODEL_FILE} --experiment_id EXP001 --run_id RUN001 --epochs 1
+else
+	echo ERROR: Can\'t run tests. Missing config file
+fi
 
 echo "$(date +%Y-%m-%d" "%H:%M:%S) DONE"
