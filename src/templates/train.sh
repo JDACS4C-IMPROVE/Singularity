@@ -10,8 +10,8 @@
 
 ### Path and Name to your CANDLEized model's main Python script###
 
-# CANDLE_MODEL=/usr/local/GraphDRP/graphdrp_baseline_pytorch.py
-CANDLE_MODEL=graphdrp_baseline_pytorch.py
+# e.g. CANDLE_MODEL=graphdrp_baseline_pytorch.py
+CANDLE_MODEL= 
 
 # Set env if CANDLE_MODEL is not in same directory as this script
 IMPROVE_MODEL_DIR=${IMPROVE_MODEL_DIR:-$( dirname -- "$0" )}
