@@ -7,6 +7,9 @@ From: pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
     # will be installed and removed in post step
     cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/
 
+%environment
+    export IMPROVE_MODEL_DIR=/usr/local/NIHGCN
+
 %post
     apt-get update
     apt-get install -y wget
