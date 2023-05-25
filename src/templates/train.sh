@@ -8,8 +8,21 @@
 # arg 2 CANDLE_DATA_DIR
 # arg 3 CANDLE_CONFIG
 
-### Path to your CANDLEized model's main Python script###
-CANDLE_MODEL=#/usr/local/Paccmann_MCA/train.py#
+### Path and Name to your CANDLEized model's main Python script###
+
+# CANDLE_MODEL=/usr/local/GraphDRP/graphdrp_baseline_pytorch.py
+CANDLE_MODEL=graphdrp_baseline_pytorch.py
+
+# Set env if CANDLE_MODEL is not in same directory as this script
+IMPROVE_MODEL_DIR=${IMPROVE_MODEL_DIR:-$( dirname -- "$0" )}
+
+# Combine path and name and check if executable exists
+CANDLE_MODEL=${IMPROVE_MODEL_DIR}/${CANDLE_MODEL}
+if [ ! -f ${CANDLE_MODEL} ] ; then
+	echo No such file ${CANDLE_MODEL}
+	exit 404
+fi
+
 
 if [ $# -lt 2 ] ; then
         echo "Illegalnumber of paramaters"
