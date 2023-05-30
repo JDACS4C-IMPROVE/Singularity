@@ -11,10 +11,10 @@ BUILD_DATE=${BUILD_DATE:-"20221210"}
 # IHOME=/home/brettin/Singularity
 # IMPROVE_DATA_DIR=/home/brettin/improve_data_dir
 
-CONTAINER="Paccmann_MCA-Paccmann_MCA:0.0.1-$BUILD_DATE"
-MODEL_FILE="paccmann_mca_params.txt"
+CONTAINER="tCNNS-tCNNS:0.0.1-$BUILD_DATE"
+MODEL_FILE="tcnns_default_model.txt"
 
-singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir $IHOME/sandboxes/${CONTAINER}/ cp /usr/local/Paccmann_MCA/$MODEL_FILE /candle_data_dir
+singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir $IHOME/sandboxes/${CONTAINER}/ cp /usr/local/tCNNS-Project/$MODEL_FILE /candle_data_dir
 
 echo "$(date +%Y-%m-%d" "%H:%M:%S) START" 
 singularity exec --nv --bind $IMPROVE_DATA_DIR:/candle_data_dir $IHOME/sandboxes/${CONTAINER}/ train.sh 3 /candle_data_dir

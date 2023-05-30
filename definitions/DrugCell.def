@@ -1,0 +1,41 @@
+Bootstrap: docker
+From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
+
+# pytorch/pytorch:1.10.0-cuda11.3-cudnn8-devel
+
+%labels
+	MANTAINER Tom Brettin, Austin Clyde, Andreas Wilke
+
+%environment 
+	export IMPROVE_MODEL_DIR=/usr/local/DrugCell/
+	
+%setup
+	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+
+%post
+	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
+	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
+	apt-get update
+
+	apt-get install wget -y
+	apt-get install git -y
+	apt-get install libxrender1 -y
+        apt-get install libxtst6 -y
+
+	# Standard section - setting up defaults
+	mkdir /candle_data_dir
+	
+	chmod +x Singularity_gpu_fix.sh
+        ./Singularity_gpu_fix.sh
+
+	cd /usr/local
+	
+	# Install model code
+	git clone https://github.com/JDACS4C-IMPROVE/DrugCell.git
+	cd DrugCell
+	git checkout develop
+	pip install -r REQUIREMENTS.txt
+	
+
+	chmod +x *.sh
+	cp *.sh /usr/local/bin
