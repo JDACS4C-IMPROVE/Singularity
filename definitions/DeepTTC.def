@@ -5,6 +5,8 @@ From: pytorch/pytorch
 	MANTAINER Oleksandr Narykov
 %setup
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+%environment
+	export IMPROVE_MODEL_DIR=/usr/local/DeepTTC
 %post
 	apt-get update
 	apt-get install -y git vim
