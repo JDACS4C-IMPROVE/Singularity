@@ -9,8 +9,10 @@ From: tensorflow/tensorflow:1.15.5-gpu
 %post
 
         apt-get install wget
-        apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys F60F4B3D7FA2AF80 
-        apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys A4B469963BF863CC 
+        #apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys F60F4B3D7FA2AF80 
+        #apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys A4B469963BF863CC 
+        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80 
+        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC 
 
 	apt-get update
 	apt-get -y install git

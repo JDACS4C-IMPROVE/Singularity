@@ -34,7 +34,7 @@ From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 	git clone https://github.com/JDACS4C-IMPROVE/DrugCell.git
 	cd DrugCell
 	git checkout develop
-	pip install -r REQUIREMENTS.txt
+	#pip install -r REQUIREMENTS.txt
 	
 
 	chmod +x *.sh
