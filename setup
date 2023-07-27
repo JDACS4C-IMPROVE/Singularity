@@ -1,7 +1,6 @@
 #!/bin/bash
 
 DEFAULT_IHOME=`pwd`
-DEFAULT_IDD=${DEFAULT_IHOME}/data
 
 if [ -f config/improve.env ] 
 then
@@ -11,11 +10,13 @@ else
     echo Creating config file
     cat  << EOF > config/improve.env
 export IHOME=${DEFAULT_IHOME}
-export IDD=${DEFAULT_IDD}
+export IDD=\${IHOME}/data
 export IMPROVE_DATA_DIR=\${IDD}
 EOF
 
-mkdir -p $DEFAULT_IDD
+source config/improve.env
+
+mkdir -p $IMPROVE_DATA_DIR
 echo Setting IHOME to current directory. Please modify config/improve.env to change locations.
 
 fi
