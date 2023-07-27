@@ -4,3 +4,4 @@ sandboxes/*
 skunk/*
 tests/*
 *.sif
+config/improve.env
