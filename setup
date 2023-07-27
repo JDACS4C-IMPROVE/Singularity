@@ -5,7 +5,7 @@ DEFAULT_IDD=${DEFAULT_IHOME}/data
 
 if [ -f config/improve.env ] 
 then
-    echo Config exists, please remove improve.env in config first.
+    echo Config exists, please remove config/improve.env
     exit 
 else
     echo Creating config file
