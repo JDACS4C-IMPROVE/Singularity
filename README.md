@@ -44,11 +44,15 @@ Every container has a standardized scriptfor training the model called *train.sh
 singularity exec --nv --bind ${IMPROVE_DATA_DIR}:/candle_data_dir ${CONTAINER} train.sh ${GPUID} 
 
 ```
-please note, --nv is important to enable Nvidia support if your code requires GPU & cuda.
+
 With:  
 - **IMPROVE_DATA_DIR** path to data directory
 - **CONTAINER** *path/and/name* of image file
 - **GPUID** 
+
+Singularity options:
+- `--nv` enable Nvidia support
+- `--bind` make the directory available inside container 
 
 For more examples see the [documentation](http://https://jdacs4c-improve.github.io/docs/)
 
