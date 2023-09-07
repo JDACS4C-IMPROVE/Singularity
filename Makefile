@@ -13,6 +13,7 @@
 
 # defined in case we want to omit fakeroot
 FAKE_ROOT="--fakeroot"
+DISABLE_CACHE="--disable-cache"
 
 # Pass variables on the command line to overwrite the defaults e.g. make PREFIX=/homes/joe
 PREFIX    := .
@@ -44,8 +45,8 @@ configure:
 	mkdir -p $(BUILD_DIR) $(TEST_DIR) $(DEPLOY_DIR)
 
 $(BUILD_DIR)/%.sif: $(DEF_DIR)/%.def
-	# singularity cache clean
-	singularity build --force $(FAKE_ROOT) $@ $<
+	singularity build $(DISABLE_CACHE) $(FAKE_ROOT) $@ $<
+
 
 pull:
 	echo Pull all images from github
@@ -54,7 +55,8 @@ test: $(TEST_LOGS)
 
 $(TEST_DIR)/%.log: $(BUILD_DIR)/%.sif
 	log=`basename $@` ;\
-	    singularity exec --bind $(TEST_DIR):/candle_data_dir $< sh -c "echo \`date\` > /candle_data_dir/$${log}"
+	    singularity exec --bind $(TEST_DIR):/candle_data_dir $< sh -c "echo \`date\` > /candle_data_dir/$${log}" ;\
+	    sh test/test-container $? '' $(TEST_DIR) 2> $(TEST_DIR)/$${log}.error 1> $(TEST_DIR)/$${log}.tests
 	
 
 deploy: $(SIF_FILES)
