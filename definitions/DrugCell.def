@@ -1,43 +1,53 @@
 Bootstrap: docker
-From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
-
-# pytorch/pytorch:1.10.0-cuda11.3-cudnn8-devel
+From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-runtime
 
 %labels
-	MANTAINER Tom Brettin, Austin Clyde
+	MANTAINER Rohan Gnanaolivu
 
 %setup
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+	# add local url of this repository for testing
+
+
+%environment
+	PATH=$PATH:/usr/local/DrugCell
+	MODEL_DIR=/usr/local/DrugCell
+	CANDLE_DATA_DIR=/candle_data_dir
 
 %post
-	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
-	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
-	apt-get update
-
+	apt-get update -y
 	apt-get install wget -y
+	apt-get install build-essential -y
 	apt-get install git -y
-	apt-get install libxrender1 -y
-        apt-get install libxtst6 -y
+	apt-get install vim -y
+	apt-get install subversion -y
 
+	# install gpu fix and clean up
+	cd /
 	chmod +x Singularity_gpu_fix.sh
         ./Singularity_gpu_fix.sh
+	rm Singularity_gpu_fix.sh
 
-	cd /usr/local
-	git clone https://github.com/idekerlab/DrugCell.git
-	cd DrugCell
-	#git checkout develop
+        # these three need to be compiled and linked to the cuda libs.
+        # at the moment, what works for me is to build these in a
+        # singularity shell in a sandbox with the --nv flag to singularity set.
+
+
+	# create default internal candle_data_dir, map external candle_data_dir here
 	mkdir /candle_data_dir
 
-	#/opt/conda/bin/conda create -y --prefix /usr/local/conda_envs/Paccmann_MCA python=3.7
-	#/opt/conda/bin/conda install -y -c rdkit -p /usr/local/conda_envs/Paccmann_MCA rdkit=2019.03.1
-	#/opt/conda/bin/conda install -y -p /usr/local/conda_envs/Paccmann_MCA cudatoolkit=10.0.130
-	#/opt/conda/bin/conda install -y -p /usr/local/conda_envs/Paccmann_MCA pytorch=1.1.0
+	#install python modules and model prerequites
+	pip install --upgrade pip
+	python3 -m pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 torchmetrics==0.11.1 --extra-index-url https://download.pytorch.org/whl/cu113
+	python3 -m pip install networkx
+	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
 
 
-	# Pip installations into conda env /usr/local/conda_envs/Paccmann_MCA
-	#/opt/conda/bin/conda install -y -p /usr/local/conda_envs/Paccmann_MCA pip
-	#/usr/local/conda_envs/Paccmann_MCA/bin/pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
-	#/usr/local/conda_envs/Paccmann_MCA/bin/pip install git+https://github.com/PaccMann/paccmann_datasets@0.0.3
+	cd /usr/local
+	git clone -b develop https://github.com/JDACS4C-IMPROVE/DrugCell.git
+	cd DrugCell
+	python3 -m pip install -r requirements.txt
 
-	#chmod +x train.sh
-	#cp train.sh /usr/local/bin
+	chmod a+x *.sh
+	chmod a+x *.py
+	chmod -R 777 *.py

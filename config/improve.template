@@ -1,10 +1,5 @@
 # Change this to your workspace
-#IHOME="${IHOME:-/software/improve}"
-IHOME="${HOME}"
 
-export IHOME=${IHOME}
-# export CANDLE_MODEL=/usr/local/
-
-# Change this to a gpu on your system
-export CUDA_VISIBLE_DEVICES=0
-export CANDLE_DATA_DIR=${IHOME}/data_dir
+export IHOME=${HOME/Singularity}
+export IDD=${IHOME}/data_dir
+export IMPROVE_DATA_DIR=${IDD}

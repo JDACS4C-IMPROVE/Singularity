@@ -47,6 +47,7 @@ configure:
 $(BUILD_DIR)/%.sif: $(DEF_DIR)/%.def
 	singularity build $(DISABLE_CACHE) $(FAKE_ROOT) $@ $<
 
+
 pull:
 	echo Pull all images from github
 

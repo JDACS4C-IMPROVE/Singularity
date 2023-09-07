@@ -7,6 +7,9 @@ From: pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
     # will be installed and removed in post step
     cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/
 
+%environment
+    export IMPROVE_MODEL_DIR=/usr/local/NIHGCN
+
 %post
     apt-get update
     apt-get install -y wget
@@ -33,9 +36,12 @@ From: pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
     pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
 
     # setup model and executables
-    cd /usr/local/
+    cd /usr/local
     git clone -b develop https://github.com/JDACS4C-IMPROVE/NIHGCN.git
     cd NIHGCN
     pip install -r requirements.txt
+
+    cp *.sh /usr/local/bin
+	chmod a+x /usr/local/bin/*.sh
 
     

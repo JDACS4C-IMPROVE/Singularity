@@ -1,0 +1,23 @@
+#!/bin/bash
+
+DEFAULT_IHOME=`pwd`
+
+if [ -f config/improve.env ] 
+then
+    echo Config exists, please remove config/improve.env
+    exit 
+else
+    echo Creating config file
+    cat  << EOF > config/improve.env
+export IHOME=${DEFAULT_IHOME}
+export IDD=\${IHOME}/data
+export IMPROVE_DATA_DIR=\${IDD}
+EOF
+
+source config/improve.env
+
+mkdir -p $IMPROVE_DATA_DIR
+echo Setting IHOME to current directory. Please modify config/improve.env to change locations.
+
+fi
+

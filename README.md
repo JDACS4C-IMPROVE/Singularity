@@ -8,12 +8,20 @@ Each curated community model is deployed in a Singularity container that is exte
 
 ## Setup ##
 
-Clone the repository into a location of your choice:
+1. Clone the repository into a location of your choice:
 
 ```bash
 git clone https://github.com/JDACS4C-IMPROVE/Singularity.git
-cd Singularity
 ```
+
+2. Create your config file:
+
+```bash
+cd Singularity
+./setup
+```
+
+3. To customize your setup modify the config in *config/improve.env* to change the workspace and data directory.
 
 ## Build and Deploy model images ##
 
@@ -41,6 +49,10 @@ With:
 - **IMPROVE_DATA_DIR** path to data directory
 - **CONTAINER** *path/and/name* of image file
 - **GPUID** 
+
+Singularity options:
+- `--nv` enable Nvidia support
+- `--bind` make the directory available inside container 
 
 For more examples see the [documentation](http://https://jdacs4c-improve.github.io/docs/)
 
