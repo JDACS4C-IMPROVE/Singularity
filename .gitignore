@@ -5,3 +5,4 @@ skunk/*
 tests/*
 *.sif
 config/improve.env
+*__pycache__
