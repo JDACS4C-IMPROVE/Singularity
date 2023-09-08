@@ -56,7 +56,7 @@ test: $(TEST_LOGS)
 $(TEST_DIR)/%.log: $(BUILD_DIR)/%.sif
 	log=`basename $@` ;\
 	    singularity exec --bind $(TEST_DIR):/candle_data_dir $< sh -c "echo \`date\` > /candle_data_dir/$${log}" ;\
-	    sh test/test-container $? '' $(TEST_DIR) 2> $(TEST_DIR)/$${log}.error 1> $(TEST_DIR)/$${log}.tests
+	    sh test/test_container.sh $? '' $(TEST_DIR) 2> $(TEST_DIR)/$${log}.error 1> $(TEST_DIR)/$${log}.tests
 	
 
 deploy: $(SIF_FILES)

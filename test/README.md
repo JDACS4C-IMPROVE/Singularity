@@ -1,7 +1,7 @@
 # Testing scripts
 
-- test-model
-- test-container
+- test_model.sh
+- test_container.sh
 - test_candle.py
 
 ## Test model interface scripts
