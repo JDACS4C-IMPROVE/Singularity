@@ -6,6 +6,8 @@
 
 ## Test model interface scripts
 
+This tests for preprocess.sh train.sh infer.sh, baseline file, config file and runs the model for one epoch. No container needed.
+
 Command: `test-model $MODEL_NAME $MODEL_DIR $DATA_DIR`
 
 Options:
@@ -14,6 +16,11 @@ Options:
 - DATA_DIR: Path to data dir (candle dir), default `/tmp/`
 
 Tests for presence of required scripts and config.
+
+Example: `./test-model graphdrp /homes/jain/IMPROVE/GraphDRP /homes/jain/IMPROVE/GraphDRP/`
+
+NOTE: Build your container only after the above `test-model` script passes. 
+
 
 ## Test container setup
 
