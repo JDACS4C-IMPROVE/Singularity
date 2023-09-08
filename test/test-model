@@ -1,75 +1,58 @@
 #!/bin/bash
 
-MODEL_NAME="${1:-""}"
+MODEL_NAME="${1:-}"
 MODEL_DIR="${2:-"./"}" # keras2 or pytorch
-DATA_DIR="{3:-"/tmp"}"
+DATA_DIR="${3:-"/tmp"}"
 
-echo Test start `date`
+echo "Test start $(date)"
 
-
-# check python version
+# Check python version
 PYTHON=python
-if [ `which ${PYTHON}`=='' ]
-    then
-        if [ `which python3`=='' ]
-            then
-                echo ERROR: no python version found
-            else
-                PYTHON=python3
-            fi
+if [ -z "$PYTHON" ]; then
+    if ! command -v python3 &> /dev/null; then
+        echo "ERROR: no python version found"
+        exit 1
+    else
+        PYTHON=python3
     fi
-
-date
-
-#IHOME=
-#IMPROVE_DATA_DIR=
-
-
-
-# check if files are present
-CURRENT=`pwd`
-cd $MODEL_DIR
-
-
-for m in preprocess.sh train.sh infer.sh 
-    do 
-        if [ -f $m ] 
-        then
-            echo Test exists ${m}: passed
-        else
-            echo Test exists ${m}: failed
-        fi  
-    done
-
-if [ $MODEL_NAME == '' ] 
-then
-    echo Testing ${MODEL_NAME}
-else
-   
-    BASELINE=`find . -name "${MODEL_NAME}_baseline_*.py"`
-    CONFIG=`find . -name "*_default_model.txt"`
-
-    if [ -f $BASELINE ]
-        then 
-            echo Test found baseline file: passed
-        else
-            echo Test found baseline file: failed
-        fi  
-
-     if [ -f $CONFIG ]
-        then 
-            echo Test found config file: passed
-        else
-            echo Test found config file: failed
-        fi 
-
-    results=`python3 ${BASELINE} --epochs 1`
-    if  [ $? == 0 ] 
-        then 
-            echo Test is executable: passed
-        else
-            echo Test is executable: failed
-        fi
 fi
 
-echo Test done  `date`
+# Check if files are present
+CURRENT=$(pwd)
+cd "$MODEL_DIR"
+
+for m in preprocess.sh train.sh infer.sh; do
+    if [ -f "$m" ]; then
+        echo "Test exists ${m}: passed"
+    else
+        echo "Test exists ${m}: failed"
+    fi
+done
+
+if [ -z "$MODEL_NAME" ]; then
+    echo "Testing ${MODEL_NAME}"
+else
+    BASELINE=$(find . -name "${MODEL_NAME}_baseline_*.py")
+    CONFIG=$(find . -name "*_default_model.txt")
+
+    if [ -f "$BASELINE" ]; then
+        echo "Test found baseline file: passed"
+    else
+        echo "Test found baseline file: failed"
+    fi
+
+    if [ -f "$CONFIG" ]; then
+        echo "Test found config file: passed"
+    else
+        echo "Test found config file: failed"
+    fi
+
+    results="$($PYTHON "$BASELINE" --epochs 1)"
+    if [ $? -eq 0 ]; then
+        echo "Test is executable: passed"
+    else
+        echo "Test is executable: failed"
+    fi
+fi
+
+echo "Test done $(date)"
