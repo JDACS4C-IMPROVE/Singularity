@@ -17,9 +17,9 @@ Release:
 - URL:
 
 New documentation guides for:
-Setting up the initial environment for building support model container images and executing HPO workflow
-Instructions for making container images for supported models
-Instructions for setting up HPO for a supported model
+- Setting up the initial environment for building support model container images and executing HPO workflow
+- Instructions for making container images for supported models
+- Instructions for setting up HPO for a supported model
 
 ## Build and test framework
 
