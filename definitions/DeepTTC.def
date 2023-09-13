@@ -22,7 +22,7 @@ From: pytorch/pytorch
 	git clone https://github.com/JDACS4C-IMPROVE/DeepTTC.git
 	cd DeepTTC
 	git checkout develop
-	/opt/conda/bin/pip install -y pandas<2.0.0
+	/opt/conda/bin/pip install pandas<2.0.0
 	/opt/conda/bin/conda install -y scikit-learn openpyxl
 	/opt/conda/bin/conda install -y -c conda-forge lifelines prettytable  
 	/opt/conda/bin/conda install -y -c bioconda pubchempy
