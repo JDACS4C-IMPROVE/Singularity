@@ -30,7 +30,7 @@ From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 	cd /usr/local
 	git clone https://github.com/JDACS4C-IMPROVE/Paccmann_MCA
 	cd Paccmann_MCA
-	git checkout develop
+	git checkout improve
 	mkdir /candle_data_dir
 
 	/opt/conda/bin/conda create -y --prefix /usr/local/conda_envs/Paccmann_MCA python=3.7
