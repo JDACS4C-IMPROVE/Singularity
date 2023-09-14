@@ -16,3 +16,8 @@ From: tensorflow/tensorflow:latest-gpu
 	which python
 
 	mkdir -p /candle_data_dir
+
+	# model respository
+	cd /usr/local
+	git clone https://github.com/JDACS4C-IMPROVE/Test
+	cp Test/train.sh /usr/local/bin/
