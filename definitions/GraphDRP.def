@@ -4,6 +4,10 @@ From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-devel
 %labels
 	MANTAINER Tom Brettin, Andreas Wilke
 
+%arguments
+    BRANCH=develop
+    TAG=develop
+
 %environment
     export IMPROVE_MODEL_DIR=/usr/local/GraphDRP
 
@@ -19,6 +23,12 @@ From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-devel
 
 	chmod +x Singularity_gpu_fix.sh
         ./Singularity_gpu_fix.sh
+
+	mkdir /candle_data_dir
+
+	########################
+	# Model specific section
+	########################
 
 	python3 -m pip install torch_geometric
 	
@@ -40,7 +50,7 @@ From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-devel
 	cd /usr/local/
 	git clone https://github.com/JDACS4C-IMPROVE/GraphDRP.git
 	cd GraphDRP
-	git checkout develop
+	git checkout {{TAG}}
 	
 	cp train.sh /usr/local/bin
 	cp preprocess.sh /usr/local/bin
@@ -48,6 +58,3 @@ From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-devel
 	cp *.sh /usr/local/bin
 	chmod a+x /usr/local/bin/*.sh
 
-	mkdir /candle_data_dir
-
-	# python ./graphdrp_baseline_pytorch.py --config_file ./graphdrp_default_model.txt
