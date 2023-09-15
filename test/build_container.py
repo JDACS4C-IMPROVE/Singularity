@@ -2,10 +2,9 @@ import os
 import subprocess
 import sys
 import argparse
-import os
 import subprocess
 
-def build_singularity_container(model_name, definitions_file, deployment_dir_file, options):
+def build_singularity_container(model_name, definitions_file, deployment_dir_file, options="--fakeroot --disable-cache "):
     """
     Build singularity container deployment_dir_file from model_name and definitions_file
     """
