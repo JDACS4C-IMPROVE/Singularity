@@ -29,5 +29,7 @@ From: pytorch/pytorch
 
 	# candle does not import with scikit-learn 1.2.0
 	/opt/conda/bin/pip install scikit-learn==1.1.3
+	# DeepTTC does not work with pandas 2.0.0
+	/opt/conda/bin/pip install pandas<2.0.0
 
 	cp *.sh /usr/local/bin

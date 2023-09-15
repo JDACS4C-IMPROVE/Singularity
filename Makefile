@@ -62,6 +62,7 @@ debug:
 	echo "TEST_DIR: "$(TEST_DIR)
 	echo "DEF_DIR: "$(DEF_DIR)
 	echo "DEPLOY_DIR: "$(DEPLOY_DIR)
+	echo "DEF_FILES: "$(DEF_FILES)
 
 
 configure:
