@@ -4,10 +4,10 @@ import sys
 import test_container
 import argparse
 
-# this test runs all images in the test/images folder
-# a list of images can be specified to override the default of all images in test/images folder
-# the test will run on all available GPUs
-# 
+# this test runs all images in the <Singularity/build> folder
+# a list of images can be specified to override the default of all images in the <Singularity/build> folder
+# the test will run on 0-7 GPUs, and will cycle through them as needed
+# the test will run on the candle_data_dir specified, or the default of /tmp
 def test_all_images(singularity_dir, candle_data_dir, gpuid, images_dir, images_list):
     
     pids = []
@@ -43,7 +43,7 @@ def test_all_images(singularity_dir, candle_data_dir, gpuid, images_dir, images_
         pids.append(process)
 
         gpuid = str(int(gpuid) + 1)
-        # print("GPUID: {gpuid}")
+        # print("Next GPUID: {gpuid}")
 
         # assumes 8 GPUs are available
         if int(gpuid) > 7:
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     parser.add_argument("--singularity_dir", help="path to singularity directory", default="../")
     parser.add_argument("--gpuid", help="GPU ID", default="0")
     parser.add_argument("--candle_data_dir", help="CANDLE DATA DIR", default="/tmp")
-    parser.add_argument("--images_dir", help="Directory where all the images are stored and to be tested", default="../images")
+    parser.add_argument("--images_dir", help="Directory where all the images are stored and to be tested", default="../build/")
     parser.add_argument("--images_list", nargs='+', help="Image list", default="")
     
     args = parser.parse_args()

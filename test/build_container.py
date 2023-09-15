@@ -8,6 +8,12 @@ def build_singularity_container(model_name, definitions_file, deployment_dir_fil
     """
     Build singularity container deployment_dir_file from model_name and definitions_file
     """
+    # print the current working directory
+    print("Current working directory:", os.getcwd())
+    print("change directory to the singularity directory")
+    # some contents of definitions file reply on hard coded paths ./src/..GPU_fix.. 
+    os.chdir("../")
+    print("Current working directory:", os.getcwd())
 
     cmd = "singularity build " + options + deployment_dir_file + " " + definitions_file
     print("Running command:", cmd)
@@ -21,7 +27,7 @@ def build_singularity_container(model_name, definitions_file, deployment_dir_fil
     print("\nStandard Error:")
     print(stderr.decode("utf-8"))
     
-    return deployment_dir_file
+    return process.returncode
 
 
 
@@ -43,7 +49,15 @@ if __name__ == "__main__":
     singularity_dir = args.singularity_dir
     
     if deployment_dir_file == "":
-        deployment_dir_file = singularity_dir + "/images/" + model_name + ".sif"
+        directory_container = "/build/"
+        deployment_dir = singularity_dir + directory_container
+        # check if deployment directory exists if not create it
+        if not os.path.isdir(deployment_dir):
+            os.mkdir(deployment_dir)
+        else:
+            print("Deployment directory exists:", deployment_dir)
+        
+        deployment_dir_file = deployment_dir + model_name + ".sif"
         if os.path.isfile(deployment_dir_file):
             print("Singularity container already exists: ", deployment_dir_file)
             sys.exit(1)
@@ -72,8 +86,8 @@ if __name__ == "__main__":
     print(args)
 
     # call build_singularity_container
-    image_path = build_singularity_container(args.model_name, args.definitions_file, args.deployment_dir_file, args.options)
+    exit_code = build_singularity_container(args.model_name, args.definitions_file, args.deployment_dir_file, args.options)
     
-    print("Build completed, created, IMAGE:", image_path)
+    print("Build completed, created, exit code:", exit_code)
     
     

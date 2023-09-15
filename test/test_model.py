@@ -23,24 +23,16 @@ def test_model(model_name, model_dir):
     else:
         python = "python"
 
-    # Check if files are present
-    current_dir = os.getcwd()
-    os.chdir(model_dir)
-
-    for m in ["preprocess.sh", "train.sh", "infer.sh"]:
-        if check_file_exists(m):
-            print(m, " exists")
-        else:
-            print(m, " does not exist")
     if model_name:
-        model_name = model_name.lower()
+        # NOTE: file names are expected to be lowercase eg. graphdrp_baseline_pytorch.py
+        model_name_lower = model_name.lower()
         # List files in model_dir
         files_in_model_dir = os.listdir(model_dir)
-        baseline_pattern = model_name + "_baseline"
-        config_pattern = model_name + "_default_model"
+        baseline_pattern = model_name_lower + "_baseline"
+        config_pattern = model_name_lower + "_default_model"
         
         # for debugging
-        # print(files_in_model_dir, "files_in_model_dir")
+        print(files_in_model_dir, "files_in_model_dir")
         
         baseline = None
         config = None
@@ -64,6 +56,15 @@ def test_model(model_name, model_dir):
             print("Test found config file: passed")
         else:
             print("Test found config file: failed")
+            
+    #  check for train.sh infer.sh and preprocess.sh
+    os.chdir(model_dir)
+
+    for m in ["preprocess.sh", "train.sh", "infer.sh"]:
+        if check_file_exists(m):
+            print(m, " exists")
+        else:
+            print(m, " does not exist")
             
     return baseline, config, model_name
             

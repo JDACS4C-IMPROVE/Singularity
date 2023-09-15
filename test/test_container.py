@@ -38,7 +38,7 @@ def test_singularity_container(model_name, candle_data_dir, gpuid, definitions_f
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Build Singularity container. Launch from Singularity/test as Eg. 1: python build_container.py --model_name DeepTTC  .OR. Eg.2: python build_container.py --model_name GraphDRP --definitions_file /PathTo/GraphDRP.def --deployment_dir_file /PathTo/GraphDRP.sif")
     parser.add_argument("--model_name", help="Name of the model", default="GraphDRP")
-    parser.add_argument("--candle_data_dir", help="Path to the candle data directory", default="/homes/jain/Singularity/test/candle_data_dir")
+    parser.add_argument("--candle_data_dir", help="Path to the candle data directory", default="/tmp/")
     parser.add_argument("--gpuid", help="GPU ID", default="0")
     parser.add_argument("--singularity_dir", help="Path to the Singularity directory", default="../")
     parser.add_argument("--definitions_file", help="Path to the Singularity definition file", default="")

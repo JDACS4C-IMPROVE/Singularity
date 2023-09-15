@@ -10,39 +10,20 @@ from build_container import build_singularity_container
 
 if __name__ == "__main__":
     
-    model_name = sys.argv[1] if len(sys.argv) > 1 else ""
-    model_source_dir = sys.argv[2] if len(sys.argv) > 2 else "./"
-    singularity_dir = sys.argv[3] if len(sys.argv) > 3 else "../"
-    
-    print("singularity_dir:", singularity_dir)
-    # get current directory
-    pwd = os.getcwd()
+    parser = argparse.ArgumentParser(description="Test the model for candle compliance. IN SOURCE.")
+    parser.add_argument("--singularity_dir", help="path to singularity directory", default="../")
+    parser.add_argument("--model_name", help="Name of the model", default="GraphDRP")
+    parser.add_argument("--model_source_dir", help="Path to the model source directory", default="../../GraphDRP")
+    args = parser.parse_args()
+
+    print("singularity_dir:", args.singularity_dir)
     
     #  TEST THE MODEL LOCALLY USING ENV PYTHON
-    baseline, config, model_name = test_model(model_name, model_source_dir)
+    baseline, config, model_name = test_model(args.model_name, args.model_source_dir)
     
     #  RUN THE BASELINE FROM SOURCE FOR 1 EPOCH
     run_baseline(baseline, config, model_name)
     
-    # BUILD THE SINGULARITY CONTAINER
-    definitions_file = singularity_dir + "/definitions/" + model_name + ".def"
-    deployment_dir_file = singularity_dir + "/images/" + model_name + ".sif"
-    
-    image = build_singularity_container(model_name, definitions_file, deployment_dir_file)
-    print("Done calling build_singularity_container: ", image)
-    
-    # TEST THE SINGULARITY CONTAINER
-    cmd = "python test_container.py --model_name " + model_name 
-    print("Running testing cmd: ", cmd)
-    # cmd = "python temp.py"
-    # print("cmd: ", cmd)
-    process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = process.communicate()
-
-    print("Standard Output: ", model_name)
-    print(stdout)
-
-
-    print("\nStandard Error: ", model_name)
-    print(stderr)    
     print("Test done", datetime.datetime.now())
+    
+    print("Building singularity container:")
