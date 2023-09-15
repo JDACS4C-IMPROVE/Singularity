@@ -9,9 +9,14 @@ From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 %setup
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 
+%environment
+    export IMPROVE_MODEL_DIR=/usr/local/GraphDRP
 %post
+	#apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys F60F4B3D7FA2AF80
+	#apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys A4B469963BF863CC
 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
 	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
+	
 	apt-get update
 
 	apt-get install wget -y
@@ -36,11 +41,7 @@ From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 
 	# Pip installations into conda env /usr/local/conda_envs/Paccmann_MCA
 	/opt/conda/bin/conda install -y -p /usr/local/conda_envs/Paccmann_MCA pip
-<<<<<<< HEAD
 	/usr/local/conda_envs/Paccmann_MCA/bin/pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
-=======
-	/usr/local/conda_envs/Paccmann_MCA/bin/pip install git+https://github.com/ECP-CANDLE/candle_lib@candle_data_dir
->>>>>>> master
 	/usr/local/conda_envs/Paccmann_MCA/bin/pip install git+https://github.com/PaccMann/paccmann_datasets@0.0.3
 
 	chmod +x train.sh
