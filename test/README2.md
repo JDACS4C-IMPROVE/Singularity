@@ -2,7 +2,7 @@
 # Testing using python scripts
 
 - All scripts use args parse, use --help to find out options. Eg. `python test_container.py --help`
-- For saving output of a script to a file use `>` option. Eg. `python build_container.py DrugCell` 
+- For saving output of a script to a file use `>` option. Eg. `python build_container.py DrugCell > build_drugcell.out` 
 - All the scripts have been tested on the lambda machine, for Polaris get a compute node and setup proxy and run the scripts: https://docs.alcf.anl.gov/polaris/data-science-workflows/containers/containers/ 
 
 ## Model Curation in-source testing 
