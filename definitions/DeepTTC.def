@@ -21,7 +21,7 @@ From: pytorch/pytorch
 	cd /usr/local
 	git clone https://github.com/JDACS4C-IMPROVE/DeepTTC.git
 	cd DeepTTC
-	git checkout improve
+	git checkout v0.6.0
 	/opt/conda/bin/conda install -y pandas"<2.0.0" scikit-learn openpyxl
 	/opt/conda/bin/conda install -y -c conda-forge lifelines prettytable  
 	/opt/conda/bin/conda install -y -c bioconda pubchempy
