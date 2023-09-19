@@ -50,14 +50,14 @@ if __name__ == "__main__":
     
     if deployment_dir_file == "":
         directory_container = "/build/"
-        deployment_dir = singularity_dir + directory_container
+        deployment_dir = os.path.join(singularity_dir, directory_container)
         # check if deployment directory exists if not create it
         if not os.path.isdir(deployment_dir):
             os.mkdir(deployment_dir)
         else:
             print("Deployment directory exists:", deployment_dir)
         
-        deployment_dir_file = deployment_dir + model_name + ".sif"
+        deployment_dir_file = os.path.join(deployment_dir, model_name + ".sif")
         if os.path.isfile(deployment_dir_file):
             print("Singularity container already exists: ", deployment_dir_file)
             sys.exit(1)
@@ -67,7 +67,7 @@ if __name__ == "__main__":
         print("Trying to create singularity container:", deployment_dir_file)
         
     if definitions_file == "":
-        definitions_file = singularity_dir + "/definitions/" + model_name + ".def"
+        definitions_file = os.path.join(singularity_dir, "definitions", model_name + ".def")
         if os.path.isfile(definitions_file):
             print("Definition file exists:", definitions_file)
         else:
