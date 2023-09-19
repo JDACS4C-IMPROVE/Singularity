@@ -4,6 +4,9 @@ import sys
 import argparse
 import subprocess
 
+def check_file_exists(filename):
+    return os.path.isfile(filename)
+
 def test_singularity_container(model_name, candle_data_dir, gpuid, definitions_file, deployment_dir_file, options="--epochs 1  "):
     """
     Build singularity container from model_name and singularity_dir, and run it for 1 epoch
@@ -38,7 +41,7 @@ def test_singularity_container(model_name, candle_data_dir, gpuid, definitions_f
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Build Singularity container. Launch from Singularity/test as Eg. 1: python build_container.py --model_name DeepTTC  .OR. Eg.2: python build_container.py --model_name GraphDRP --definitions_file /PathTo/GraphDRP.def --deployment_dir_file /PathTo/GraphDRP.sif")
     parser.add_argument("--model_name", help="Name of the model", default="GraphDRP")
-    parser.add_argument("--candle_data_dir", help="Path to the candle data directory", default="/ctmp/")
+    parser.add_argument("--candle_data_dir", help="Path to the candle data directory", default="/tmp/")
     parser.add_argument("--gpuid", help="GPU ID", default="0")
     parser.add_argument("--singularity_dir", help="Path to the Singularity directory", default="")
     parser.add_argument("--definitions_file", help="Path to the Singularity definition file", default="")
@@ -53,6 +56,8 @@ if __name__ == "__main__":
     singularity_dir = args.singularity_dir
     
     # some contents of definitions file reply on hard coded paths ./src/..GPU_fix.. 
+    # TODO: fix this and remove the need to change directory (cp -r src/..GPU_fix.. . needed by definitions file)
+    # Once fixed this change to be in the singularity directory won't be needed
     print("change directory to the singularity directory")
     os.chdir("../")
 
@@ -60,26 +65,19 @@ if __name__ == "__main__":
         directory_container = "build/"
         deployment_dir = os.path.join(singularity_dir, directory_container)
         deployment_dir_file = deployment_dir_file + directory_container + model_name + ".sif"
-        if os.path.isfile(deployment_dir_file):
-            print("Singularity container already exists: ", deployment_dir_file)
-        else:
-            print("Singularity container does not exist", deployment_dir_file)
-            sys.exit(1)
     else:
-        print("Trying to create singularity container:", deployment_dir_file)
+        deployment_dir_file = os.path.join("test", deployment_dir_file)
         
     if definitions_file == "":
         definitions_file = os.path.join(singularity_dir, "definitions", model_name + ".def")
-        if os.path.isfile(definitions_file):
-            print("Definition file exists:", definitions_file)
+
+    print("deployment_dir_file:", deployment_dir_file, "definitions_file:", definitions_file)
+    
+    for m in [definitions_file, deployment_dir_file]:
+        if check_file_exists(m):
+            print(m, " exists")
         else:
-            print("Definition file does not exist:", definitions_file)
-            sys.exit(1)
-    else:
-        if os.path.isfile(definitions_file):
-            print("Definition file exists:", definitions_file)
-        else:
-            print("Definition file does not exist:", definitions_file)
+            print(m, " does not exist")
             sys.exit(1)
     
     args.deployment_dir_file = deployment_dir_file

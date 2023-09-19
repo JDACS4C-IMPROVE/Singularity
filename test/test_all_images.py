@@ -8,6 +8,7 @@ import argparse
 # a list of images can be specified to override the default of all images in the <Singularity/build> folder
 # the test will run on 0-7 GPUs, and will cycle through them as needed
 # the test will run on the candle_data_dir specified, or the default of /tmp
+# assume that all the definitions files are in the <Singularity/definitions> folder
 def test_all_images(singularity_dir, candle_data_dir, gpuid, images_dir, images_list):
     
     pids = []
@@ -25,10 +26,11 @@ def test_all_images(singularity_dir, candle_data_dir, gpuid, images_dir, images_
             print("WARNING: image name does not end with .sif:", n)
         print("running image:", model_name)
         deployment_dir_file = images_dir + "/" + n
+
         cmd = "python test_container.py --model_name " + model_name + " --candle_data_dir " + candle_data_dir + " --gpuid " + gpuid + " --deployment_dir_file " + deployment_dir_file
+
         print("Running testing cmd: ", cmd)
-        # cmd = "python temp.py"
-        # print("cmd: ", cmd)
+
         process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
 
