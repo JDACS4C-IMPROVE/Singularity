@@ -48,7 +48,7 @@ Release:
 ## New supported models:
 
 - GraphDRP 
-  - Version: v0.8
+  - Version: v0.6.0
   - URL: ...
   - Definition file: 
 ....
