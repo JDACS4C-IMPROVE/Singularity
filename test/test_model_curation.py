@@ -24,6 +24,6 @@ if __name__ == "__main__":
     #  RUN THE BASELINE FROM SOURCE FOR 1 EPOCH
     run_baseline(baseline, config, model_name)
     
-    print("Test done", datetime.datetime.now())
+    print("Test DONE\n\n", datetime.datetime.now())
     
-    print("To build singularity container, run: python build_container.py --model_name DeepTTC. \nMake sure you have fakeroot access.")
+    print("Next step: build singularity container. \nrun: Example: python build_container.py --model_name DeepTTC. \nNote: Make sure you have fakeroot access.")

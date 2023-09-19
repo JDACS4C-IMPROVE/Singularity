@@ -44,23 +44,11 @@ def test_model(model_name, model_dir):
             print("No baseline or config file found")
             
         print("baseline / config:", baseline, config)
-        if baseline:
-            if check_file_exists(baseline):
-                print("Test found baseline file: passed")
-            else:
-                print("Test found baseline file: failed")
-        else:
-            print("Test found baseline file: failed")
 
-        if config:
-            print("Test found config file: passed")
-        else:
-            print("Test found config file: failed")
+        #  check for train.sh infer.sh and preprocess.sh
+        os.chdir(model_dir)
             
-    #  check for train.sh infer.sh and preprocess.sh
-    os.chdir(model_dir)
-
-    for m in ["preprocess.sh", "train.sh", "infer.sh"]:
+    for m in ["preprocess.sh", "train.sh", "infer.sh", baseline, config]:
         if check_file_exists(m):
             print(m, " exists")
         else:
