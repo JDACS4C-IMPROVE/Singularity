@@ -36,7 +36,7 @@ if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description="Build Singularity container. Launch from Singularity/test as Eg. 1: python build_container.py --model_name DeepTTC  .OR. Eg.2: python build_container.py --model_name GraphDRP --definitions_file /PathTo/GraphDRP.def --deployment_dir_file /PathTo/GraphDRP.sif")
     parser.add_argument("--model_name", help="Name of the model", default="GraphDRP")
-    parser.add_argument("--singularity_dir", help="Path to the Singularity directory", default="../")
+    parser.add_argument("--singularity_dir", help="Path to the Singularity directory", default="..")
     parser.add_argument("--definitions_file", help="Path to the Singularity definition file", default="")
     parser.add_argument("--deployment_dir_file", help="Path to the deployment directory including .sif filename", default="")
     parser.add_argument("--options", help="Additional options for Singularity build", default="--fakeroot --disable-cache ")
@@ -47,9 +47,9 @@ if __name__ == "__main__":
     deployment_dir_file = args.deployment_dir_file
     definitions_file = args.definitions_file
     singularity_dir = args.singularity_dir
-    
+    print(deployment_dir_file)
     if deployment_dir_file == "":
-        directory_container = "/build/"
+        directory_container = "build/"
         deployment_dir = os.path.join(singularity_dir, directory_container)
         # check if deployment directory exists if not create it
         if not os.path.isdir(deployment_dir):

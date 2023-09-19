@@ -26,4 +26,4 @@ if __name__ == "__main__":
     
     print("Test done", datetime.datetime.now())
     
-    print("Building singularity container:")
+    print("To build singularity container, run: python build_container.py --model_name DeepTTC. \nMake sure you have fakeroot access.")
