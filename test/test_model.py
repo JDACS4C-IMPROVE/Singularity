@@ -32,7 +32,7 @@ def test_model(model_name, model_dir):
         config_pattern = model_name_lower + "_default_model"
         
         # for debugging
-        print(files_in_model_dir, "files_in_model_dir")
+        # print(files_in_model_dir, "files_in_model_dir")
         
         baseline = None
         config = None
