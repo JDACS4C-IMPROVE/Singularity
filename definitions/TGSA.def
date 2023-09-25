@@ -8,7 +8,8 @@ From: pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
     cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/
 
 %environment
-    PATH=$PATH:/usr/local/TGSA
+    IMPROVE_MODEL_DIR=/usr/local/TGSA
+    PATH=$PATH:/usr/local/TGSA/
 
 %post
     apt-get update
@@ -31,6 +32,8 @@ From: pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
     chmod +x Singularity_gpu_fix.sh
     ./Singularity_gpu_fix.sh
     rm Singularity_gpu_fix.sh
+    
+    mkdir /candle_data_dir
 
     # create default internal candle_data_dir, map external candle_data_dir here
 
@@ -62,15 +65,16 @@ From: pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
     pip install networkx==2.6.3
     pip install h5py==3.8.0
 
+
     # setup model and executables
     cd /usr/local/
-    git clone https://github.com/smujiang/TGSA.git
-    mkdir /candle_data_dir
-    cp TGSA/data/enterez_NCBI_to_hugo_gene_symbol_march_2019.txt /candle_data_dir/
+    git clone https://github.com/JDACS4C-IMPROVE/TGSA.git
+    cd TGSA
+    git checkout develop
+
+    # cp TGSA/data/enterez_NCBI_to_hugo_gene_symbol_march_2019.txt /candle_data_dir/
 
     chmod +x /usr/local/TGSA/train.sh
     chmod +x /usr/local/TGSA/infer.sh
     chmod +x /usr/local/TGSA/preprocess.sh
 
-    export PATH=$PATH:/user/local/TGSA/
-    cd TGSA
