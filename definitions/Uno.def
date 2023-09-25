@@ -41,7 +41,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
     cd -
     git clone https://github.com/ECP-CANDLE/Benchmarks.git
     cd Benchmarks
-    git checkout issue-119
+    git checkout improve
     cp /usr/local/Benchmarks/Pilot1/Uno/train.sh /usr/local/bin
 
 
