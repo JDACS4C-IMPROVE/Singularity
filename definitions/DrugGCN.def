@@ -28,7 +28,7 @@ From: continuumio/anaconda3
 	cd /usr/local/
 	git clone https://github.com/JDACS4C-IMPROVE/DrugGCN
         cd /usr/local/DrugGCN
-        git checkout v0.6.0
+        git checkout improve
 
 	# this assumes a train.sh, infer.sh are committed to the <model> repository.
 	chmod a+x train.sh
