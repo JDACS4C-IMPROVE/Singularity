@@ -54,7 +54,7 @@ Singularity options:
 - `--nv` enable Nvidia support
 - `--bind` make the directory available inside container 
 
-For more examples see the [documentation](http://https://jdacs4c-improve.github.io/docs/)
+For more examples see the [documentation](https://jdacs4c-improve.github.io/docs/)
 
 
 
