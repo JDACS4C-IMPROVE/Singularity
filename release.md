@@ -6,15 +6,16 @@ Included in this release are:
 - Hyper Parameter Optimization (HPO) workflow version v0.6
 - IMPROVE models, build and testing code version v0.6.0
 - IMPROVE documentation version v0.6.0
-- CANDLE library 
+- CANDLE library v0.8
 
 ## Documentation:
 
 Repository: https://github.com/JDACS4C-IMPROVE/docs
+Documentation: https://jdacs4c-improve.github.io/docs/index.html
 
 Release:
-- Version: v0.1.0
-- URL:
+- Version: v0.6.0
+- URL: https://github.com/JDACS4C-IMPROVE/docs/releases/tag/v0.6.0
 
 New documentation guides for:
 - Setting up the initial environment for building support model container images and executing HPO workflow
@@ -26,8 +27,12 @@ New documentation guides for:
 Repo: https://github.com/JDACS4C-IMPROVE/Singularity
 
 Release:
-- Version: 	v0.2-alpha
+- Version: 	v0.6.0
 - URL: 	https://github.com/JDACS4C-IMPROVE/Singularity/releases/tag/v0.2-alpha
+
+This release includes:
+- build instructions for supported model containers. 
+- test scripts for models and containers 
 
 ## Workflows
 
@@ -45,7 +50,7 @@ Release:
 
 ## CANDLE library
 
-Vendorized version of candle_lib. This version is used by all models.
+Vendorized version of candle_lib. This version is used by all models and provides a standardized interface for model execution.
 
 Release:
 - Version: v0.8.0
@@ -79,6 +84,28 @@ This models have been modified to provide a standardized interface for model tra
   - Version: improve
   - URL: https://github.com/ECP-CANDLE/Benchmarks
 
-- HiDRA:
+- HiDRA
   - Version: v0.6.0
   - URL: https://github.com/JDACS4C-IMPROVE/HiDRA
+
+- tCNNS
+  - Version: v0.6.0
+  - URL: https://github.com/JDACS4C-IMPROVE/tCNNS
+
+### Future release candidates
+
+- TGSA
+  - Version: develop
+  - URL: https://github.com/JDACS4C-IMPROVE/TGSA
+
+- DrugGCN
+  - Version: improve
+  - URL: https://github.com/JDACS4C-IMPROVE/DrugGCN
+
+- IGTD
+  - Version: improve
+  - URL: https://github.com/JDACS4C-IMPROVE/IGTD
+
+- SWnet
+  - Version: improve
+  - URL: https://github.com/JDACS4C-IMPROVE/SWnet
