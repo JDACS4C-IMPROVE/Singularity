@@ -1,0 +1,53 @@
+Bootstrap: docker
+From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-devel
+
+%labels
+	MANTAINER Gihan Panapitiya
+
+%setup
+	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+	# add local url of this repository for testing
+        # cp -r /path/to/local/SWnet $SINGULARITY_ROOTFS/usr/local/
+%post
+	apt-get update -y
+	apt-get install wget -y
+	apt-get install build-essential -y
+	apt-get install git -y
+	apt-get install vim -y
+    apt-get install subversion -y
+
+	chmod +x Singularity_gpu_fix.sh
+        ./Singularity_gpu_fix.sh
+
+	#python3 -m pip install torch_geometric
+	
+	# these three need to be compiled and linked to the cuda libs.
+	# at the moment, what works for me is to build these in a
+	# singularity shell in a sandbox with the --nv flag to singularity set.
+
+	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+	python3 -m pip install rdkit-pypi
+
+	#cd /usr/local/SWnet
+	cd /usr/local
+	git clone https://github.com/JDACS4C-IMPROVE/SWnet.git
+	cd SWnet
+	git checkout improve
+	chmod +x train.sh
+	chmod +x train_self_attn_gdsc.sh
+	chmod +x train_self_attn_ccle.sh
+	chmod +x train_multi_task.sh
+	chmod +x eval_self_attn_gdsc.sh
+	chmod +x eval_self_attn_ccle.sh
+
+	cp train.sh /usr/local/bin
+	cp train_self_attn_gdsc.sh /usr/local/bin
+	cp train_self_attn_ccle.sh /usr/local/bin
+	cp train_multi_task.sh /usr/local/bin
+	cp eval_self_attn_gdsc.sh /usr/local/bin
+	cp eval_self_attn_ccle.sh /usr/local/bin
+
+	
+
+	mkdir /candle_data_dir
+
