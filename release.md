@@ -46,6 +46,13 @@ Release:
 
 ## HPO Examples
 
+Repo: HPO
+
+Release:
+- Version: 
+- URL: https://github.com/JDACS4C-IMPROVE/HPO
+
+This repository contains minimal testing config for HPO and a collection of best HPO results for given HPO and GA parameter space.
 
 
 ## CANDLE library
