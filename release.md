@@ -3,9 +3,9 @@
 This release allows optimizing hyperparameters for machine learning using data provided or described by the original model code creator. It includes instructions for setting up the infrastructure and performing initial HPO. 
 
 Included in this release are:
-- Hyper Parameter Optimization (HPO) workflow version 0.9
-- IMPROVE models, build and testing code version 0.9
-- IMPROVE documentation version 0.9
+- Hyper Parameter Optimization (HPO) workflow version v0.6
+- IMPROVE models, build and testing code version v0.6.0
+- IMPROVE documentation version v0.6.0
 - CANDLE library 
 
 ## Documentation:
@@ -31,19 +31,25 @@ Release:
 
 ## Workflows
 
+This release of the supervisor supports the Hyper Parameter Optimization Workflow.
+
 Repo: Supervisor
 
 Release:
-- Version:
-- URL: 	
+- Version: v0.6
+- URL: 	https://github.com/ECP-CANDLE/Supervisor
+
+## HPO Examples
+
+
 
 ## CANDLE library
 
-Repo: CANDLE
+Vendorized version of candle_lib. This version is used by all models.
 
 Release:
-- Version:
-- URL:
+- Version: v0.8.0
+- URL: https://github.com/JDACS4C-IMPROVE/candle_lib/releases/tag/v0.8.0
 
 ## New supported models:
 
