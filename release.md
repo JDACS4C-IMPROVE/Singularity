@@ -47,8 +47,32 @@ Release:
 
 ## New supported models:
 
+This models have been modified to provide a standardized interface for model training. 
+
 - GraphDRP 
   - Version: v0.6.0
-  - URL: ...
-  - Definition file: 
-....
+  - URL: https://github.com/JDACS4C-IMPROVE/GraphDRP
+
+- DeepTTC
+  - Version: v0.6.0
+  - URL: https://github.com/JDACS4C-IMPROVE/DeepTTC
+
+- Paccmann_MCA
+  - Version: v0.6.0
+  - URL: https://github.com/JDACS4C-IMPROVE/Paccmann_MCA
+
+- DrugCell
+  - Version: v0.6.0
+  - URL: https://github.com/JDACS4C-IMPROVE/DrugCell
+
+- DRPreter
+  - Version: v0.6.0
+  - URL: https://github.com/JDACS4C-IMPROVE/DRPreter
+
+- UNO
+  - Version: improve
+  - URL: https://github.com/ECP-CANDLE/Benchmarks
+
+- HiDRA:
+  - Version: v0.6.0
+  - URL: https://github.com/JDACS4C-IMPROVE/HiDRA
