@@ -46,7 +46,7 @@ configure:
 	mkdir -p $(BUILD_DIR) $(TEST_DIR) $(DEPLOY_DIR)
 
 $(BUILD_DIR)/%.sif: $(DEF_DIR)/%.def
-	singularity build $(DISABLE_CACHE) $(FAKE_ROOT) $@ $<
+	singularity build --force $(DISABLE_CACHE) $(FAKE_ROOT) $@ $<
 
 
 pull:
