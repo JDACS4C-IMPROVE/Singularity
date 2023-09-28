@@ -36,7 +36,7 @@ This release includes:
 
 ## Workflows
 
-This release of the supervisor supports the Hyper Parameter Optimization Workflow.
+This release of the supervisor supports the Hyper Parameter Optimization Workflow, which was used to optimize multiple IMPROVE models via the DEAP algorithm.  We developed a new front-end command-line tool called `supervisor` that eases the management of configuration files for the system.  We also improved the interfaces between Supervisor and IMPROVE containers, and clarified output from the system, including statistics from the models and the overall HPO progress.
 
 Repo: Supervisor
 
