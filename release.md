@@ -99,20 +99,6 @@ This models have been modified to provide a standardized interface for model tra
   - Version: v0.6.0
   - URL: https://github.com/JDACS4C-IMPROVE/IGTD
 
-### Future release candidates
-
 - tCNNS
-  - Version: v0.6.0
+  - Version: v0.6.1
   - URL: https://github.com/JDACS4C-IMPROVE/tCNNS
-
-- TGSA
-  - Version: improve
-  - URL: https://github.com/JDACS4C-IMPROVE/TGSA
-
-- DrugGCN
-  - Version: improve
-  - URL: https://github.com/JDACS4C-IMPROVE/DrugGCN
-
-- SWnet
-  - Version: improve
-  - URL: https://github.com/JDACS4C-IMPROVE/SWnet
