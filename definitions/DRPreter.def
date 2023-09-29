@@ -30,7 +30,7 @@ From: pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel
     cd /usr/local
     git clone https://github.com/JDACS4C-IMPROVE/DRPreter.git
     cd DRPreter
-    git checkout improve
+    git checkout v0.6.0
     cp infer.sh /usr/local/bin
     chmod +x /usr/local/bin/infer.sh
     cp train.sh /usr/local/bin
