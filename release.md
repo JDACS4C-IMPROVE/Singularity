@@ -2,7 +2,7 @@
 
 This release allows optimizing hyperparameters for machine learning using data provided or described by the original model code creator. It includes instructions for setting up the infrastructure and performing initial HPO. 
 
-To get started please use our guides in the documentation.
+To get started please use our guides in the [documentation](https://jdacs4c-improve.github.io/docs/index.html).
 
 Included in this release are:
 - Hyper Parameter Optimization (HPO) workflow version v0.6
