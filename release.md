@@ -2,9 +2,11 @@
 
 This release allows optimizing hyperparameters for machine learning using data provided or described by the original model code creator. It includes instructions for setting up the infrastructure and performing initial HPO. 
 
+To get started please use our guides in the documentation.
+
 Included in this release are:
 - Hyper Parameter Optimization (HPO) workflow version v0.6
-- IMPROVE models, build and testing code version v0.6.0
+- IMPROVE models, build and testing code version v0.6
 - IMPROVE documentation version v0.6.0
 - CANDLE library v0.8
 
@@ -27,7 +29,7 @@ New documentation guides for:
 Repo: https://github.com/JDACS4C-IMPROVE/Singularity
 
 Release:
-- Version: 	v0.6.0
+- Version: 	v0.2.0
 - URL: 	https://github.com/JDACS4C-IMPROVE/Singularity/releases/tag/v0.2-alpha
 
 This release includes:
@@ -49,7 +51,7 @@ Release:
 Repo: HPO
 
 Release:
-- Version: 
+- Version: v0.1.0-beta
 - URL: https://github.com/JDACS4C-IMPROVE/HPO
 
 This repository contains minimal testing config for HPO and a collection of best HPO results for given HPO and GA parameter space.
