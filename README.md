@@ -1,5 +1,5 @@
 # IMPROVE Singularity Containers
-Each curated community model is deployed in a Singularity container that is extended to support standardized execution of all currated community models. This repository contains *build recipies* (*definintion files*) and tools for building model specific singularity ([apptainer](https://apptainer.org)) images. For documention go to https://jdacs4c-improve.github.io/docs/
+Each curated community model is deployed in a Singularity container that is extended to support standardized execution of all currated community models. This repository contains *build recipies* (*definintion files*) and tools for building model specific singularity ([apptainer](https://apptainer.org)) images. To get started please use our guides in the [documentation](https://jdacs4c-improve.github.io/docs/index.html).
 
 1. [Setting up repository](#setup)
 2. [Building and deploying container images](#build-and-deploy-model-images)
