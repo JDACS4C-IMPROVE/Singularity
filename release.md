@@ -1,4 +1,4 @@
-# IMPROVE Prerelease v0.2.0 (2023-09-30)
+# IMPROVE early adapotor release v0.2.0-beta (2023-09-30)
 
 This release allows optimizing hyperparameters for machine learning using data provided or described by the original model code creator. It includes instructions for setting up the infrastructure and performing initial HPO. 
 
