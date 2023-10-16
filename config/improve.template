@@ -1,0 +1,5 @@
+# Change this to your workspace
+
+export IHOME=${HOME/Singularity}
+export IDD=${IHOME}/data_dir
+export IMPROVE_DATA_DIR=${IDD}

@@ -1,0 +1,32 @@
+Bootstrap: docker
+From: tensorflow/tensorflow:2.4.2-gpu
+
+%labels
+	MAINTAINER	https://github.com/JDACS4C-IMPROVE/Singularity
+	VERSION	v0.0.1
+
+
+%setup
+	mkdir -p $SINGULARITY_ROOTFS/IMPROVE
+	cp src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/IMPROVE/
+
+%environment
+	# Available at runtime not build time
+	MODEL="HiDRA"
+	PATH=$PATH:$SINGULARITY_ROOTFS/IMPROVE/${MODEL}
+	WORK_DIR=$SINGULARITY_ROOTFS/IMPROVE/
+	CANDLE_DATA_DIR=/candle_data_dir
+
+%post
+    # Install prerequistis and update image
+    apt-get install wget
+    #apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys F60F4B3D7FA2AF80
+    #apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys A4B469963BF863CC
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
+    apt-get update
+    apt-get install -y git
+    mkdir -p $SINGULARITY_ROOTFS/IMPROVE /candle_data_dir
+    cd $SINGULARITY_ROOTFS/IMPROVE
+    chmod a+x Singularity_gpu_fix.sh
+    ./Singularity_gpu_fix.sh

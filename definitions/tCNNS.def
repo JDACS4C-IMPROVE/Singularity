@@ -1,0 +1,34 @@
+Bootstrap: docker
+From: tensorflow/tensorflow:1.15.5-gpu
+
+%labels
+	MAINTAINER Tom Brettin
+
+%setup
+	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+%post
+
+        apt-get install wget
+        #apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys F60F4B3D7FA2AF80 
+        #apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys A4B469963BF863CC 
+        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80 
+        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC 
+
+	apt-get update
+	apt-get -y install git
+	apt-get install -y vim
+
+	chmod +x Singularity_gpu_fix.sh
+	./Singularity_gpu_fix.sh
+
+	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+
+	cd /usr/local/
+	git clone https://github.com/JDACS4C-IMPROVE/tCNNS-Project
+        cd /usr/local/tCNNS-Project
+        git checkout v0.6.1
+
+	# this assumes a train.sh, infer.sh are committed to the <model> repository.
+	chmod a+x train.sh
+	cp train.sh /usr/local/bin
+	mkdir /candle_data_dir

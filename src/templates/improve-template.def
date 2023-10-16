@@ -1,0 +1,45 @@
+Bootstrap: docker
+From: {{IMAGE}}
+
+%labels
+	MAINTAINER	https://github.com/JDACS4C-IMPROVE/Singularity
+	VERSION	v0.0.1
+
+
+%setup 
+	mkdir -p $SINGULARITY_ROOTFS
+	cp src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+
+%environment
+    export IMPROVE_MODEL_DIR=/usr/local/{{MODEL}}
+
+%post
+    # Install prerequistis and update image
+    apt-get install wget
+    #apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys F60F4B3D7FA2AF80 
+    #apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys A4B469963BF863CC
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80 
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC 
+    apt-get update
+    apt-get install -y git
+    
+
+    chmod +x Singularity_gpu_fix.sh
+    ./Singularity_gpu_fix.sh
+    rm Singularity_gpu_fix.sh  
+
+    pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+
+    # Setup model 
+    cd /usr/local/ 
+    git clone -b develop {{MODEL_URL}}
+    cd {{MODEL}}
+
+    # Install model dependencies
+    
+    # IMPROVE scipts test.sh train.sh
+    chmod +x *.sh
+    cp train.sh infer.sh preprocess.sh /usr/local/bin
+
+%help
+    This is a template for building improve container. To build a container you have to be in the top level directory of the https://github.com/JDACS4C-IMPROVE/Singularity repository.

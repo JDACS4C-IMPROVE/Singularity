@@ -14,8 +14,10 @@ From: tensorflow/tensorflow:2.4.2-gpu
 
 %post
     apt-get install wget
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
+    #apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys F60F4B3D7FA2AF80 
+    #apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys A4B469963BF863CC 
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80 
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC 
     apt-get update
     apt-get install -y git
     
@@ -36,6 +38,5 @@ From: tensorflow/tensorflow:2.4.2-gpu
 
     # setup model and executables
     cd /usr/local/
-    git clone -b develop https://github.com/JDACS4C-IMPROVE/HiDRA.git
-    chmod +x HiDRA/train.sh
-    chmod +x HiDRA/test.sh
+    git clone -b v0.6.0 https://github.com/JDACS4C-IMPROVE/HiDRA.git
+    chmod +x HiDRA/*.sh
