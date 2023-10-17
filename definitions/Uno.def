@@ -36,7 +36,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
     cd /usr/local
     git clone https://github.com/ECP-CANDLE/candle_lib@v0.6
     cd candle_lib
-    git checkout develop
+    git checkout v0.6
     python -m pip install .
     cd -
     git clone https://github.com/ECP-CANDLE/Benchmarks.git
