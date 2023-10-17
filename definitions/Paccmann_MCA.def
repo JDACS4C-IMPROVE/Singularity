@@ -41,7 +41,7 @@ From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 
 	# Pip installations into conda env /usr/local/conda_envs/Paccmann_MCA
 	/opt/conda/bin/conda install -y -p /usr/local/conda_envs/Paccmann_MCA pip
-	/usr/local/conda_envs/Paccmann_MCA/bin/pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
+	/usr/local/conda_envs/Paccmann_MCA/bin/pip install git+https://github.com/ECP-CANDLE/candle_lib@v0.6
 	/usr/local/conda_envs/Paccmann_MCA/bin/pip install git+https://github.com/PaccMann/paccmann_datasets@0.0.3
 
 	chmod +x train.sh

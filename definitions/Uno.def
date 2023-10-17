@@ -34,7 +34,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
     chmod a+x Singularity_gpu_fix.sh
     ./Singularity_gpu_fix.sh
     cd /usr/local
-    git clone https://github.com/ECP-CANDLE/candle_lib.git
+    git clone https://github.com/ECP-CANDLE/candle_lib@v0.6
     cd candle_lib
     git checkout develop
     python -m pip install .
