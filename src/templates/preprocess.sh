@@ -1,30 +1,66 @@
-#############################################################################################################
-### THIS IS A TEMPLATE FILE. SUBSTITUTE '???' ENTRIES WITH THE APPROPRiATE INFORMATION FOR YOUR CONTAINER ###
-#############################################################################################################
-
 #!/bin/bash
+  
+#########################################################################
+### THIS IS A TEMPLATE FILE. SUBSTITUTE #PATH# WITH THE MODEL EXECUTABLE.
+#########################################################################
 
-### Path to your script inside the container that takes in data directory parameter###
-CANDLE_PREPROCESS=???#PATH#
+# arg 1 CANDLE_DATA_DIR
+# arg 2 CANDLE_CONFIG
 
-if [[ "$#" -ne 1 ]] ; then
-    echo "Illegal number of parameters"
-    echo "CANDLE_DATA_DIR required"
-    exit -1
+### Path and Name to your CANDLEized model's main Python script###
+
+# e.g. CANDLE_MODEL=graphdrp_preprocess.py
+CANDLE_MODEL_SCRIPT= 
+
+# Set env if CANDLE_MODEL is not in same directory as this script
+IMPROVE_MODEL_DIR=${IMPROVE_MODEL_DIR:-$( dirname -- "$0" )}
+
+# Combine path and name and check if executable exists
+CANDLE_MODEL=${IMPROVE_MODEL_DIR}/${CANDLE_MODEL}
+if [ ! -f ${CANDLE_MODEL} ] ; then
+	echo No such file ${CANDLE_MODEL}
+	exit 404
 fi
 
-CANDLE_DATA_DIR=$1
 
-# Command to run your scipt
-CMD="??? ${CANDLE_PREPROCESS}"
+if [ $# -lt 2 ] ; then
+        echo "Illegal number of parameters"
+        echo "CANDLE_DATA_DIR PARAMS are required"
+        exit -1
+fi
 
-# Name of your container
-echo "using container ???" # Put the name of your container here
+if [ $# -eq 2 ] ; then
+        CANDLE_DATA_DIR=$1 ; shift
+        CONFIG_FILE=$1 ; shift
+        CMD="python ${CANDLE_MODEL} --config_file ${CONFIG_FILE}"
+        echo "CMD = $CMD"
 
-# Displaying script parameters
+elif [ $# -ge 3 ] ; then
+        CUDA_VISIBLE_DEVICES=$1 ; shift
+        CANDLE_DATA_DIR=$1 ; shift
+
+        # if $3 is a file, then set candle_config
+        if [ -f $CANDLE_DATA_DIR/$1 ] ; then
+		echo "$1 is a file"
+                CANDLE_CONFIG=$1 ; shift
+                CMD="python ${CANDLE_MODEL} --config_file $CANDLE_CONFIG $@"
+                echo "CMD = $CMD $@"
+
+        # else passthrough $@
+        else
+		echo "$1 is not a file"
+                CMD="python ${CANDLE_MODEL} $@"
+                echo "CMD = $CMD"
+
+        fi
+fi
+
+# Display runtime arguments
 echo "using CANDLE_DATA_DIR ${CANDLE_DATA_DIR}"
 echo "using CANDLE_CONFIG ${CANDLE_CONFIG}"
 echo "running command ${CMD}"
 
-# Run preprocessing
+# Set up environmental variables and execute model
+# source /opt/conda/bin/activate /usr/local/conda_envs/Paccmann_MCA
 CANDLE_DATA_DIR=${CANDLE_DATA_DIR} $CMD
+
