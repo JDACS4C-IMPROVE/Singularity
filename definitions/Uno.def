@@ -1,9 +1,9 @@
 Bootstrap: docker
-From: tensorflow/tensorflow:2.4.2-gpu
+From: tensorflow/tensorflow:2.11.0
 
 %labels
-	MAINTAINER	woz@anl.gov
-	VERSION	v0.0.1
+	MAINTAINER	weaverr@anl.gov
+	VERSION	v0.0.2
 
 %setup
 	mkdir -p $SINGULARITY_ROOTFS/IMPROVE
@@ -16,7 +16,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
 	WORK_DIR=$SINGULARITY_ROOTFS/IMPROVE/
 	CANDLE_DATA_DIR=/candle_data_dir
 	IMPROVE_DATA_DIR=/improve
-        PYTHONPATH=/usr/local/IMPROVE:$PYTHONPATH
+    PYTHONPATH=/usr/local/IMPROVE:$PYTHONPATH
 
 %post
     # Install prerequisites and update image
