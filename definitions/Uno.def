@@ -15,6 +15,8 @@ From: tensorflow/tensorflow:2.4.2-gpu
 	PATH=$PATH:$SINGULARITY_ROOTFS/IMPROVE/${MODEL}
 	WORK_DIR=$SINGULARITY_ROOTFS/IMPROVE/
 	CANDLE_DATA_DIR=/candle_data_dir
+	IMPROVE_DATA_DIR=/improve
+        PYTHONPATH=/usr/local/IMPROVE:$PYTHONPATH
 
 %post
     # Install prerequisites and update image
@@ -39,10 +41,13 @@ From: tensorflow/tensorflow:2.4.2-gpu
     git checkout develop
     python -m pip install .
     cd -
-    git clone https://github.com/ECP-CANDLE/Benchmarks.git
+    git clone --branch 12.2023.alpha https://github.com/JDACS4C-IMPROVE/IMPROVE.git
+    git clone https://github.com/JDACS4C-IMPROVE/Benchmarks.git
     cd Benchmarks
-    git checkout improve
-    cp /usr/local/Benchmarks/Pilot1/Uno/train.sh /usr/local/bin
+    git checkout preprocess-improve
+    cp /usr/local/Benchmarks/Pilot1/Uno_IMPROVE/preprocess.sh /usr/local/bin
+    cp /usr/local/Benchmarks/Pilot1/Uno_IMPROVE/train.sh /usr/local/bin
+    cp /usr/local/Benchmarks/Pilot1/Uno_IMPROVE/infer.sh /usr/local/bin
 
 
 # Local Variables:
