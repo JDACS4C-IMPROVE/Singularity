@@ -41,7 +41,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
     git checkout develop
     python -m pip install .
     cd -
-    git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
+    git clone --branch 12.2023.alpha https://github.com/JDACS4C-IMPROVE/IMPROVE.git
     git clone https://github.com/JDACS4C-IMPROVE/Benchmarks.git
     cd Benchmarks
     git checkout preprocess-improve
