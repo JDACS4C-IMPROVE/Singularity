@@ -11,16 +11,14 @@ From: tensorflow/tensorflow:2.11.0-gpu
 
 %environment
 	# Available at runtime not build time
-	MODEL="Uno"
+	export MODEL="Uno"
 	
 	# WORK_DIR=$SINGULARITY_ROOTFS/IMPROVE/
 	
-    CANDLE_DATA_DIR=/candle_data_dir
-	IMPROVE_DATA_DIR=/candle_data_dir
-    PYTHONPATH=/usr/local/IMPROVE:$PYTHONPATH
-
-	IMPROVE_MODEL_DIR=/usr/local/Benchmarks/Pilot1/Uno_IMPROVE/
-    CANDLE_DATA_DIR=/candle_data_dir
+    	export CANDLE_DATA_DIR=/candle_data_dir
+	export IMPROVE_DATA_DIR=/candle_data_dir
+	export PYTHONPATH=/usr/local/IMPROVE:$PYTHONPATH
+	export IMPROVE_MODEL_DIR=/usr/local/Benchmarks/Pilot1/Uno_IMPROVE/
 
 %post
     # Install prerequisites and update image
