@@ -62,14 +62,23 @@ def run(params):
         "scc": metrics["scc"],
         "rmse": metrics["rmse"],
     }
+
+    """
     # ~/improve_data_dir/Example
     # $ tree .
     # .
     # ├── Data
     # └── Output
-    #     └── EXP000
-    #         └── RUN000
-    #             └── scores.json
+    #     └── EXP000 (study)
+    #         └── RUN000 (experiment)
+                      DATA
+    #             └── MODEL1
+                        model1.scores.json
+                        model1.checkpoint(s)
+                      MODEL2
+                        model2.scores.json
+                        model2.checkpoint(s)
+    """
 
     with open(params["output_dir"] + "/scores.json", "w", encoding="utf-8") as f:
         json.dump(val_scores, f, ensure_ascii=False, indent=4)
