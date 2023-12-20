@@ -48,6 +48,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
     cp /usr/local/Benchmarks/Pilot1/Uno_IMPROVE/preprocess.sh /usr/local/bin
     cp /usr/local/Benchmarks/Pilot1/Uno_IMPROVE/train.sh /usr/local/bin
     # cp /usr/local/Benchmarks/Pilot1/Uno_IMPROVE/infer.sh /usr/local/bin
+    chmod a+x /usr/local/bin/*
 
 
 # Local Variables:
