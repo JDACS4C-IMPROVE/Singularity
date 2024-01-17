@@ -38,8 +38,8 @@ if [ $# -eq 2 ] ; then
         	CMD="python ${CANDLE_MODEL} --config_file ${CONFIG_FILE}"
 	else
  		CMD="python ${CANDLE_MODEL} $@"
-   
-        echo "CMD = $CMD"
+        	echo "CMD = $CMD"
+	fi
 
 elif [ $# -ge 3 ] ; then
 
