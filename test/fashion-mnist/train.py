@@ -6,6 +6,7 @@ import torchvision.transforms as transforms
 
 # Part 2: Model Training
 
+
 # Define the neural network model
 class Net(nn.Module):
     def __init__(self):
@@ -28,22 +29,33 @@ net = Net()
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
-# Train the model
-for epoch in range(10):
-    running_loss = 0.0
-    for i, data in enumerate(trainloader, 0):
-        inputs, labels = data
+## IMPROVE
 
-        optimizer.zero_grad()
+def run(params):
+   dataset_dir = params["data_dir"]
+   # NOTE: using false now for data loading
+   trainset = torchvision.datasets.FashionMNIST(root=dataset_dir, train=False, download=True, transform=transform)
+   # Create data loaders
+   batch_size = params["batch_size"]
+   trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True)
 
-        outputs = net(inputs)
-        loss = criterion(outputs, labels)
-        loss.backward()
-        optimizer.step()
+   # Train the model
+   for epoch in range(10):
+      running_loss = 0.0
+      for i, data in enumerate(trainloader, 0):
+         inputs, labels = data
 
-        running_loss += loss.item()
-        if i % 200 == 199:
-            print(f'Epoch: {epoch + 1}, Batch: {i + 1}, Loss: {running_loss / 200}')
-            running_loss = 0.0
+         optimizer.zero_grad()
 
-print('Training finished.')
+         outputs = net(inputs)
+         loss = criterion(outputs, labels)
+         loss.backward()
+         optimizer.step()
+
+         running_loss += loss.item()
+         if i % 200 == 199:
+               print(f'Epoch: {epoch + 1}, Batch: {i + 1}, Loss: {running_loss / 200}')
+               running_loss = 0.0
+
+   print('Training finished.')
+   
