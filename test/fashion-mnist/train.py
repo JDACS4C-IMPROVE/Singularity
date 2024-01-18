@@ -63,6 +63,7 @@ def run(params):
 
    ##IMPROVE
    # Use CANDLE checkpointing
+   # Doc for ckpt can be found here: https://candle-lib.readthedocs.io/en/latest/api_ckpt_pytorch_utils/_autosummary/candle.ckpt_pytorch_utils.CandleCkptPyTorch.html
    ckpt = candle.CandleCkptPyTorch(params)
    ckpt.set_model({"model": model, "optimizer": optimizer})
    J = ckpt.restart(model)

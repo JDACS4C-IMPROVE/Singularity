@@ -19,7 +19,7 @@ IMPROVE_DATA_DIR is the directory where the data is downloaded and preprocessed.
 
 All the above files read the configuration and hyperparameters from the file *fashion-mnist_default_model.txt*
 
-The 3 subsections in *fashion-mnist_default_model.txt* are [preprocess], [train] and [infer]. The [preprocess] section is used by preprocess.py, [train] section is used by train.py and [infer] section is used by infer.py. Train has a few more parameters than the other two. It includes the checkpointing parameters.
+The 3 subsections in *fashion-mnist_default_model.txt* are [preprocess], [train] and [infer]. The [preprocess] section is used by preprocess.py, [train] section is used by train.py and [infer] section is used by infer.py. Train has a few more parameters than the other two. It includes the checkpointing parameters. Checkpointing functions used in the model can be found [here]([text](https://candle-lib.readthedocs.io/en/latest/api_ckpt_pytorch_utils/_autosummary/candle.ckpt_pytorch_utils.CandleCkptPyTorch.html))
 
 ```
 save_path='save/'
