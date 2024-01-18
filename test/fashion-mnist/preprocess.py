@@ -1,3 +1,7 @@
+# This is a pre-processing script for the Fashion MNIST dataset in IMPROVE compliant format.
+# This code requires PYTHONPATH to be set to the IMPROVE library
+# It also requires fashion-mnist_default_model.txt
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -7,13 +11,10 @@ import torchvision.transforms as transforms
 ## IMPROVE
 # Note for the line below we need to set pythonpath to IMPROVE library
 from improve import framework as frm
-
 from pathlib import Path
-
 filepath = Path(__file__).resolve().parent
 ##
 
-## IMPROVE put in a function called run
 
 def run(params):
    # Part 1: Data Loading and Preprocessing
@@ -26,27 +27,15 @@ def run(params):
       transforms.Normalize((0.5,), (0.5,))
    ])
 
-   # Load Fashion MNIST dataset
    ## IMPROVE
+   # Load Fashion MNIST dataset use datadir from params
    dataset_dir = params["data_dir"]
-   ##
    trainset = torchvision.datasets.FashionMNIST(root=dataset_dir, train=True, download=True, transform=transform)
    testset = torchvision.datasets.FashionMNIST(root=dataset_dir, train=False, download=True, transform=transform)
-
-   # Create data loaders
-   ## IMPROVE
-   batch_size = params["batch_size"]
-   trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True)
-   testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size, shuffle=False)
-   ##
+   
+   
 ## IMPROVE
-model_preproc_params = [
-
-    {"name": "data_dir", # default
-     "type": str,
-     "help": "Directory containing the Fashion MNIST dataset.",
-    },
-]
+# Before calling the main function define any model/application specific parameters
 
 app_preproc_params = [
 
@@ -56,19 +45,20 @@ app_preproc_params = [
     },
 ]
 
-preprocess_params = app_preproc_params + model_preproc_params
+preprocess_params = app_preproc_params
 
 req_preprocess_args = [ll["name"] for ll in preprocess_params]
 
 def main():
+    # Use the IMPROVE framework to initialize parameters
     params = frm.initialize_parameters(
         filepath,
         default_model="fashion-mnist_default_model.txt",
         additional_definitions=preprocess_params,
         required=req_preprocess_args,
     )
-    # processed_outdir = run(params)
-    ml_data_outdir = run(params)
+
+    run(params)
     print("\nFinished FASHION-MNIST pre-processing.")
 
 
