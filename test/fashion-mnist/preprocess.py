@@ -28,12 +28,14 @@ def run(params):
    ])
 
    ## IMPROVE
+   params = frm.build_paths(params)
+   frm.create_outdir(outdir=params["ml_data_outdir"])  
    # Load Fashion MNIST dataset use datadir from params
    dataset_dir = params["data_dir"]
    trainset = torchvision.datasets.FashionMNIST(root=dataset_dir, train=True, download=True, transform=transform)
    testset = torchvision.datasets.FashionMNIST(root=dataset_dir, train=False, download=True, transform=transform)
    
-   
+   return params["ml_data_outdir"]
 ## IMPROVE
 # Before calling the main function define any model/application specific parameters
 
@@ -58,7 +60,8 @@ def main():
         required=req_preprocess_args,
     )
 
-    run(params)
+    ml_data_outdir = run(params)
+    print("ml_data_outdir: ", ml_data_outdir)
     print("\nFinished FASHION-MNIST pre-processing.")
 
 

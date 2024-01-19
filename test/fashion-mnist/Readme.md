@@ -10,10 +10,13 @@ in the following files:
 ```
 PYTHONPATH=<PATH-TO-IMPROVE>:$PYTHONPATH
 IMPROVE_DATA_DIR=<PATH-TO-IMPROVE-DATA-DIR>
+
 python preprocess.py
 python train.py (if you rerun this, it will use the checkpointed model and restart)
+
 python infer.py
 ```
+
 #NOTES
 IMPROVE_DATA_DIR is the directory where the data is downloaded and preprocessed. It is also the place where the model checkpoints are stored. It also saves the model and inference output under the same directory.
 
@@ -30,3 +33,11 @@ ckpt_save_interval=1
 
 Note that checkpointing is not enabled in the original python notebook, but it is enabled in train.py. See train.py for implementation details.
 
+Directory Structure for IMPROVE:
+IMPROVE_DATA_DIR should contain the following directory structure:
+```
+└── raw_data
+    ├── splits
+    ├── x_data
+    └── y_data
+```

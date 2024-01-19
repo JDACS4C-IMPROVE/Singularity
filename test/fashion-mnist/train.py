@@ -38,6 +38,8 @@ def run(params):
       transforms.Normalize((0.5,), (0.5,))
    ])
    
+   frm.create_outdir(outdir=params["model_outdir"])
+
    # Get the data directory, batch size and other hyperparameters from params 
    ##IMPROVE 
    dataset_dir = params["data_dir"]
