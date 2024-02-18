@@ -43,7 +43,7 @@ From: python:3.7
     git clone https://github.com/JDACS4C-IMPROVE/Benchmarks.git
     cd Benchmarks
     git checkout preprocess_improve
-    cp /usr/local/Benchmarks/Pilot1/Uno_IMPROVE/* /usr/local/bin
+    cp -r /usr/local/Benchmarks/Pilot1/Uno_IMPROVE/* /usr/local/bin
     
 
 # Local Variables:
