@@ -10,7 +10,8 @@ From: tensorflow/tensorflow:2.4.2-gpu
 %environment
 	PATH=$PATH:/usr/local/HiDRA
 	MODEL_DIR=/usr/local/HiDRA
-    	CANDLE_DATA_DIR=/candle_data_dir
+    CANDLE_DATA_DIR=/candle_data_dir
+    PYTHONPATH=/usr/local/IMPROVE/
 
 %post
     apt-get install wget
@@ -38,5 +39,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
 
     # setup model and executables
     cd /usr/local/
-    git clone -b v0.6.0 https://github.com/JDACS4C-IMPROVE/HiDRA.git
+    git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
+    # git clone -b v0.6.0 https://github.com/JDACS4C-IMPROVE/HiDRA.git
+    git clone https://github.com/JDACS4C-IMPROVE/HiDRA.git
     chmod +x HiDRA/*.sh

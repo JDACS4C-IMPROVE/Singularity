@@ -7,6 +7,12 @@ From: continuumio/anaconda3
 %setup
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 
+%environment
+	PYTHONPATH=$PYTHONPATH:/usr/local/IMPROVE/
+	PATH=$PATH:/usr/local/DrugCell
+	IMPROVE_MODEL_DIR=/usr/local/DrugCell
+	CANDLE_DATA_DIR=/candle_data_dir
+
 %post
 	apt-get update -y
 	apt-get install -y gnupg
@@ -27,8 +33,8 @@ From: continuumio/anaconda3
 
 	cd /usr/local/
 	git clone https://github.com/JDACS4C-IMPROVE/DrugGCN
-        cd /usr/local/DrugGCN
-        git checkout improve
+    cd /usr/local/DrugGCN
+    # git checkout improve
 
 	# this assumes a train.sh, infer.sh are committed to the <model> repository.
 	chmod a+x train.sh

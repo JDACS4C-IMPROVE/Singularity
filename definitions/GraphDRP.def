@@ -6,7 +6,7 @@ From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-devel
 
 %environment
     export IMPROVE_MODEL_DIR=/usr/local/GraphDRP
-
+	export PYTHONPATH=/usr/local/IMPROVE/
 %setup
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 
@@ -38,9 +38,10 @@ From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-devel
 	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
 
 	cd /usr/local/
+	git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
 	git clone https://github.com/JDACS4C-IMPROVE/GraphDRP.git
 	cd GraphDRP
-	git checkout v0.6.0
+	# git checkout v0.6.0
 	
 	cp train.sh /usr/local/bin
 	cp preprocess.sh /usr/local/bin

@@ -12,6 +12,8 @@ From: tensorflow/tensorflow:2.11.1-gpu
     PATH=$PATH:/usr/local/screendl
     IMPROVE_MODEL_DIR=/usr/local/screendl
     IMPROVE_DATA_DIR=/improve_data_dir
+    CANDLE_DATA_DIR=/improve_data_dir
+    PYTHONPATH=$PYTHONPATH:/usr/local/IMPROVE/
 
 %post
 	apt-get update -y && apt-get install -y wget git
@@ -37,6 +39,7 @@ From: tensorflow/tensorflow:2.11.1-gpu
 
     # setup model and executables
     cd /usr/local
+    git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
     git clone https://github.com/csederman/screendl
     cd /usr/local/screendl
     git checkout improve

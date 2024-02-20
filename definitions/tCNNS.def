@@ -6,6 +6,11 @@ From: tensorflow/tensorflow:1.15.5-gpu
 
 %setup
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+
+%environment
+	PYTHONPATH=$PYTHONPATH:/usr/local/IMPROVE/
+	IMPROVE_MODEL_DIR=/usr/local/tCNNS-Project/
+	
 %post
 
         apt-get install wget
@@ -24,6 +29,7 @@ From: tensorflow/tensorflow:1.15.5-gpu
 	python3 -m pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
 
 	cd /usr/local/
+	git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
 	git clone https://github.com/JDACS4C-IMPROVE/tCNNS-Project
         cd /usr/local/tCNNS-Project
         git checkout develop

@@ -10,6 +10,7 @@ From: pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
 %environment
     IMPROVE_MODEL_DIR=/usr/local/TGSA
     PATH=$PATH:/usr/local/TGSA/
+    PYTHONPATH=$PYTHONPATH:/usr/local/IMPROVE/
 
 %post
     apt-get update
@@ -68,9 +69,10 @@ From: pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
 
     # setup model and executables
     cd /usr/local/
+    git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
     git clone https://github.com/JDACS4C-IMPROVE/TGSA.git
     cd TGSA
-    git checkout improve
+    # git checkout improve
 
     # cp TGSA/data/enterez_NCBI_to_hugo_gene_symbol_march_2019.txt /candle_data_dir/
 

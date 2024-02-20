@@ -2,10 +2,14 @@ Bootstrap: docker
 From: tensorflow/tensorflow:latest-gpu
 
 %labels
-	MANTAINER Tom Brettin
+	MANTAINER Andreas Wilke
 %setup
 	# how are we going to specify this path
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+%environment
+	IMPROVE_MODEL_DIR=/usr/local/Test
+	PYTHONPATH=$PYTHONPATH:/usr/local/IMPROVE/
+
 %post
 	apt-get update
 	apt-get install -y git vim

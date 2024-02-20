@@ -9,6 +9,7 @@ From: pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel
 
 %environment
     export IMPROVE_MODEL_DIR=/usr/local/DRPreter
+    export PYTHONPATH=/usr/local/IMPROVE/
 
 %post
     # Install basic dependencies
@@ -28,9 +29,11 @@ From: pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel
 
     # Move to /usr/local
     cd /usr/local
+    git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
     git clone https://github.com/JDACS4C-IMPROVE/DRPreter.git
     cd DRPreter
-    git checkout improve
+    # git checkout improve
+    
     cp infer.sh /usr/local/bin
     chmod +x /usr/local/bin/infer.sh
     cp train.sh /usr/local/bin
