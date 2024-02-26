@@ -20,15 +20,17 @@ From: pytorch/pytorch:1.12.0-cuda11.3-cudnn8-devel
 	chmod +x Singularity_gpu_fix.sh
         ./Singularity_gpu_fix.sh
 
+	# PyTorch Geometric
+	## conda install pyg=2.1.0 -c pyg -c conda-forge --yes
 	python3 -m pip install torch_geometric
 	
 	# these three need to be compiled and linked to the cuda libs.
 	# at the moment, what works for me is to build these in a
 	# singularity shell in a sandbox with the --nv flag to singularity set.
-
 	python3 -m pip install torch_sparse
 	python3 -m pip install torch_scatter
 	python3 -m pip install torch-cluster
+
 	python3 -m pip install pubchempy
 	python3 -m pip install pyg h5py==3.1 rdkit networkx pyarrow==10.0 
 	
