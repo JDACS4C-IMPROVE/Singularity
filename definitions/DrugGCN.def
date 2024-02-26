@@ -32,9 +32,10 @@ From: continuumio/anaconda3
 	/opt/conda/druggcn_py3.7/bin/pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
 
 	cd /usr/local/
+	git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
 	git clone https://github.com/JDACS4C-IMPROVE/DrugGCN
-    cd /usr/local/DrugGCN
-    # git checkout improve
+    	cd /usr/local/DrugGCN
+    	# git checkout improve
 
 	# this assumes a train.sh, infer.sh are committed to the <model> repository.
 	chmod a+x train.sh

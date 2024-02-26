@@ -11,6 +11,8 @@ From: tensorflow/tensorflow:2.4.2-gpu
 	PATH=$PATH:/usr/local/LGBM
 	MODEL_DIR=/usr/local/LGBM
     	CANDLE_DATA_DIR=/candle_data_dir
+	PYTHONPATH=${PYTHONPATH}:/usr/local/IMPROVE/
+
 
 %post
     apt-get install wget
@@ -39,4 +41,5 @@ From: tensorflow/tensorflow:2.4.2-gpu
     # setup model and executables
     cd /usr/local/
     git clone https://github.com/JDACS4C-IMPROVE/LGBM
+    git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
     chmod +x LGBM/*.sh
