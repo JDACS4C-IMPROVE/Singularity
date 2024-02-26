@@ -5,6 +5,11 @@ From: tensorflow/tensorflow:1.15.5-gpu
 	MAINTAINER	Yitan Zhu
 %setup
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+
+%environment
+	PYTHONPATH=/usr/local/IMPROVE/
+	IMPROVE_MODEL_DIR=/usr/local/IGTD/
+
 %post
 	apt-get install wget
 	#apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys F60F4B3D7FA2AF80
@@ -25,9 +30,10 @@ From: tensorflow/tensorflow:1.15.5-gpu
 	pip install typing_extensions
 	pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
 	cd /usr/local
+	git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
 	git clone https://github.com/JDACS4C-IMPROVE/IGTD.git
 	cd IGTD
-	git checkout v0.6.0
+	# git checkout v0.6.0
 	cp infer.sh /usr/local/bin
 	chmod +x /usr/local/bin/infer.sh
 	cp train.sh /usr/local/bin

@@ -7,6 +7,7 @@ From: pytorch/pytorch
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 %environment
 	export IMPROVE_MODEL_DIR=/usr/local/DeepTTC
+	export PYTHONPATH=/usr/local/IMPROVE/
 %post
 	apt-get update
 	apt-get install -y git vim
@@ -19,9 +20,10 @@ From: pytorch/pytorch
 
 	apt-get install wget -y
 	cd /usr/local
+	git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
 	git clone https://github.com/JDACS4C-IMPROVE/DeepTTC.git
 	cd DeepTTC
-	git checkout v0.6.0
+	# git checkout v0.6.0
 	/opt/conda/bin/conda install -y pandas"<2.0.0" scikit-learn openpyxl
 	/opt/conda/bin/conda install -y -c conda-forge lifelines prettytable  
 	/opt/conda/bin/conda install -y -c bioconda pubchempy

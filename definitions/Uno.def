@@ -15,7 +15,7 @@ From: tensorflow/tensorflow:2.11.0-gpu
 	
 	# WORK_DIR=$SINGULARITY_ROOTFS/IMPROVE/
 	
-    	export CANDLE_DATA_DIR=/candle_data_dir
+    export CANDLE_DATA_DIR=/candle_data_dir
 	export IMPROVE_DATA_DIR=/candle_data_dir
 	export PYTHONPATH=/usr/local/IMPROVE:$PYTHONPATH
 	export IMPROVE_MODEL_DIR=/usr/local/Benchmarks/Pilot1/Uno_IMPROVE/

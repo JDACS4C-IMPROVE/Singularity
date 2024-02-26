@@ -11,6 +11,8 @@ From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 
 %environment
     export IMPROVE_MODEL_DIR=/usr/local/Paccmann_MCA
+	export PYTHONPATH=$PYTHONPATH:/usr/local/IMPROVE/
+
 %post
 	#apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys F60F4B3D7FA2AF80
 	#apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys A4B469963BF863CC
@@ -28,9 +30,10 @@ From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
         ./Singularity_gpu_fix.sh
 
 	cd /usr/local
+	git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
 	git clone https://github.com/JDACS4C-IMPROVE/Paccmann_MCA
 	cd Paccmann_MCA
-	git checkout v0.6
+	# git checkout v0.6.0
 	mkdir /candle_data_dir
 
 	/opt/conda/bin/conda create -y --prefix /usr/local/conda_envs/Paccmann_MCA python=3.7

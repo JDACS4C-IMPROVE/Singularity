@@ -9,6 +9,7 @@ From: pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
 
 %environment
     export IMPROVE_MODEL_DIR=/usr/local/NIHGCN
+    export PYTHONPATH=/usr/local/IMPROVE/
 
 %post
     apt-get update
@@ -37,6 +38,7 @@ From: pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
 
     # setup model and executables
     cd /usr/local
+    git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
     git clone -b develop https://github.com/JDACS4C-IMPROVE/NIHGCN.git
     cd NIHGCN
     pip install -r requirements.txt
