@@ -35,6 +35,6 @@ From: tensorflow/tensorflow:1.15.5-gpu
         git checkout develop
 
 	# this assumes a train.sh, infer.sh are committed to the <model> repository.
-	chmod a+x train.sh
-	cp train.sh /usr/local/bin
+	chmod a+x train.sh infer.sh preprocess.sh
+	cp train.sh preprocess.sh infer.sh /usr/local/bin
 	mkdir /candle_data_dir
