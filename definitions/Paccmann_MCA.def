@@ -10,8 +10,9 @@ From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 
 %environment
-    export IMPROVE_MODEL_DIR=/usr/local/Paccmann_MCA
-	export PYTHONPATH=$PYTHONPATH:/usr/local/IMPROVE/
+    	IMPROVE_MODEL_DIR=/usr/local/Paccmann_MCA
+	PYTHONPATH=$PYTHONPATH:/usr/local/IMPROVE/
+	PATH=/usr/local/conda_envs/Paccmann_MCA/bin/:$PATH
 
 %post
 	#apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys F60F4B3D7FA2AF80
