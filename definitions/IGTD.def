@@ -34,9 +34,7 @@ From: tensorflow/tensorflow:1.15.5-gpu
 	git clone https://github.com/JDACS4C-IMPROVE/IGTD.git
 	cd IGTD
 	# git checkout v0.6.0
-	cp infer.sh /usr/local/bin
-	chmod +x /usr/local/bin/infer.sh
-	cp train.sh /usr/local/bin
-	chmod +x /usr/local/bin/train.sh
-
+	chmod +x *.sh
+	cp preprocess.sh train.sh infer.sh /usr/local/bin
+	
 	mkdir /candle_data_dir
