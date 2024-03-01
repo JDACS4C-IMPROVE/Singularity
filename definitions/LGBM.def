@@ -8,10 +8,9 @@ From: python:3.7
     cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS/
 
 %environment
-	PATH=$PATH:/usr/local/LGBM
-	IMPROVE_MODEL_DIR=/usr/local/LGBM
-    CANDLE_DATA_DIR=/candle_data_dir
-	PYTHONPATH=${PYTHONPATH}:/usr/local/IMPROVE/
+	export PATH=$PATH:/usr/local/LGBM
+	export IMPROVE_MODEL_DIR=/usr/local/LGBM
+	export PYTHONPATH=${PYTHONPATH}:/usr/local/IMPROVE/
 
 
 %post
