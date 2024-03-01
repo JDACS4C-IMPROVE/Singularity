@@ -47,5 +47,5 @@ From: pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 	/usr/local/conda_envs/Paccmann_MCA/bin/pip install git+https://github.com/ECP-CANDLE/candle_lib@develop
 	/usr/local/conda_envs/Paccmann_MCA/bin/pip install git+https://github.com/PaccMann/paccmann_datasets@0.0.3
 
-	chmod +x train.sh
-	cp train.sh /usr/local/bin
+	chmod +x *.sh
+	cp train.sh preprocess.sh infer.sh  /usr/local/bin
