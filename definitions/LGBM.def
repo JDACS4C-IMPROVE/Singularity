@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: tensorflow/tensorflow:2.4.2-gpu
+From: python:3.7
 
 %labels
 	MAINTAINER	Andreas Wilke	
@@ -9,8 +9,8 @@ From: tensorflow/tensorflow:2.4.2-gpu
 
 %environment
 	PATH=$PATH:/usr/local/LGBM
-	MODEL_DIR=/usr/local/LGBM
-    	CANDLE_DATA_DIR=/candle_data_dir
+	IMPROVE_MODEL_DIR=/usr/local/LGBM
+    CANDLE_DATA_DIR=/candle_data_dir
 	PYTHONPATH=${PYTHONPATH}:/usr/local/IMPROVE/
 
 
@@ -20,7 +20,7 @@ From: tensorflow/tensorflow:2.4.2-gpu
     #apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=http://proxy.alcf.anl.gov:3128 --recv-keys A4B469963BF863CC 
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80 
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC 
-    apt-get update
+    apt-get update -y
     apt-get install -y git
     
     # install gpu fix and clean up
@@ -37,9 +37,12 @@ From: tensorflow/tensorflow:2.4.2-gpu
     pip install pandas==1.1.5
     pip install openpyxl==3.0.9
     pip install scikit-learn==0.24.2
+    pip install pyarrow==12.0.1 # saves and loads parquet files
+    pip install lightgbm==3.1.1
 
     # setup model and executables
     cd /usr/local/
     git clone https://github.com/JDACS4C-IMPROVE/LGBM
     git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
     chmod +x LGBM/*.sh
+    cp /usr/local/LGBM/*.sh /usr/local/bin
