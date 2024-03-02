@@ -11,13 +11,13 @@ From: tensorflow/tensorflow:2.10.0-gpu
 
 %environment
         # Available at runtime not build time
-        WORK_DIR="/usr/local"
-        BENCHMARK_DIR="Benchmarks/Pilot1"
-        MODEL="Uno_IMPROVE"
-        IMPROVE_MODEL_DIR="$WORK_DIR/$BENCHMARK_DIR/$MODEL"
-        PATH=$PATH:$IMPROVE_MODEL_DIR
+        export WORK_DIR="/usr/local"
+        export BENCHMARK_DIR="Benchmarks/Pilot1"
+        export MODEL="Uno_IMPROVE"
+        export IMPROVE_MODEL_DIR="$WORK_DIR/$BENCHMARK_DIR/$MODEL"
+        export PATH=$PATH:$IMPROVE_MODEL_DIR
         CANDLE_DATA_DIR=/candle_data_dir
-        export PYTHONPATH=$WORK_DIR/IMPROVE:$WORK_DIR/candle_lib:$PYTHONPATH
+        export PYTHONPATH=$WORK_DIR/IMPROVE:$PYTHONPATH
 
 %post
     # Install prerequisites and update image
