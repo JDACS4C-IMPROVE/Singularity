@@ -6,11 +6,19 @@ From: tensorflow/tensorflow:latest-gpu
 %setup
 	# how are we going to specify this path
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
+
+%arguments
+	tag=""
+
 %environment
 	IMPROVE_MODEL_DIR=/usr/local/Test
 	PYTHONPATH=$PYTHONPATH:/usr/local/IMPROVE/
 
 %post
+	
+	apt-get install -y wget
+	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F60F4B3D7FA2AF80 {{ tag }}
+	
 	apt-get update
 	apt-get install -y git vim
 
@@ -23,6 +31,7 @@ From: tensorflow/tensorflow:latest-gpu
 
 	# model respository
 	cd /usr/local
-	git clone https://github.com/JDACS4C-IMPROVE/IMPROVE.git
-	git clone https://github.com/JDACS4C-IMPROVE/Test
-	cp Test/train.sh /usr/local/bin/
+	echo {{ tag }} >> /usr/local/hello.txt
+
+%runscript
+	cat /usr/local/hello.txt
