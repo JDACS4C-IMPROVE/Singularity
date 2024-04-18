@@ -7,8 +7,8 @@ From: tensorflow/tensorflow:1.15.5-gpu
 	cp ./src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 
 %environment
-	PYTHONPATH=/usr/local/IMPROVE/
-	IMPROVE_MODEL_DIR=/usr/local/IGTD/
+	export PYTHONPATH=/usr/local/IMPROVE/
+	export IMPROVE_MODEL_DIR=/usr/local/IGTD/
 
 %post
 	apt-get install wget
