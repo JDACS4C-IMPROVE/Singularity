@@ -16,7 +16,7 @@ From: tensorflow/tensorflow:2.10.0-gpu
         export MODEL="Uno_IMPROVE"
         export IMPROVE_MODEL_DIR="$WORK_DIR/$BENCHMARK_DIR/$MODEL"
         export PATH=$PATH:$IMPROVE_MODEL_DIR
-        CANDLE_DATA_DIR=/candle_data_dir
+        export CANDLE_DATA_DIR=/candle_data_dir
         export PYTHONPATH=$WORK_DIR/IMPROVE:$PYTHONPATH
 
 %post
