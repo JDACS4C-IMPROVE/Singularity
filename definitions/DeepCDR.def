@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: {{IMAGE}}
+From: tensorflow/tensorflow:2.13.0-gpu 
 
 %labels
 	MAINTAINER	https://github.com/JDACS4C-IMPROVE/Singularity
