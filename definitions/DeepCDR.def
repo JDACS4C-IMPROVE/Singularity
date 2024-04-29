@@ -45,7 +45,7 @@ From: tensorflow/tensorflow:2.13.0-gpu
         deepchem \ #  deepchem-2.8.0 mpmath-1.3.0 sympy-1.12
 
     # Install dependencies for train
-    pip install 
+    # pip install 
 
 
     # IMPROVE scipts test.sh train.sh
