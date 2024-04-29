@@ -34,7 +34,7 @@ From: tensorflow/tensorflow:2.13.0-gpu
 
     # Setup model 
     cd /usr/local/ 
-    git clone -b https://github.com/JDACS4C-IMPROVE/IMPROVE.git
+    git clone -b develop https://github.com/JDACS4C-IMPROVE/IMPROVE.git
     
     git clone -b develop https://github.com/JDACS4C-IMPROVE/DeepCDR.git
     cd DeepCDR
