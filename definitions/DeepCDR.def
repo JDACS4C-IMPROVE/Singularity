@@ -11,7 +11,7 @@ From: tensorflow/tensorflow:2.13.0-gpu
 	cp src/Singularity_gpu_fix.sh $SINGULARITY_ROOTFS
 
 %environment
-    export IMPROVE_MODEL_DIR=/usr/local/{{MODEL}}
+    export IMPROVE_MODEL_DIR=/usr/local/DeepCDR/
 
 %post
     # Install prerequistis and update image
@@ -33,10 +33,38 @@ From: tensorflow/tensorflow:2.13.0-gpu
 
     # Setup model 
     cd /usr/local/ 
-    git clone -b develop {{MODEL_URL}}
-    cd {{MODEL}}
+    git clone -b develop https://github.com/JDACS4C-IMPROVE/DeepCDR.git
+    cd DeepCDR
 
     # Install model dependencies
+
+    # conda install .....    
+
+
+ 
+    pip install contourpy==1.1.1 \
+      cycler==0.12.1 \
+      deepchem==2.5.0 \
+      fonttools==4.43.1 \
+      joblib==1.3.2 \
+      kiwisolver==1.4.5 \
+      matplotlib==3.8.1 \
+      pandas==2.1.2 \
+      patsy==0.5.4 \
+      protobuf==4.25.1 \
+      pyerfa==2.0.1.1 \
+      pyparsing==3.1.1 \
+      python-dateutil==2.8.2 \
+      pytz==2023.3.post1 \
+      pyyaml==6.0.1 \
+      rdkit==2023.9.1 \
+      scikit-learn==1.3.2 \
+      scipy==1.11.3 \
+      statsmodels==0.14.0 \
+      threadpoolctl==3.2.0 \
+      tqdm==4.66.1 \
+      tzdata==2023.3 
+	
     
     # IMPROVE scipts test.sh train.sh
     chmod +x *.sh
