@@ -26,6 +26,7 @@ From: pytorch/pytorch
 	# git checkout v0.6.0
 	/opt/conda/bin/conda install -y pandas"<2.0.0" scikit-learn openpyxl
 	/opt/conda/bin/conda install -y -c conda-forge lifelines prettytable  
+	/opt/conda/bin/conda install tables
 	/opt/conda/bin/conda install -y -c bioconda pubchempy
 	/opt/conda/bin/python3 -m pip install subword-nmt wget
 
